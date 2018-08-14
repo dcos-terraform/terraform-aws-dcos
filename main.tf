@@ -11,7 +11,7 @@
  *   source  = "dcos-terraform/dcos/aws"
  *   version = "~> 0.1"
  *
- *   cluster_name = "production"
+ *   cluster_name = "mydcoscluster"
  *   ssh_public_key = "ssh-rsa ..."
  *
  *   num_masters = "3"
@@ -99,17 +99,4 @@ EOF
   dcos_license_key_contents      = "${var.dcos_license_key_contents}"
   dcos_master_discovery          = "static"
   dcos_exhibitor_storage_backend = "static"
-}
-
-output "bootstrap_ip" {
-  value = "${module.dcos-infrastructure.bootstrap.public_ip}"
-}
-
-output "master_ips" {
-  value = "${module.dcos-infrastructure.masters.public_ips}"
-}
-
-output "masters-loadbalancer" {
-  description = "This is the load balancer address to access the DC/OS UI"
-  value       = "${module.dcos-infrastructure.elb.masters_dns_name}"
 }

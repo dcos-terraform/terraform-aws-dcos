@@ -7,10 +7,10 @@ EXAMPLE
 
 ```hcl
 module "dcos" {
-  source  = "terraform-dcos/dcos/aws"
+  source  = "dcos-terraform/dcos/aws"
   version = "~> 0.1"
 
-  cluster_name = "production"
+  cluster_name = "mydcoscluster"
   ssh_public_key = "ssh-rsa ..."
 
   num_masters = "3"
@@ -41,7 +41,5 @@ module "dcos" {
 
 | Name | Description |
 |------|-------------|
-| bootstrap_ip |  |
-| master_ips |  |
 | masters-loadbalancer | This is the load balancer address to access the DC/OS UI |
 
