@@ -36,6 +36,7 @@ module "dcos" {
 | num_private_agents | Specify the amount of private agents. These agents will provide your main resources | string | `2` | no |
 | num_public_agents | Specify the amount of public agents. These agents will host marathon-lb and edgelb | string | `1` | no |
 | ssh_public_key | Specify a SSH public key in authorized keys format (e.g. "ssh-rsa ..") to be used with the instances. Make sure you added this key to your ssh-agent | string | - | yes |
+| tags | Add custom tags to all resources | map | `<map>` | no |
 
 ## Outputs
 

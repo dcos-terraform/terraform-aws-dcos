@@ -42,3 +42,9 @@ variable "dcos_license_key_contents" {
 variable "dcos_type" {
   default = "open"
 }
+
+variable "tags" {
+  description = "Add custom tags to all resources"
+  type        = "map"
+  default     = {}
+}
