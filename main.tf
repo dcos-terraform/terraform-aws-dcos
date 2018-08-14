@@ -30,7 +30,7 @@ module "dcos-infrastructure" {
   source  = "dcos-terraform/infrastructure/aws"
   version = "~> 0.0"
 
-  cluster_name       = "production"
+  cluster_name       = "${var.cluster_name}"
   ssh_public_key     = "${var.ssh_public_key}"
   aws_key_name       = "${var.aws_key_name}"
   num_masters        = "${var.num_masters}"
