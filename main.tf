@@ -48,7 +48,7 @@ module "dcos-infrastructure" {
 /////////////////////////////////////////
 
 module "dcos-install" {
-  source = "dcos-terraform/dcos-install-remote-exec"
+  source = "dcos-terraform/dcos-install-remote-exec/null"
   version = "~> 0.0"
 
   # bootstrap
