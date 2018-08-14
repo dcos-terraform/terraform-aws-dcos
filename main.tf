@@ -8,7 +8,7 @@
  *
  *```hcl
  * module "dcos" {
- *   source  = "terraform-dcos/dcos/aws"
+ *   source  = "dcos-terraform/dcos/aws"
  *   version = "~> 0.1"
  *
  *   cluster_name = "production"
@@ -48,7 +48,7 @@ module "dcos-infrastructure" {
 /////////////////////////////////////////
 
 module "dcos-install" {
-  source = "dcos-terraform/l-dcos-install-remote-exec"
+  source = "dcos-terraform/dcos-install-remote-exec"
   version = "~> 0.0"
 
   # bootstrap
