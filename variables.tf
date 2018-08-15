@@ -48,3 +48,8 @@ variable "tags" {
   type        = "map"
   default     = {}
 }
+
+variable "admin_ips" {
+  description = "List of CIDR admin IPs"
+  default     = []
+}

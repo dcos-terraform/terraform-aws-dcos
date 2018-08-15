@@ -18,10 +18,24 @@ echo "cluster_name=\"my-open-dcos-cluster\"" >> cluster.tfvars
 echo "tags={Owner = \"$(whoami)\", Expires = \"2h\"}" >> cluster.tfvars
 ```
 
+## admin_ips
+For accessing your dcos-masters we only allow access for certain IPs. By adding a lists `admin_ips` you could control this. *If you do now specify `admin_ips` we try to detect your current public IP and use this address. These addresses have to be written in CIDR format. So for single addresses use `1.2.3.4/32`
+
+### allow your company net
+
+```bash
+echo "admin_ips=[\"1.2.3.0/24\", \"3.2.1.0/24\"]" >> cluster.tfvars
+```
+
+### allow all ( be sure what you're doing )
+```bash
+echo "admin_ips=[\"0.0.0.0/0\"]" >> cluster.tfvars
+```
+
 # `terraform init`
 Doing terraform init lets terraform download all the needed modules to spawn DC/OS Cluster on AWS
 
-# terraform plan
+# `terraform plan`
 We expect your aws environment is properly setup. Check it with issuing `aws sts get-caller-identity`.
 
 We now create the terraform plan which gets applied later on.
@@ -29,9 +43,11 @@ We now create the terraform plan which gets applied later on.
 terraform plan --var-file cluster.tfvars -out=cluster.plan
 ```
 
-# terraform apply
+# `terraform apply`
 Now we're applying our plan
 
 ```bash
 terraform apply "cluster.plan"
 ```
+
+in the output section you will find the hostname of your cluster. With this hostname you're be able to access the cluster. 

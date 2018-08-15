@@ -29,3 +29,7 @@ module "dcos" {
 
   dcos_type = "open"
 }
+
+output "cluster-address" {
+  value = "${module.dcos.masters-loadbalancer}"
+}
