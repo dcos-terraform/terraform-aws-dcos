@@ -39,6 +39,11 @@ variable "dcos_license_key_contents" {
   description = "[Enterprise DC/OS] used to privide the license key of DC/OS for Enterprise Edition. Optional if license.txt is present on bootstrap node."
 }
 
+variable "custom_dcos_download_path" {
+  default     = ""
+  description = "insert location of dcos installer script (optional)"
+}
+
 variable "dcos_type" {
   default = "open"
 }

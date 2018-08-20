@@ -75,9 +75,10 @@ module "dcos-install" {
   num_public_agents     = "${var.num_public_agents}"
 
   # DC/OS options
-  dcos_install_mode = "install"
-  dcos_cluster_name = "${var.cluster_name}"
-  dcos_version      = "${var.dcos_version}"
+  dcos_install_mode         = "install"
+  dcos_cluster_name         = "${var.cluster_name}"
+  dcos_version              = "${var.dcos_version}"
+  custom_dcos_download_path = "${var.custom_dcos_download_path}"
 
   dcos_ip_detect_public_contents = <<EOF
 #!/bin/sh
