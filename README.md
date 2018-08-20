@@ -27,8 +27,10 @@ module "dcos" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
+| admin_ips | List of CIDR admin IPs | string | `<list>` | no |
 | aws_key_name | Specify the aws ssh key to use. We assume its already loaded in your SSH agent. Set ssh_public_key to none | string | `` | no |
 | cluster_name | Name of the DC/OS cluster | string | `dcos-example` | no |
+| custom_dcos_download_path | insert location of dcos installer script (optional) | string | `` | no |
 | dcos_license_key_contents | [Enterprise DC/OS] used to privide the license key of DC/OS for Enterprise Edition. Optional if license.txt is present on bootstrap node. | string | `` | no |
 | dcos_type |  | string | `open` | no |
 | dcos_version | Specify the availability zones to be used | string | `1.11.3` | no |
