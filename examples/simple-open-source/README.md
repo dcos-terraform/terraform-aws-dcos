@@ -27,7 +27,7 @@ For accessing your dcos-masters we only allow access for certain IPs. By adding 
 echo "admin_ips=[\"1.2.3.0/24\", \"3.2.1.0/24\"]" >> cluster.tfvars
 ```
 
-### allow all ( be sure what you're doing )
+### allow all (be sure what you're doing)
 ```bash
 echo "admin_ips=[\"0.0.0.0/0\"]" >> cluster.tfvars
 ```
@@ -35,7 +35,7 @@ echo "admin_ips=[\"0.0.0.0/0\"]" >> cluster.tfvars
 # AWS
 DC/OS Terraform is using the [AWS Default Credentials Chain](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/credentials.html). To change REGION or Account you can use the [AWS Environment Variables](https://docs.aws.amazon.com/cli/latest/userguide/cli-environment.html)
 
-## Change region
+## Change region (optional)
 Changing the default region ( the one you specified with `aws configure` )
 
 ```bash
@@ -43,7 +43,7 @@ Changing the default region ( the one you specified with `aws configure` )
 $ export AWS_DEFAULT_REGION="us-east-1" 
 ```
 
-## Change profile
+## Change profile (optional)
 If you want to use a second profile for deploying you can use `AWS_PROFILE` variable
 
 ```bash
