@@ -18,7 +18,7 @@ echo "cluster_name=\"my-open-dcos-cluster\"" >> cluster.tfvars
 echo "tags={Owner = \"$(whoami)\", Expires = \"2h\"}" >> cluster.tfvars
 ```
 
-## admin_ips
+## admin_ips (optional)
 For accessing your dcos-masters we only allow access for certain IPs. By adding a lists `admin_ips` you could control this. *If you do now specify `admin_ips` we try to detect your current public IP and use this address. These addresses have to be written in CIDR format. So for single addresses use `1.2.3.4/32`
 
 ### allow your company net
