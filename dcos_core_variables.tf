@@ -34,7 +34,7 @@ variable "dcos_resolvers" {
 }
 
 variable "dcos_skip_checks" {
-  default     = "true"
+  default     = false
   description = "Upgrade option: Used to skip all dcos checks that may block an upgrade if any DC/OS component is unhealthly. (optional) applicable: 1.10+"
 }
 
