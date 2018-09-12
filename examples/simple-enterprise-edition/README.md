@@ -60,6 +60,26 @@ Doing terraform init lets terraform download all the needed modules to spawn DC/
 $ terraform init
 ```
 
+<!---
+A terraform bug was noticed when using the terraform apply <plan> method. The tradition terraform apply method works for the time being. We will investigate why this error produces this bug below:
+
+                                                                                                                                                                                                                                                           
+```
+$ terraform apply "cluster.plan"
+Error: Error applying plan:
+
+1 error(s) occurred:
+
+* module.dcos.provider.aws: Not a valid region: 
+
+Terraform does not automatically rollback in the face of errors.
+Instead, your Terraform state file has been partially updated with
+any resources that successfully completed. Please address the error
+above and apply again to incrementally change your infrastructure
+```
+
+---REMOVED
+
 # terraform plan
 We expect your aws environment is properly setup. Check it with issuing `aws sts get-caller-identity`.
 
@@ -73,6 +93,25 @@ Now we're applying our plan
 
 ```bash
 $ terraform apply "cluster.plan"
+```
+
+in the output section you will find the hostname of your cluster. With this hostname you'll be able to access the cluster.
+---REMOVED
+
+REPO'D ON VERSION:
+```
+$ terraform -v
+Terraform v0.11.8
+```
+
++Replaced with section below
+-->
+
+# terraform apply
+Now we're applying our plan
+
+```bash
+$ terraform plan --var-file cluster.tfvars 
 ```
 
 in the output section you will find the hostname of your cluster. With this hostname you'll be able to access the cluster.
