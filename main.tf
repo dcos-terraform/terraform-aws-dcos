@@ -83,21 +83,25 @@ module "dcos-install" {
   bootstrap_ip         = "${module.dcos-infrastructure.bootstrap.public_ip}"
   bootstrap_private_ip = "${module.dcos-infrastructure.bootstrap.private_ip}"
   bootstrap_os_user    = "${module.dcos-infrastructure.bootstrap.os_user}"
+  bootstrap_prereq-id    = "${module.dcos-infrastructure.bootstrap.prereq-id}"
 
   # master
   master_ips         = ["${module.dcos-infrastructure.masters.public_ips}"]
   master_private_ips = ["${module.dcos-infrastructure.masters.private_ips}"]
   masters_os_user    = "${module.dcos-infrastructure.masters.os_user}"
+  masters_prereq-id    = "${module.dcos-infrastructure.masters.prereq-id}"
   num_masters        = "${var.num_masters}"
 
   # private agent
   private_agent_ips      = ["${module.dcos-infrastructure.private_agents.public_ips}"]
   private_agents_os_user = "${module.dcos-infrastructure.private_agents.os_user}"
+  private_agents_prereq-id    = "${module.dcos-infrastructure.private_agents.prereq-id}"
   num_private_agents     = "${var.num_private_agents}"
 
   # public agent
   public_agent_ips      = ["${module.dcos-infrastructure.public_agents.public_ips}"]
   public_agents_os_user = "${module.dcos-infrastructure.public_agents.os_user}"
+  public_agents_prereq-id    = "${module.dcos-infrastructure.public_agents.prereq-id}"
   num_public_agents     = "${var.num_public_agents}"
 
   # DC/OS options
