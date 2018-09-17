@@ -2,7 +2,7 @@ variable "cluster_name" {
   description = "Name of the DC/OS cluster"
 }
 
-variable "ssh_public_key" {
+variable "ssh_public_key_file" {
   description = <<EOF
 Specify a SSH public key in authorized keys format (e.g. "ssh-rsa ..") to be used with the instances. Make sure you added this key to your ssh-agent
 EOF
@@ -20,11 +20,11 @@ variable "dcos_license_key_contents" {
 
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
-  version = "~> 0.0"
+  version = "~> 0.0.19"
 
-  cluster_name   = "${var.cluster_name}"
-  ssh_public_key = "${var.ssh_public_key}"
-  tags           = "${var.tags}"
+  cluster_name        = "${var.cluster_name}"
+  ssh_public_key_file = "${var.ssh_public_key_file}"
+  tags                = "${var.tags}"
 
   num_masters        = "3"
   num_private_agents = "2"
