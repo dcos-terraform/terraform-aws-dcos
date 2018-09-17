@@ -22,6 +22,9 @@ module "dcos" {
 }
 ```
 
+## Deploy DC/OS on AWS using Terraform
+
+Get started with using this module by reading the documentation here: [README.md](./docs/README.md)
 
 ## Inputs
 
