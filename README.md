@@ -4,7 +4,7 @@ Creates a DC/OS Cluster on AWS
 
 ## Deploy DC/OS on AWS using Terraform
 
-Get started with using this module by reading the documentation here: [README.md](https://github.com/dcos-terraform/terraform-aws-dcos/tree/master/docs)
+Get started with using this module by reading the documentation here: [README.md](https://github.com/dcos-terraform/terraform-aws-dcos/tree/master/docs/README.md)
 
 EXAMPLE
 -------
