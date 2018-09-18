@@ -30,7 +30,7 @@ module "dcos" {
   num_private_agents = "2"
   num_public_agents  = "1"
 
-  dcos_type                 = "ee"
+  dcos_variant              = "ee"
   dcos_license_key_contents = "${var.dcos_license_key_contents}"
 }
 

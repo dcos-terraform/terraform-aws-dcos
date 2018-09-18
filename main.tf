@@ -18,7 +18,7 @@
  *   num_private_agents = "2"
  *   num_public_agents = "1"
  *
- *   dcos_type = "open"
+ *   dcos_variant = "open"
  *   # dcos_license_key_contents = ""
  * }
  *```
@@ -84,29 +84,29 @@ module "dcos-install" {
   bootstrap_ip         = "${module.dcos-infrastructure.bootstrap.public_ip}"
   bootstrap_private_ip = "${module.dcos-infrastructure.bootstrap.private_ip}"
   bootstrap_os_user    = "${module.dcos-infrastructure.bootstrap.os_user}"
-  bootstrap_prereq-id    = "${module.dcos-infrastructure.bootstrap.prereq-id}"
+  bootstrap_prereq-id  = "${module.dcos-infrastructure.bootstrap.prereq-id}"
 
   # master
   master_ips         = ["${module.dcos-infrastructure.masters.public_ips}"]
   master_private_ips = ["${module.dcos-infrastructure.masters.private_ips}"]
   masters_os_user    = "${module.dcos-infrastructure.masters.os_user}"
-  masters_prereq-id    = "${module.dcos-infrastructure.masters.prereq-id}"
+  masters_prereq-id  = "${module.dcos-infrastructure.masters.prereq-id}"
   num_masters        = "${var.num_masters}"
 
   # private agent
-  private_agent_ips      = ["${module.dcos-infrastructure.private_agents.public_ips}"]
-  private_agents_os_user = "${module.dcos-infrastructure.private_agents.os_user}"
-  private_agents_prereq-id    = "${module.dcos-infrastructure.private_agents.prereq-id}"
-  num_private_agents     = "${var.num_private_agents}"
+  private_agent_ips        = ["${module.dcos-infrastructure.private_agents.public_ips}"]
+  private_agents_os_user   = "${module.dcos-infrastructure.private_agents.os_user}"
+  private_agents_prereq-id = "${module.dcos-infrastructure.private_agents.prereq-id}"
+  num_private_agents       = "${var.num_private_agents}"
 
   # public agent
-  public_agent_ips      = ["${module.dcos-infrastructure.public_agents.public_ips}"]
-  public_agents_os_user = "${module.dcos-infrastructure.public_agents.os_user}"
-  public_agents_prereq-id    = "${module.dcos-infrastructure.public_agents.prereq-id}"
-  num_public_agents     = "${var.num_public_agents}"
+  public_agent_ips        = ["${module.dcos-infrastructure.public_agents.public_ips}"]
+  public_agents_os_user   = "${module.dcos-infrastructure.public_agents.os_user}"
+  public_agents_prereq-id = "${module.dcos-infrastructure.public_agents.prereq-id}"
+  num_public_agents       = "${var.num_public_agents}"
 
   # DC/OS options
-  dcos_cluster_name         = "${var.cluster_name}"
+  dcos_cluster_name = "${var.cluster_name}"
 
   custom_dcos_download_path                    = "${var.custom_dcos_download_path}"
   dcos_adminrouter_tls_1_0_enabled             = "${var.dcos_adminrouter_tls_1_0_enabled}"
@@ -198,7 +198,7 @@ module "dcos-install" {
   dcos_superuser_password_hash                 = "${var.dcos_superuser_password_hash}"
   dcos_superuser_username                      = "${var.dcos_superuser_username}"
   dcos_telemetry_enabled                       = "${var.dcos_telemetry_enabled}"
-  dcos_type                                    = "${var.dcos_type}"
+  dcos_variant                                 = "${var.dcos_variant}"
   dcos_ucr_default_bridge_subnet               = "${var.dcos_ucr_default_bridge_subnet}"
   dcos_use_proxy                               = "${var.dcos_use_proxy}"
   dcos_version                                 = "${var.dcos_version}"

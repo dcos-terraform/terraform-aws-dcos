@@ -36,7 +36,7 @@ module "dcos" {
   num_private_agents = "2"
   num_public_agents  = "1"
 
-  dcos_type                 = "open"
+  dcos_variant              = "open"
   custom_dcos_download_path = "${var.custom_dcos_download_path}"
   dcos_version              = "${var.dcos_version}"
 }

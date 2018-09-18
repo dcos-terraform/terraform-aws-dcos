@@ -1,5 +1,5 @@
 # Main Variables
-variable "dcos_type" {
+variable "dcos_variant" {
   default = "open"
 }
 
@@ -251,7 +251,7 @@ variable "dcos_enable_gpu_isolation" {
 }
 
 variable "dcos_fault_domain_detect_contents" {
-  default     = <<EOF
+  default = <<EOF
 #!/bin/sh
 set -o nounset -o errexit
 
@@ -261,6 +261,7 @@ ZONE=$(echo $METADATA | grep -Po "\"availabilityZone\"\s+:\s+\"(.*?)\"" | cut -f
 
 echo "{\"fault_domain\":{\"region\":{\"name\": $REGION},\"zone\":{\"name\": $ZONE}}}"
 EOF
+
   description = "[Enterprise DC/OS] fault domain script contents. Optional but required if no fault-domain-detect script present."
 }
 
@@ -473,17 +474,18 @@ variable "dcos_ip_detect_public_filename" {
 }
 
 variable "dcos_ip_detect_public_contents" {
-  default     = <<EOF
+  default = <<EOF
 #!/bin/sh
 set -o nounset -o errexit
 
 curl -fsSL http://whatismyip.akamai.com/
 EOF
+
   description = " Allows DC/OS to be aware of your publicly routeable address for ease of use (recommended)"
 }
 
 variable "dcos_ip_detect_contents" {
-  default     = <<EOF
+  default = <<EOF
 #!/bin/sh
 # Example ip-detect script using an external authority
 # Uses the AWS Metadata Service to get the node's internal

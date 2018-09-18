@@ -27,7 +27,7 @@ module "dcos" {
   num_private_agents = "2"
   num_public_agents  = "1"
 
-  dcos_type = "open"
+  dcos_variant = "open"
 }
 
 output "cluster-address" {

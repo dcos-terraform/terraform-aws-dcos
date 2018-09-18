@@ -17,7 +17,7 @@ module "dcos" {
   num_private_agents = "2"
   num_public_agents = "1"
 
-  dcos_type = "open"
+  dcos_variant = "open"
   # dcos_license_key_contents = ""
 }
 ```
@@ -134,7 +134,7 @@ Get started with using this module by reading the documentation here: [README.md
 | dcos_superuser_password_hash | [Enterprise DC/OS] set the superuser password hash (recommended) | string | `` | no |
 | dcos_superuser_username | [Enterprise DC/OS] set the superuser username (recommended) | string | `` | no |
 | dcos_telemetry_enabled | change the telemetry option (optional) | string | `` | no |
-| dcos_type | Main Variables | string | `open` | no |
+| dcos_variant | Main Variables | string | `open` | no |
 | dcos_ucr_default_bridge_subnet | IPv4 subnet allocated to the mesos-bridge CNI network for UCR bridge-mode networking. (optional) | string | `` | no |
 | dcos_use_proxy | to enable use of proxy for internal routing (optional) | string | `` | no |
 | dcos_version | specifies which dcos version instruction to use. Options: `1.9.0`, `1.8.8`, etc. _See [dcos_download_path](https://github.com/dcos/tf_dcos_core/blob/master/download-variables.tf) or [dcos_version](https://github.com/dcos/tf_dcos_core/tree/master/dcos-versions) tree for a full list._ | string | `1.11.4` | no |

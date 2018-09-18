@@ -12,7 +12,8 @@ variable "ssh_public_key" {
   description = <<EOF
 SSH public key in authorized keys format (e.g. "ssh-rsa ..") to be used with the instances. Make sure you added this key to your ssh-agent
 EOF
-  default     = ""
+
+  default = ""
 }
 
 variable "ssh_public_key_file" {
