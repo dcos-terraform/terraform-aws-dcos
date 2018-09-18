@@ -2,6 +2,10 @@ DC/OS on AWS
 ============
 Creates a DC/OS Cluster on AWS
 
+## Deploy DC/OS on AWS using Terraform
+
+Get started with using this module by reading the documentation here: [README.md](./docs/README.md)
+
 EXAMPLE
 -------
 
@@ -21,10 +25,6 @@ module "dcos" {
   # dcos_license_key_contents = ""
 }
 ```
-
-## Deploy DC/OS on AWS using Terraform
-
-Get started with using this module by reading the documentation here: [README.md](./docs/README.md)
 
 ## Inputs
 
