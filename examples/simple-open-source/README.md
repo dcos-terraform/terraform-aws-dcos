@@ -5,13 +5,13 @@ In this example we spawn a simple cluster with just one master, two agents and o
 Just do an copy of [`main.tf`](./main.tf?raw=1) in a local folder and `cd` into it.
 
 # `cluster.tfvars`
-For this cluster we need to set your ssh public key..
+For this cluster, we need to set your ssh public key. If you already have a ssh key, just assign the path to the key to the terraform variable.
 
-if you already have a ssh key. Just read the public key content and assign it to the terraform variable. Also you should set a cluster name. It gets tagged with this name so you can easily identify the nodes of your cluster.
+Also you should set a cluster name. It gets tagged with this name so you can easily identify the nodes of your cluster.
 
 ```bash
 # or similar depending on your environment
-echo "ssh_public_key=\"$(cat ~/.ssh/id_rsa.pub)\"" >> cluster.tfvars
+echo "ssh_public_key_file=\"~/.ssh/id_rsa.pub\"" >> cluster.tfvars
 # lets set the clustername
 echo "cluster_name=\"my-open-dcos-cluster\"" >> cluster.tfvars
 # we at mesosphere have to tag our instances with an owner and an expire date.

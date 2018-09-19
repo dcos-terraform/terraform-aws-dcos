@@ -3,9 +3,7 @@ variable "cluster_name" {
 }
 
 variable "ssh_public_key_file" {
-  description = <<EOF
-Specify a SSH public key in authorized keys format (e.g. "ssh-rsa ..") to be used with the instances. Make sure you added this key to your ssh-agent
-EOF
+  description = "Path to an SSH public key to be used with the instances. Make sure you added this key to your ssh-agent"
 }
 
 variable "tags" {
