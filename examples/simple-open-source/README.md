@@ -15,7 +15,7 @@ echo "ssh_public_key_file=\"~/.ssh/id_rsa.pub\"" >> cluster.tfvars
 # lets set the clustername
 echo "cluster_name=\"my-open-dcos-cluster\"" >> cluster.tfvars
 # we at mesosphere have to tag our instances with an owner and an expire date.
-echo "tags={Owner = \"$(whoami)\", Expires = \"2h\"}" >> cluster.tfvars
+echo "tags={owner = \"$(whoami)\", expiration = \"2h\"}" >> cluster.tfvars
 ```
 
 ## admin_ips (optional)

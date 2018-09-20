@@ -15,7 +15,7 @@ echo "ssh_public_key_file=\"~/.ssh/id_rsa.pub\"" >> cluster.tfvars
 # lets set the clustername
 echo "cluster_name=\"my-ee-cluster\"" >> cluster.tfvars
 # we at mesosphere have to tag our instances with an owner and an expire date.
-echo "tags={Owner = \"$(whoami)\", Expires = \"2h\"}" >> cluster.tfvars
+echo "tags={owner = \"$(whoami)\", expiration = \"2h\"}" >> cluster.tfvars
 # we have to explicitly set the version.
 echo "dcos_version=\"1.10.8\""
 # now we habe to provider the link to dcos_generate_config.sh
