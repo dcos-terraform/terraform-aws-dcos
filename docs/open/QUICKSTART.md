@@ -10,7 +10,7 @@ If you’re new to Terraform and/or want to deploy DC/OS on AWS quickly and effo
 
 # Prerequisites: 
 
-You’ll need Terraform.
+You’ll need Terraform, cloud credentials, and SSH keys:
 
 If you're on a Mac environment with homebrew installed, run this command.
 ```bash
@@ -20,6 +20,12 @@ brew install terraform
 For more information on using the AWS Provider with Terraform, see [here](https://www.terraform.io/docs/providers/aws/).
 
 For help installing Terraform on a different OS, see [here]():
+
+Add your keys to your ssh agent:
+
+```bash
+ssh-add <path_to_your_private_ssh_key>
+```
 
 # Creating a Cluster
 
@@ -143,22 +149,12 @@ output "public-agents-loadbalancer" {
 
 2) Now that we’ve made changes to our `main.tf`, we need to re-run our new execution plan.  
 
-```bash
-terraform plan -out=plan.out
-``` 
-
-Doing this helps us to ensure that our state is stable and to confirm that we will only be creating the resources necessary to scale our Private Agents to the desired number.
-
-<p align=center>
-<img src="../images/scale/terraform-plan.png" />
-</p>
-
-You should see a message similar to above.  There will be 3 resources added as a result of scaling up our cluster’s Private Agents (1 instance resource & 2 null resources which handle the DC/OS installation & prerequisites behind the scenes).
+There will be 3 resources added as a result of scaling up our cluster’s Private Agents (1 instance resource & 2 null resources which handle the DC/OS installation & prerequisites behind the scenes).
 
 3) Now that our plan is set, just like before, let’s get Terraform to build/deploy it.
 
 ```bash
-terraform apply plan.out
+terraform apply
 ```
 
 <p align=center>
@@ -214,25 +210,11 @@ output "public-agents-loadbalancer" {
 }
 ```
 
-2) Let’s run our execution plan.  
+
+2) Now that our execution plan is set, just like before, let’s get Terraform to build/deploy it.
 
 ```bash
-terraform plan -out=plan.out
-```
-
-You should see an output like below.
-
-<p align=center>
-<img src="../images/upgrade/terraform-plan.png" />
-</p>
-
-If you are interested in learning more about the upgrade procedure that Terraform performs, please see the official [DC/OS Upgrade documentation](https://docs.mesosphere.com/1.11/installing/production/upgrading/). 
-
-
-3) Now that our execution plan is set, just like before, let’s get Terraform to build/deploy it.
-
-```bash
-terraform apply plan.out
+terraform apply
 ```
 
 Once the apply is completed successfully, you can now verify that the cluster was upgraded via the DC/OS UI.
@@ -241,7 +223,7 @@ Once the apply is completed successfully, you can now verify that the cluster wa
 <img src="../images/upgrade/cluster-details.png" />
 </p>
 
-4) Once your have upgraded your cluster successfully, you will either need to completely remove the line containing `dcos_install_mode` or change the value back to `install`. *Failing to do this will cause issues if or when trying to scale your cluster*.
+3) Once your have upgraded your cluster successfully, you will either need to completely remove the line containing `dcos_install_mode` or change the value back to `install`. *Failing to do this will cause issues if or when trying to scale your cluster*.
 
 
 
@@ -257,8 +239,3 @@ You will be required to enter ‘yes’ to ensure you want to destroy your clust
 <p align=center>
 <img src="../images/destroy/terraform-destory.png" />
 </p>
-
-
-
-
-
