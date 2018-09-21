@@ -98,25 +98,12 @@ terraform init
 <img src="../images/install/terraform-init.png" />
 </p>
 
-
-4) Next, we’ll run the execution plan and save this plan to a static file - in this case, `plan.out`. Writing our execution plan to a file allows for us to pass the execution plan to the apply and helps us guarantee accuracy of our plan. Note that this file is ONLY readable by Terraform.
-
-```bash
-terraform plan -out=plan.out
-```
-
-Afterwards, we should see a message like the one below, confirming that we have successfully saved to the `plan.out` file.  This file should appear in your dcos-tf-aws-demo folder alongside `main.tf`.
-
-<p align=center>  
-<img src="../images/install/terraform-plan.png" />
-</p>
-
 Every time you run terraform plan, the output will always detail the resources your plan will be adding, changing or destroying.  Since we are creating our DC/OS cluster for the very first time, our output tells us that our plan will result in adding 38 pieces of infrastructure/resources.
 
 The next step is to get Terraform to build/deploy our plan.  Run the command below.
 
 ```bash
-terraform apply plan.out
+terraform apply
 ```
 
 Once Terraform has completed applying our plan, you should see an output similar to the one below.  You can now enter in the URL output to access your DC/OS cluster in the browser of your choice (Chrome, Safari recommended).  
