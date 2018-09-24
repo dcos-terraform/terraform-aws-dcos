@@ -24,8 +24,8 @@ If you want to leverage the terraform installer, feel free to check out https://
 
 
 ## Documentation
-
-1. [Deploying on AWS](./INSTALL.md)
-2. [Upgrading DC/OS](./UPGRADE.md)
-3. [Maintaining Nodes](./MAINTAIN.md)
-4. [Destroy](./DESTROY.md)
+1. Quick Start  - [DC/OS Open](./open/QUICKSTART.md) | [DC/OS Enterprise](./ee/QUICKSTART.md)
+2. [Deploying on AWS](./INSTALL.md)
+3. [Upgrading DC/OS](./UPGRADE.md)
+4. [Maintaining Nodes](./MAINTAIN.md)
+5. [Destroy](./DESTROY.md)

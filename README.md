@@ -1,10 +1,10 @@
 DC/OS on AWS
 ============
-Creates a DC/OS Cluster on AWS
+[Quick Start Guide for Open Source DC/OS](https://github.com/dcos-terraform/terraform-aws-dcos/blob/master/docs/open/QUICKSTART.md) 
 
-## Deploy DC/OS on AWS using Terraform
+[Quick Start Guide for Enterprise DC/OS](https://github.com/dcos-terraform/terraform-aws-dcos/blob/master/docs/ee/QUICKSTART.md)
 
-Get started with using this module by reading the documentation here: [README.md](https://github.com/dcos-terraform/terraform-aws-dcos/tree/master/docs/README.md)
+You can find more detailed documentation about this module here: [README.md](./docs/README.md)
 
 EXAMPLE
 -------
