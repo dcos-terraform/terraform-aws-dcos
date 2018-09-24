@@ -3,7 +3,7 @@
 If you’re new to Terraform and/or want to deploy DC/OS on AWS quickly and effortlessly - please follow this guide.  We’ll walk you through step-by-step on:
 
 
-- Creating a DC/OS OSS Cluster
+- Creating a DC/OS EE Cluster
 - Scaling the cluster
 - Upgrading the cluster
 - Deleting the cluster
