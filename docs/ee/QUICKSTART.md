@@ -42,19 +42,13 @@ us-east-1
 ssh-add <path_to_your_private_ssh_key>
 ```
 
-DC/OS Enterprise Edition also requires a valid license key provided by Mesosphere that we will pass into our `main.tf` as `dcos_license_key_contents`. You are also going to be required to generate a password hash (see next step below) that you will also pass to the in the `main.tf` to set the password for your desired superuser. 
+DC/OS Enterprise Edition also requires a valid license key provided by Mesosphere that we will pass into our `main.tf` as `dcos_license_key_contents`. For this guide we are going to use the default superuser and password to login:
 
+Username: `bootstrapuser`
+Password: `deleteme`
 
-# Generating Password Hash
-For Enterprise Edition, you need to generate a password hash for the superuser account in the cluster. You can generate this hash downloading the installation script and running the following:
+Please note that this should *NOT* be used in a Production environment and you will need generate a password hash. 
 
-```bash
-sudo bash dcos_generate_config.ee.sh --hash-password <superuser_password>
-```
-
-We are going to pass the generated value as the value for `dcos_superuser_password_hash` in our `main.tf`.
-
-You can see more information on the Official DC/OS Docs site [here](https://docs.mesosphere.com/1.11/installing/production/deploying-dcos/installation/#set-up-a-super-user-password-enterprise).
 
 # Creating a Cluster
 
@@ -142,13 +136,18 @@ terraform apply plan.out
 
 Once Terraform has completed applying our plan, you should see an output similar to the one below.  You can now enter the `cluster-address` output to access your DC/OS cluster in the browser of your choice (Chrome, Safari recommended).  
 
+
 <p align=center>
 <img src="../images/install/terraform-apply.png" />
 </p>
 
 And congratulations - you’re done!  In just 4 steps, you’ve successfully installed a DC/OS cluster on AWS!
 
-You can now login with your superuser and password.
+Use the default login mentioned above: `bootstrapuser/deleteme`
+
+<p align=center>
+<img src="../images/install/dcos-ee-login.png">
+</p>
 
 # Scaling Your Cluster
 1) To scale the number of agents (private or public) in your cluster, simply increase the value set for the `num_private_agents` and/or `num_public_agents` in your `main.tf` file. In this example we are going to scale our cluster from 2 Private Agents to 3.
