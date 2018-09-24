@@ -9,23 +9,39 @@ If you’re new to Terraform and/or want to deploy DC/OS on AWS quickly and effo
 - Deleting the cluster
 
 # Prerequisites: 
+Terraform, cloud credentials, and SSH keys:
 
-You’ll need Terraform, cloud credentials, and SSH keys:
-
+## You’ll need Terraform.
 If you're on a Mac environment with homebrew installed, run this command.
 ```bash
 brew install terraform
 ```
 
-For more information on using the AWS Provider with Terraform, see [here](https://www.terraform.io/docs/providers/aws/).
+For help installing Terraform on a different OS, see [here](https://www.terraform.io/downloads.html):
 
-For help installing Terraform on a different OS, see [here]():
 
-Add your keys to your ssh agent:
+## Ensure AWS Default Region
+Current Terraform AWS Provider requires that the default region variable be set. You can set the default region using the following command:
+```bash
+export AWS_DEFAULT_REGION="desired-aws-region"
+```
+Example:
+```bash
+export AWS_DEFAULT_REGION="us-east-1"
+```
+
+Ensure it is set:
+```bash
+> echo $AWS_DEFAULT_REGION
+us-east-1
+```
+
+## Add your keys to your ssh agent:
 
 ```bash
 ssh-add <path_to_your_private_ssh_key>
 ```
+
 
 # Creating a Cluster
 
