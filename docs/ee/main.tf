@@ -1,7 +1,7 @@
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
 
-  cluster_name="my-open-dcos-cluster"
+  cluster_name="my-ee-dcos-cluster"
   ssh_public_key_file="~/.ssh/id_rsa.pub"
 
   num_masters        = "1"
