@@ -10,18 +10,31 @@ If you’re new to Terraform and/or want to deploy DC/OS on AWS quickly and effo
 
 # Prerequisites: 
 
-You’ll need Terraform.
+## You’ll need Terraform.
 
 If you're on a Mac environment with homebrew installed, run this command.
 ```bash
 brew install terraform
 ```
 
-For more information on using the AWS Provider with Terraform, see [here](https://www.terraform.io/docs/providers/aws/).
+For help installing Terraform on a different OS, see [here](https://www.terraform.io/downloads.html):
 
-For help installing Terraform on a different OS, see [here]().
 
-DC/OS Enterprise Edition also requires a valid license key provided by Mesosphere that we will pass into our `main.tf` as `dcos_license_key_contents`. You are also going to be required to generate a password hash (see next step below) that you will also pass to the in the `main.tf` to set the password for your desired superuser. 
+## Ensure AWS Default Region
+Current Terraform AWS Provider requires that the default region variable be set. You can set the default region using the following command:
+```bash
+export AWS_DEFAULT_REGION="desired-aws-region"
+```
+Example:
+```bash
+export AWS_DEFAULT_REGION="us-east-1"
+```
+
+Ensure it is set:
+```bash
+> echo $AWS_DEFAULT_REGION
+us-east-1
+```
 
 # Generating Password Hash
 For Enterprise Edition, you need to generate a password hash for the superuser account in the cluster. You can generate this hash downloading the installation script and running the following:

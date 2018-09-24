@@ -10,16 +10,34 @@ If you’re new to Terraform and/or want to deploy DC/OS on AWS quickly and effo
 
 # Prerequisites: 
 
-You’ll need Terraform.
+## You’ll need Terraform.
 
 If you're on a Mac environment with homebrew installed, run this command.
 ```bash
 brew install terraform
 ```
 
-For more information on using the AWS Provider with Terraform, see [here](https://www.terraform.io/docs/providers/aws/).
+For help installing Terraform on a different OS, see [here](https://www.terraform.io/downloads.html):
 
-For help installing Terraform on a different OS, see [here]():
+
+## Ensure AWS Default Region
+Current Terraform AWS Provider requires that the default region variable be set. You can set the default region using the following command:
+```bash
+export AWS_DEFAULT_REGION="desired-aws-region"
+```
+Example:
+```bash
+export AWS_DEFAULT_REGION="us-east-1"
+```
+
+Ensure it is set:
+```bash
+> echo $AWS_DEFAULT_REGION
+us-east-1
+```
+
+
+For more information on using the AWS Provider with Terraform, see [here](https://www.terraform.io/docs/providers/aws/).
 
 # Creating a Cluster
 
