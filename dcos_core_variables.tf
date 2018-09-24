@@ -288,9 +288,7 @@ variable "dcos_license_key_contents" {
 variable "dcos_mesos_container_log_sink" {
   default = ""
 
-  description = <<EOF
-The log manager for containers (tasks). The options are to send logs to: "journald", "logrotate", "journald+logrotate'". (optional)
-EOF
+  description = "The log manager for containers (tasks). The options are to send logs to: 'journald', 'logrotate', 'journald+logrotate'. (optional)"
 }
 
 variable "dcos_mesos_dns_set_truncate_bit" {

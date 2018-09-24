@@ -9,9 +9,9 @@ If you’re new to Terraform and/or want to deploy DC/OS on AWS quickly and effo
 - Deleting the cluster
 
 # Prerequisites: 
+Terraform, cloud credentials, and SSH keys:
 
 ## You’ll need Terraform.
-
 If you're on a Mac environment with homebrew installed, run this command.
 ```bash
 brew install terraform
@@ -35,6 +35,15 @@ Ensure it is set:
 > echo $AWS_DEFAULT_REGION
 us-east-1
 ```
+
+## Add your keys to your ssh agent:
+
+```bash
+ssh-add <path_to_your_private_ssh_key>
+```
+
+DC/OS Enterprise Edition also requires a valid license key provided by Mesosphere that we will pass into our `main.tf` as `dcos_license_key_contents`. You are also going to be required to generate a password hash (see next step below) that you will also pass to the in the `main.tf` to set the password for your desired superuser. 
+
 
 # Generating Password Hash
 For Enterprise Edition, you need to generate a password hash for the superuser account in the cluster. You can generate this hash downloading the installation script and running the following:
@@ -111,25 +120,12 @@ terraform init
 <img src="../images/install/terraform-init.png" />
 </p>
 
-
-4) Next, we’ll run the execution plan and save this plan to a static file - in this case, `plan.out`. Writing our execution plan to a file allows for us to pass the execution plan to the apply and helps us guarantee accuracy of our plan. Note that this file is ONLY readable by Terraform.
-
-```bash
-terraform plan -out=plan.out
-```
-
-Afterwards, we should see a message like the one below, confirming that we have successfully saved to the `plan.out` file.  This file should appear in your dcos-tf-aws-demo folder alongside `main.tf`.
-
-<p align=center>  
-<img src="../images/install/terraform-plan.png" />
-</p>
-
 Every time you run terraform plan, the output will always detail the resources your plan will be adding, changing or destroying.  Since we are creating our DC/OS cluster for the very first time, our output tells us that our plan will result in adding 38 pieces of infrastructure/resources.
 
 The next step is to get Terraform to build/deploy our plan.  Run the command below.
 
 ```bash
-terraform apply plan.out
+terraform apply
 ```
 
 Once Terraform has completed applying our plan, you should see an output similar to the one below.  You can now enter in the URL output to access your DC/OS cluster in the browser of your choice (Chrome, Safari recommended).  
@@ -177,24 +173,13 @@ output "public-agents-loadbalancer" {
 }
 ```
 
-2) Now that we’ve made changes to our `main.tf`, we need to re-run our new execution plan.  
 
-```bash
-terraform plan -out=plan.out
-``` 
-
-Doing this helps us to ensure that our state is stable and to confirm that we will only be creating the resources necessary to scale our Private Agents to the desired number.
-
-<p align=center>
-<img src="../images/scale/terraform-plan.png" />
-</p>
+2) Now that our plan is set, just like before, let’s get Terraform to build/deploy it.
 
 You should see a message similar to above.  There will be 3 resources added as a result of scaling up our cluster’s Private Agents (1 instance resource & 2 null resources which handle the DC/OS installation & prerequisites behind the scenes).
 
-3) Now that our plan is set, just like before, let’s get Terraform to build/deploy it.
-
 ```bash
-terraform apply plan.out
+terraform apply
 ```
 
 <p align=center>
@@ -253,25 +238,10 @@ output "public-agents-loadbalancer" {
 }
 ```
 
-2) Let’s run our execution plan.  
+2) Now that our execution plan is set, just like before, let’s get Terraform to build/deploy it.
 
 ```bash
-terraform plan -out=plan.out
-```
-
-You should see an output like below.
-
-<p align=center>
-<img src="../images/upgrade/terraform-plan.png" />
-</p>
-
-If you are interested in learning more about the upgrade procedure that Terraform performs, please see the official [DC/OS Upgrade documentation](https://docs.mesosphere.com/1.11/installing/production/upgrading/). 
-
-
-3) Now that our execution plan is set, just like before, let’s get Terraform to build/deploy it.
-
-```bash
-terraform apply plan.out
+terraform apply
 ```
 
 Once the apply is completed successfully, you can now verify that the cluster was upgraded via the DC/OS UI.
@@ -280,8 +250,9 @@ Once the apply is completed successfully, you can now verify that the cluster wa
 <img src="../images/upgrade/cluster-details.png" />
 </p>
 
-4) Once your have upgraded your cluster successfully, you will either need to completely remove the line containing `dcos_install_mode` or change the value back to `install`. *Failing to do this will cause issues if or when trying to scale your cluster*.
+If you are interested in learning more about the upgrade procedure that Terraform performs, please see the official [DC/OS Upgrade documentation](https://docs.mesosphere.com/1.11/installing/production/upgrading/). 
 
+3) Once your have upgraded your cluster successfully, you will either need to completely remove the line containing `dcos_install_mode` or change the value back to `install`. *Failing to do this will cause issues if or when trying to scale your cluster*.
 
 
 # Deleting Your Cluster
@@ -296,8 +267,3 @@ You will be required to enter ‘yes’ to ensure you want to destroy your clust
 <p align=center>
 <img src="../images/destroy/terraform-destory.png" />
 </p>
-
-
-
-
-
