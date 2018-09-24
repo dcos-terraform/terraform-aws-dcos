@@ -4,7 +4,7 @@ DC/OS on AWS
 
 [Quick Start Guide for Enterprise DC/OS](https://github.com/dcos-terraform/terraform-aws-dcos/blob/master/docs/ee/QUICKSTART.md)
 
-You can find more detailed documentation about this module here: [README.md](https://github.com/dcos-terraform/terraform-aws-dcos/tree/master/docs/README.md)
+You can find more detailed documentation about this module here: [README.md](./docs/README.md)
 
 EXAMPLE
 -------
