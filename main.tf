@@ -106,7 +106,7 @@ module "dcos-install" {
   num_public_agents       = "${var.num_public_agents}"
 
   # DC/OS options
-  dcos_cluster_name = "${var.cluster_name}"
+  dcos_cluster_name = "${coalesce(var.dcos_cluster_name, var.cluster_name)}"
 
   custom_dcos_download_path                    = "${var.custom_dcos_download_path}"
   dcos_adminrouter_tls_1_0_enabled             = "${var.dcos_adminrouter_tls_1_0_enabled}"
@@ -154,15 +154,15 @@ module "dcos-install" {
   dcos_exhibitor_storage_backend               = "${var.dcos_exhibitor_storage_backend}"
   dcos_exhibitor_zk_hosts                      = "${var.dcos_exhibitor_zk_hosts}"
   dcos_exhibitor_zk_path                       = "${var.dcos_exhibitor_zk_path}"
-  dcos_fault_domain_detect_contents            = "${var.dcos_fault_domain_detect_contents}"
+  dcos_fault_domain_detect_contents            = "${coalesce(var.dcos_fault_domain_detect_contents, file("${path.module}/scripts/fault-domain-detect.sh"))}"
   dcos_fault_domain_enabled                    = "${var.dcos_fault_domain_enabled}"
   dcos_gc_delay                                = "${var.dcos_gc_delay}"
   dcos_gpus_are_scarce                         = "${var.dcos_gpus_are_scarce}"
   dcos_http_proxy                              = "${var.dcos_http_proxy}"
   dcos_https_proxy                             = "${var.dcos_https_proxy}"
   dcos_install_mode                            = "${var.dcos_install_mode}"
-  dcos_ip_detect_contents                      = "${var.dcos_ip_detect_contents}"
-  dcos_ip_detect_public_contents               = "${var.dcos_ip_detect_public_contents}"
+  dcos_ip_detect_contents                      = "${coalesce(var.dcos_ip_detect_contents,file("${path.module}/scripts/ip-detect.sh"))}"
+  dcos_ip_detect_public_contents               = "${coalesce(var.dcos_ip_detect_public_contents,file("${path.module}/scripts/ip-detect-public.sh"))}"
   dcos_ip_detect_public_filename               = "${var.dcos_ip_detect_public_filename}"
   dcos_l4lb_enable_ipv6                        = "${var.dcos_l4lb_enable_ipv6}"
   dcos_license_key_contents                    = "${var.dcos_license_key_contents}"
