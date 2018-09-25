@@ -94,7 +94,7 @@ It also specifies that the following output should be printed once cluster creat
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
 
-  cluster_name        = "my-ee-dcos-cluster"
+  cluster_name        = "my-ee-dcos"
   ssh_public_key_file = "~/.ssh/id_rsa.pub"
 
   num_masters        = "1"
@@ -181,7 +181,7 @@ Terraform makes it easy to scale your cluster to add additional agents (public o
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
 
-  cluster_name        = "my-ee-dcos-cluster"
+  cluster_name        = "my-ee-dcos"
   ssh_public_key_file = "~/.ssh/id_rsa.pub"
 
   num_masters        = "1"
@@ -243,11 +243,9 @@ You should see now 4 total nodes connected like below via the DC/OS UI.
 Terraform also makes it easy to upgrade our cluster to a newer version of DC/OS.
 If you are interested in learning more about the upgrade procedure that Terraform performs, please see the official [DC/OS Upgrade documentation](https://docs.mesosphere.com/1.11/installing/production/upgrading/).
 
-1) In order to perform an upgrade, we need to go back to our `main.tf` and specify an additional parameter (`dcos_install_mode`). By default this parameter is set to `install`, which is why we were able to leave it unset when creating the initial DC/OS cluster and scaling it.
+1) In order to perform an upgrade, we need to go back to our `main.tf` and modify the current DC/OS Version (`dcos_version`) to `1.11.5` and also specify an additional parameter (`dcos_install_mode`). By default this parameter is set to `install`, which is why we were able to leave it unset when creating the initial DC/OS cluster and scaling it.
 
 Since we’re now upgrading, however, we need to set this parameter to `upgrade`.
-
-**NOTE:** We do not actually upgrade DC/OS to a newer version during this procedure. We simply upgrade it in place to the same version in order to demonstrate how it can be done.
 
 **IMPORTANT:** Do not change any number of masters, agents or public agents while performing an upgrade.
 
@@ -255,7 +253,7 @@ Since we’re now upgrading, however, we need to set this parameter to `upgrade`
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
 
-  cluster_name        = "my-ee-dcos-cluster"
+  cluster_name        = "my-ee-dcos"
   ssh_public_key_file = "~/.ssh/id_rsa.pub"
 
   num_masters        = "1"
@@ -263,7 +261,7 @@ module "dcos" {
   num_public_agents  = "1"
 
   dcos_variant                 = "ee"
-  dcos_version                 = "1.11.4"
+  dcos_version                 = "1.11.5"
   dcos_license_key_contents    = "LICENSE_KEY_HERE"
 }
 
@@ -304,12 +302,8 @@ terraform apply plan.out
 Once the apply completes, you can verify that the cluster was upgraded via the DC/OS UI.
 
 <p align=center>
-<img src="../images/upgrade/cluster-details.png" />
+<img src="../images/upgrade/cluster-details-ee.png" />
 </p>
-
-4) Once your have upgraded your cluster successfully, you will need to completely remove the line containing `dcos_install_mode` or change the value to `install`.
-
-  **Failing to do this will cause issues when attempting to scale your cluster in the future**.
 
 
 
