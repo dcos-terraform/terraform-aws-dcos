@@ -255,7 +255,7 @@ module "dcos" {
   num_public_agents  = "1"
 
   dcos_variant = "open"
-  dcos_version = "1.11.5"
+  dcos_version = "1.11.4"
 }
 
 output "masters-ips" {

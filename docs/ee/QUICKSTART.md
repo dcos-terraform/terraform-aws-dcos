@@ -80,8 +80,6 @@ module "dcos" {
   dcos_variant                 = "ee"
   dcos_version                 = "1.11.4"
   dcos_license_key_contents    = "LICENSE_KEY_HERE"
-  dcos_superuser_password_hash = "HASH_VALUE_GENERATED_FROM_ABOVE"
-  dcos_superuser_username      = "admin"
 }
 
 output "masters-ips" {
@@ -168,8 +166,6 @@ module "dcos" {
   dcos_variant                 = "ee"
   dcos_version                 = "1.11.4"
   dcos_license_key_contents    = "LICENSE_KEY_HERE"
-  dcos_superuser_password_hash = "HASH_VALUE_GENERATED_FROM_ABOVE"
-  dcos_superuser_username      = "admin"
 }
 
 output "masters-ips" {
@@ -243,8 +239,6 @@ module "dcos" {
   dcos_variant                 = "ee"
   dcos_version                 = "1.11.4"
   dcos_license_key_contents    = "LICENSE_KEY_HERE"
-  dcos_superuser_password_hash = "HASH_VALUE_GENERATED_FROM_ABOVE"
-  dcos_superuser_username      = "admin"
 }
 
 output "masters-ips" {
