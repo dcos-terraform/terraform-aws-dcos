@@ -9,13 +9,13 @@ variable "aws_key_name" {
 }
 
 variable "ssh_public_key" {
-  description = "SSH public key in authorized keys format to be used with the instances. Make sure you added this key to your ssh-agent"
+  description = "SSH public key in authorized keys format (e.g. 'ssh-rsa ..') to be used with the instances. Make sure you added this key to your ssh-agent."
 
   default = ""
 }
 
 variable "ssh_public_key_file" {
-  description = "path to SSH public key. This is mandatory but can be set to an empty string if you want to use `ssh_public_key` with the key as string"
+  description = "Path to SSH public key. This is mandatory but can be set to an empty string if you want to use ssh_public_key with the key as string."
 }
 
 variable "num_masters" {
@@ -51,7 +51,7 @@ variable "availability_zones" {
 }
 
 variable "aws_ami" {
-  description = "AMI that will be used for the instances instead of the Mesosphere provided AMIs"
+  description = "AMI that will be used for the instances instead of Mesosphere provided AMIs"
   default     = ""
 }
 
@@ -71,12 +71,12 @@ variable "bootstrap_os" {
 }
 
 variable "bootstrap_root_volume_size" {
-  description = "[BOOTSTRAP] Root volume size"
+  description = "[BOOTSTRAP] Root volume size in GB"
   default     = "80"
 }
 
 variable "bootstrap_root_volume_type" {
-  description = "[BOOTSTRAP] Specify the root volume type."
+  description = "[BOOTSTRAP] Root volume type"
   default     = "standard"
 }
 
@@ -101,7 +101,7 @@ variable "masters_os" {
 }
 
 variable "masters_root_volume_size" {
-  description = "[MASTERS] Root volume size"
+  description = "[MASTERS] Root volume size in GB"
   default     = "120"
 }
 
@@ -126,12 +126,12 @@ variable "private_agents_os" {
 }
 
 variable "private_agents_root_volume_size" {
-  description = "[PRIVATE AGENTS] Root volume size"
+  description = "[PRIVATE AGENTS] Root volume size in GB"
   default     = "120"
 }
 
 variable "private_agents_root_volume_type" {
-  description = "[PRIVATE AGENTS] Specify the root volume type."
+  description = "[PRIVATE AGENTS] Root volume type"
   default     = "gp2"
 }
 
