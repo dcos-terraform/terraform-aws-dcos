@@ -1,77 +1,101 @@
 # Quick Start Guide
 
-If you’re new to Terraform and/or want to deploy DC/OS on AWS quickly and effortlessly - please follow this guide.  We’ll walk you through step-by-step on:
+If you’re new to Terraform and/or want to deploy DC/OS on AWS quickly and effortlessly - please follow this guide.  We’ll walk you through step-by-step on how to:
 
 
-- Creating a DC/OS OSS Cluster
-- Scaling the cluster
-- Upgrading the cluster
-- Deleting the cluster
+1) Create an Open Source DC/OS Cluster on AWS
+2) Scale the cluster to a larger number of nodes
+3) Upgrade the cluster to a newer version of DC/OS
+4) Destroy the cluster and all AWS resources associated with it
 
-# Prerequisites: 
-Terraform, cloud credentials, and SSH keys:
+# Prerequisites:
+Terraform, AWS cloud credentials, SSH keys
 
-## You’ll need Terraform.
-If you're on a Mac environment with homebrew installed, run this command.
+## Installing Terraform.
+If you're on a Mac environment with homebrew installed, simply run the following command:
 ```bash
 brew install terraform
 ```
 
-For help installing Terraform on a different OS, see [here](https://www.terraform.io/downloads.html):
-
-
-## Ensure AWS Default Region
-Current Terraform AWS Provider requires that the default region variable be set. You can set the default region using the following command:
+Once this command completes, you should be able to run the following command and see output consistent with the version of Terraform you have installed:
 ```bash
-export AWS_DEFAULT_REGION="desired-aws-region"
+$ terraform version
+Terraform v0.11.8
 ```
-Example:
+
+For help installing Terraform on a different OS, please see [here](https://www.terraform.io/downloads.html):
+
+## Ensure you have your AWS Cloud Credentials Properly Set up
+Please follow the AWS guide [Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) how to setup your credentials.
+
+## Set the Default AWS Region
+The current Terraform Provider for AWS requires that the default AWS region be set before it can be used. You can set the default region with the following command:
+```bash
+export AWS_DEFAULT_REGION="<desired-aws-region>"
+```
+For Example:
 ```bash
 export AWS_DEFAULT_REGION="us-east-1"
 ```
 
-Ensure it is set:
+Ensure it has been set:
 ```bash
 > echo $AWS_DEFAULT_REGION
 us-east-1
 ```
 
-## Add your keys to your ssh agent:
+## Add your SSH keys to your ssh agent:
+
+Terraform requires SSH access to the instances you launch as part of your DC/OS cluster. As such, we need to make sure that the SSH key used to SSH to these instances is added to your `ssh-agent`, prior to running `terraform`.
+
+If you need help on creating an SSH key-pair for AWS prior to running the command below, please follow the instructions [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html).
+
+Otherwise, just run the following command to add your key to the `ssh-agent`:
 
 ```bash
-ssh-add <path_to_your_private_ssh_key>
+ssh-add <path_to_your_private_aws_ssh_key>
 ```
 
+For Example:
+```bash
+ssh-add ~/.ssh/aws-id-rsa
+```
 
 # Creating a Cluster
 
-1) Let’s start by creating a local folder.
+1) Let’s start by creating a local folder and cd'ing into it. This folder will be used as the staging ground for downloading all required Terraform modules and holding the configuration for the cluster you are about to create.
 
 ```bash
-mkdir dcos-tf-aws-demo && cd dcos-tf-aws-demo 
+mkdir dcos-tf-aws-demo && cd dcos-tf-aws-demo
 ```
 
-2) Copy and paste the example code below into a new file and save it as `main.tf` in our folder.
+2) Once that is done, copy and paste the example code below into a new file and save it as `main.tf` in the newly created folder.
 
-The example code below creates a DC/OS OSS 1.11.4 cluster on AWS with:
+This example code tells Terraform to create a DC/OS OSS 1.11.4 cluster on AWS with:
 - 1 Master
 - 2 Private Agents
 - 1 Public Agent
+
+It also specifies that a the list of `masters-ips`, the `cluster-address`, and the address of the `public-agents-loadbalancer` should be printed out after cluster creation is complete.
+
+It also specifies that the following output should be printed once cluster creation is complete:
+- ```master-ips``` - A list of Your DC/OS Master Nodes.
+- ```cluster-address``` - The URL you use to access DC/OS UI after the cluster is setup.
+- ```public-agent-loadbalancer``` - The URL of your Public routable services.
 
 ```hcl
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
 
-  cluster_name="my-open-dcos-cluster"
-  ssh_public_key_file="~/.ssh/id_rsa.pub"
+  cluster_name        = "my-open-dcos-cluster"
+  ssh_public_key_file = "~/.ssh/id_rsa.pub"
 
   num_masters        = "1"
   num_private_agents = "2"
   num_public_agents  = "1"
 
   dcos_variant = "open"
-  
-  
+  dcos_version = "1.11.4"
 }
 
 output "masters-ips" {
@@ -85,17 +109,13 @@ output "cluster-address" {
 output "public-agents-loadbalancer" {
   value = "${module.dcos.public-agents-loadbalancer}"
 }
-``` 
+```
 
-For simplicity and example purposes, our variables are hard-coded.  If you have a desired cluster name or amount of masters/agents, feel free to adjust the values directly in this `main.tf`. You can find additional input variables and their descriptions [here](http://registry.terraform.io/modules/dcos-terraform/dcos/aws/).
+For simplicity, all variables in this example have been hard-coded.  If you want to change the cluster name or vary the number of masters/agents, feel free to adjust the values directly in this `main.tf`.
 
-Note that you will get the following outputs from this `main.tf` once the cluster is built:
-- ```master-ips``` - A list of Your DC/OS Master Nodes.
-- ```cluster-address``` - This will be the URL you use to access DC/OS UI after the cluster is setup.
-- ```public-agent-loadbalancer``` - This will be the URL of your Public routable services.
+You can find additional input variables and their descriptions [here](http://registry.terraform.io/modules/dcos-terraform/dcos/aws/).
 
-
-3) Next, let’s initialize our modules.  Make sure you’re in the dcos-tf-aws-demo folder with `main.tf`.  
+3) Next, let’s initialize our modules.  Make sure you are cd'd into into the `dcos-tf-aws-demo` folder where you just created your `main.tf` file.
 
 ```bash
 terraform init
@@ -106,19 +126,21 @@ terraform init
 </p>
 
 
-4) Next, we’ll run the execution plan and save this plan to a static file - in this case, `plan.out`. Writing our execution plan to a file allows for us to pass the execution plan to the apply and helps us guarantee accuracy of our plan. Note that this file is ONLY readable by Terraform.
+4) After Terraform has been initialized, the next step is to run the execution plan and save it to a static file - in this case, `plan.out`.
 
 ```bash
 terraform plan -out=plan.out
 ```
 
-Afterwards, we should see a message like the one below, confirming that we have successfully saved to the `plan.out` file.  This file should appear in your dcos-tf-aws-demo folder alongside `main.tf`.
+Writing our execution plan to a file allows us to pass the execution plan to the `apply` command below as well help us guarantee the accuracy of the plan. Note that this file is ONLY readable by Terraform.
+
+Afterwards, we should see a message like the one below, confirming that we have successfully saved to the `plan.out` file.  This file should appear in your `dcos-tf-aws-demo` folder alongside `main.tf`.
 
 <p align=center>  
 <img src="../images/install/terraform-plan.png" />
 </p>
 
-Every time you run terraform plan, the output will always detail the resources your plan will be adding, changing or destroying.  Since we are creating our DC/OS cluster for the very first time, our output tells us that our plan will result in adding 38 pieces of infrastructure/resources.
+Every time you run `terraform plan`, the output will always detail the resources your plan will be adding, changing or destroying.  Since we are creating our DC/OS cluster for the very first time, our output tells us that our plan will result in adding 38 pieces of infrastructure/resources.
 
 5) The next step is to get Terraform to build/deploy our plan.  Run the command below.
 
@@ -126,7 +148,7 @@ Every time you run terraform plan, the output will always detail the resources y
 terraform apply plan.out
 ```
 
-Once Terraform has completed applying our plan, you should see an output similar to the one below.  You can now enter the `cluster-address` output to access your DC/OS cluster in the browser of your choice (Chrome, Safari recommended).  
+Once Terraform has completed applying our plan, you should see output similar to the following:  
 
 <p align=center>
 <img src="../images/install/terraform-apply.png" />
@@ -143,23 +165,24 @@ And congratulations - you’re done!  In just 4 steps, you’ve successfully ins
 </p>
 
 # Scaling Your Cluster
-1) To scale the number of agents (private or public) in your cluster, simply increase the value set for the `num_private_agents` and/or `num_public_agents` in your `main.tf` file. In this example we are going to scale our cluster from 2 Private Agents to 3.
+Terraform makes it easy to scale your cluster to add additional agents (public or private) once the initial cluster has been created. Simply follow the instructions below.
+
+1) Increase the value for the `num_private_agents` and/or `num_public_agents` in your `main.tf` file. In this example we are going to scale our cluster from 2 Private Agents to 3.
 
 
 ```hcl
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
 
-  cluster_name="my-open-dcos-cluster"
-  ssh_public_key_file="~/.ssh/id_rsa.pub"
+  cluster_name        = "my-open-dcos-cluster"
+  ssh_public_key_file = "~/.ssh/id_rsa.pub"
 
   num_masters        = "1"
   num_private_agents = "3"
   num_public_agents  = "1"
 
   dcos_variant = "open"
-  
-  
+  dcos_version = "1.11.4"
 }
 
 output "masters-ips" {
@@ -179,7 +202,7 @@ output "public-agents-loadbalancer" {
 
 ```bash
 terraform plan -out=plan.out
-``` 
+```
 
 Doing this helps us to ensure that our state is stable and to confirm that we will only be creating the resources necessary to scale our Private Agents to the desired number.
 
@@ -187,9 +210,9 @@ Doing this helps us to ensure that our state is stable and to confirm that we wi
 <img src="../images/scale/terraform-plan.png" />
 </p>
 
-You should see a message similar to above.  There will be 3 resources added as a result of scaling up our cluster’s Private Agents (1 instance resource & 2 null resources which handle the DC/OS installation & prerequisites behind the scenes).
+After executing the plan, you should see a message similar to above. There will be 3 resources added as a result of scaling up our cluster’s Private Agents (1 instance resource & 2 null resources which handle the DC/OS installation & prerequisites behind the scenes).
 
-3) Now that our plan is set, just like before, let’s get Terraform to build/deploy it.
+3) Now that our plan is set, let’s get Terraform to build/deploy the new set of resources.
 
 ```bash
 terraform apply plan.out
@@ -199,7 +222,7 @@ terraform apply plan.out
 <img src="../images/scale/terraform-apply.png" />
 </p>
 
-Once you see an output like the message above, check your DC/OS cluster.  
+Once you see an output like the message above, check your DC/OS cluster to ensure the additional agents have been added.  
 
 You should see now 4 total nodes connected like below via the DC/OS UI.
 
@@ -209,30 +232,30 @@ You should see now 4 total nodes connected like below via the DC/OS UI.
 
 
 # Upgrading Your Cluster
-Next, let’s upgrade our cluster.
+Terraform also makes it easy to upgrade our cluster to a newer version of DC/OS.
+If you are interested in learning more about the upgrade procedure that Terraform performs, please see the official [DC/OS Upgrade documentation](https://docs.mesosphere.com/1.11/installing/production/upgrading/).
 
-You can use DC/OS Terraform to not only install, but to maintain and upgrade your cluster to newer versions of DC/OS quickly and effortlessly.
+1) In order to perform an upgrade, we need to go back to our `main.tf` and specify an additional parameter (`dcos_install_mode`). By default this parameter is set to `install`, which is why we were able to leave it unset when creating the initial DC/OS cluster and scaling it.
 
-Let’s go back to our `main.tf` and specify an additional parameter.  You can check the many parameters available for you to add in `main.tf` to get the most power out of DC/OS Terraform [here](http://registry.terraform.io/modules/dcos-terraform/dcos/aws/). In the meantime, we’ll just focus on one - `dcos_install_mode`.
+Since we’re now upgrading, however, we need to set this parameter to `upgrade`.
 
-Since we’re upgrading, we set this parameter to `upgrade`. 
+**NOTE:** We do not actually upgrade DC/OS to a newer version during this procedure. We simply upgrade it in place to the same version in order to demonstrate how it can be done.
 
-1) Add additional line to `main.tf` to flag triggers for upgrade procedure. 
+**IMPORTANT:** Do not change any number of masters, agents or public agents while performing an upgrade.
 
 ```hcl
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
 
-  cluster_name="my-open-dcos-cluster"
-  ssh_public_key_file="~/.ssh/id_rsa.pub"
+  cluster_name        = "my-open-dcos-cluster"
+  ssh_public_key_file = "~/.ssh/id_rsa.pub"
 
   num_masters        = "1"
   num_private_agents = "3"
   num_public_agents  = "1"
 
   dcos_variant = "open"
-  dcos_install_mode = "upgrade"
-   
+  dcos_version = "1.11.5"
 }
 
 output "masters-ips" {
@@ -248,10 +271,10 @@ output "public-agents-loadbalancer" {
 }
 ```
 
-2) Let’s run our execution plan.  
+2) Re-run our execution plan.  
 
 ```bash
-terraform plan -out=plan.out
+terraform plan -out=plan.out -var dcos_install_mode=upgrade
 ```
 
 You should see an output like below.
@@ -260,34 +283,36 @@ You should see an output like below.
 <img src="../images/upgrade/terraform-plan.png" />
 </p>
 
-If you are interested in learning more about the upgrade procedure that Terraform performs, please see the official [DC/OS Upgrade documentation](https://docs.mesosphere.com/1.11/installing/production/upgrading/). 
 
-
-3) Now that our execution plan is set, just like before, let’s get Terraform to build/deploy it.
+3) Apply the plan.
 
 ```bash
 terraform apply plan.out
 ```
 
-Once the apply is completed successfully, you can now verify that the cluster was upgraded via the DC/OS UI.
+Once the apply completes, you can verify that the cluster was upgraded via the DC/OS UI.
 
 <p align=center>
 <img src="../images/upgrade/cluster-details.png" />
 </p>
 
-4) Once your have upgraded your cluster successfully, you will either need to completely remove the line containing `dcos_install_mode` or change the value back to `install`. *Failing to do this will cause issues if or when trying to scale your cluster*.
+4) Once your have upgraded your cluster successfully, you will need to completely remove the line containing `dcos_install_mode` or change the value to `install`.
 
-
+  **Failing to do this will cause issues when attempting to scale your cluster in the future**.
 
 # Deleting Your Cluster
-If you’re done and would like to destroy your DC/OS cluster and its associated resources, simply run the following command:
+If you ever decide you would like to destroy your cluster, simply run the following command and wait for it to complete:
 
 ```bash
-terraform destroy 
+terraform destroy
 ```
 
-You will be required to enter ‘yes’ to ensure you want to destroy your cluster.
+**Note:** Runing this command will cause your entire cluster and all at its associated resources to be destroyed. Only run this command if you are absolutely sure you no longer need access to your cluster.
+
+You will be required to enter ‘yes’ to ensure you know what you are doing.
 
 <p align=center>
 <img src="../images/destroy/terraform-destory.png" />
 </p>
+
+After that. You're done!
