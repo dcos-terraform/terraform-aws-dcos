@@ -8,7 +8,7 @@ If you’re new to Terraform and/or want to deploy DC/OS on AWS quickly and effo
 - Upgrading the cluster
 - Deleting the cluster
 
-# Prerequisites: 
+# Prerequisites:
 Terraform, cloud credentials, and SSH keys:
 
 ## You’ll need Terraform.
@@ -47,7 +47,7 @@ DC/OS Enterprise Edition also requires a valid license key provided by Mesospher
 Username: `bootstrapuser`
 Password: `deleteme`
 
-Please note that this should *NOT* be used in a Production environment and you will need generate a password hash. 
+Please note that this should *NOT* be used in a Production environment and you will need generate a password hash.
 
 
 # Creating a Cluster
@@ -55,7 +55,7 @@ Please note that this should *NOT* be used in a Production environment and you w
 1) Let’s start by creating a local folder.
 
 ```bash
-mkdir dcos-tf-aws-demo && cd dcos-tf-aws-demo 
+mkdir dcos-tf-aws-demo && cd dcos-tf-aws-demo
 ```
 
 2) Copy and paste the example code below into a new file and save it as `main.tf` in our folder.
@@ -70,31 +70,32 @@ The example code below creates a DC/OS OSS 1.11.4 cluster on AWS with:
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
 
-  cluster_name="my-ee-dcos-cluster"
-  ssh_public_key_file="~/.ssh/id_rsa.pub"
+  cluster_name        = "my-ee-dcos-cluster"
+  ssh_public_key_file = "~/.ssh/id_rsa.pub"
 
   num_masters        = "1"
   num_private_agents = "2"
   num_public_agents  = "1"
 
-  dcos_variant = "ee"
-  dcos_license_key_contents = "LICENSE_KEY_HERE"
+  dcos_variant                 = "ee"
+  dcos_version                 = "1.11.4"
+  dcos_license_key_contents    = "LICENSE_KEY_HERE"
   dcos_superuser_password_hash = "HASH_VALUE_GENERATED_FROM_ABOVE"
-  dcos_superuser_username = "admin"
+  dcos_superuser_username      = "admin"
 }
 
 output "masters-ips" {
-  value       = "${module.dcos.masters-ips}"
+  value = "${module.dcos.masters-ips}"
 }
 
 output "cluster-address" {
-  value       = "${module.dcos.masters-loadbalancer}"
+  value = "${module.dcos.masters-loadbalancer}"
 }
 
 output "public-agents-loadbalancer" {
   value = "${module.dcos.public-agents-loadbalancer}"
 }
-``` 
+```
 
 For simplicity and example purposes, our variables are hard-coded.  If you have a desired cluster name or amount of masters/agents, feel free to adjust the values directly in this `main.tf`. You can find additional input variables and their descriptions [here](http://registry.terraform.io/modules/dcos-terraform/dcos/aws/).
 
@@ -157,26 +158,26 @@ Use the default login mentioned above: `bootstrapuser/deleteme`
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
 
-  cluster_name="my-ee-dcos-cluster"
-  ssh_public_key_file="~/.ssh/id_rsa.pub"
+  cluster_name        = "my-ee-dcos-cluster"
+  ssh_public_key_file = "~/.ssh/id_rsa.pub"
 
   num_masters        = "1"
   num_private_agents = "3"
   num_public_agents  = "1"
 
-  dcos_variant = "ee"
-  dcos_license_key_contents = "LICENSE_KEY_HERE"
+  dcos_variant                 = "ee"
+  dcos_version                 = "1.11.4"
+  dcos_license_key_contents    = "LICENSE_KEY_HERE"
   dcos_superuser_password_hash = "HASH_VALUE_GENERATED_FROM_ABOVE"
-  dcos_superuser_username = "admin"
-  
+  dcos_superuser_username      = "admin"
 }
 
 output "masters-ips" {
-  value       = "${module.dcos.masters-ips}"
+  value = "${module.dcos.masters-ips}"
 }
 
 output "cluster-address" {
-  value       = "${module.dcos.masters-loadbalancer}"
+  value = "${module.dcos.masters-loadbalancer}"
 }
 
 output "public-agents-loadbalancer" {
@@ -188,7 +189,7 @@ output "public-agents-loadbalancer" {
 
 ```bash
 terraform plan -out=plan.out
-``` 
+```
 
 Doing this helps us to ensure that our state is stable and to confirm that we will only be creating the resources necessary to scale our Private Agents to the desired number.
 
@@ -224,35 +225,34 @@ You can use DC/OS Terraform to not only install, but to maintain and upgrade you
 
 Let’s go back to our `main.tf` and specify an additional parameter.  You can check the many parameters available for you to add in `main.tf` to get the most power out of DC/OS Terraform [here](http://registry.terraform.io/modules/dcos-terraform/dcos/aws/). In the meantime, we’ll just focus on one - `dcos_install_mode`.
 
-Since we’re upgrading, we set this parameter to `upgrade`. 
+Since we’re upgrading, we set this parameter to `upgrade`.
 
-1) Add additional line to `main.tf` to flag triggers for upgrade procedure. 
+1) Add additional line to `main.tf` to flag triggers for upgrade procedure.
 
 ```hcl
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
 
-  cluster_name="my-ee-dcos-cluster"
-  ssh_public_key_file="~/.ssh/id_rsa.pub"
+  cluster_name        = "my-ee-dcos-cluster"
+  ssh_public_key_file = "~/.ssh/id_rsa.pub"
 
   num_masters        = "1"
   num_private_agents = "3"
   num_public_agents  = "1"
 
-  dcos_variant = "ee"
-  dcos_license_key_contents = "LICENSE_KEY_HERE"
+  dcos_variant                 = "ee"
+  dcos_version                 = "1.11.4"
+  dcos_license_key_contents    = "LICENSE_KEY_HERE"
   dcos_superuser_password_hash = "HASH_VALUE_GENERATED_FROM_ABOVE"
-  dcos_superuser_username = "admin"
-  dcos_install_mode = "upgrade"
-   
+  dcos_superuser_username      = "admin"
 }
 
 output "masters-ips" {
-  value       = "${module.dcos.masters-ips}"
+  value = "${module.dcos.masters-ips}"
 }
 
 output "cluster-address" {
-  value       = "${module.dcos.masters-loadbalancer}"
+  value = "${module.dcos.masters-loadbalancer}"
 }
 
 output "public-agents-loadbalancer" {
@@ -263,7 +263,7 @@ output "public-agents-loadbalancer" {
 2) Let’s run our execution plan.  
 
 ```bash
-terraform plan -out=plan.out
+terraform plan -out=plan.out -var dcos_install_mode=upgrade
 ```
 
 You should see an output like below.
@@ -272,7 +272,7 @@ You should see an output like below.
 <img src="../images/upgrade/terraform-plan.png" />
 </p>
 
-If you are interested in learning more about the upgrade procedure that Terraform performs, please see the official [DC/OS Upgrade documentation](https://docs.mesosphere.com/1.11/installing/production/upgrading/). 
+If you are interested in learning more about the upgrade procedure that Terraform performs, please see the official [DC/OS Upgrade documentation](https://docs.mesosphere.com/1.11/installing/production/upgrading/).
 
 
 3) Now that our execution plan is set, just like before, let’s get Terraform to build/deploy it.
@@ -295,7 +295,7 @@ Once the apply is completed successfully, you can now verify that the cluster wa
 If you’re done and would like to destroy your DC/OS cluster and its associated resources, simply run the following command:
 
 ```bash
-terraform destroy 
+terraform destroy
 ```
 
 You will be required to enter ‘yes’ to ensure you want to destroy your cluster.

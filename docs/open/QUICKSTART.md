@@ -8,7 +8,7 @@ If you’re new to Terraform and/or want to deploy DC/OS on AWS quickly and effo
 3) Upgrade the cluster to a newer version of DC/OS
 4) Destroy the cluster and all AWS resources associated with it
 
-# Prerequisites: 
+# Prerequisites:
 Terraform, AWS cloud credentials, SSH keys
 
 ## Installing Terraform.
@@ -26,8 +26,7 @@ Terraform v0.11.8
 For help installing Terraform on a different OS, please see [here](https://www.terraform.io/downloads.html):
 
 ## Ensure you have your AWS Cloud Credentials Properly Set up
-I'm not sure exactly waht the best way to do this is. 
-Someone should fill this in with more instructions.
+Please follow the AWS guide [Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) how to setup your credentials.
 
 ## Set the Default AWS Region
 The current Terraform Provider for AWS requires that the default AWS region be set before it can be used. You can set the default region with the following command:
@@ -64,10 +63,10 @@ ssh-add ~/.ssh/aws-id-rsa
 
 # Creating a Cluster
 
-1) Let’s start by creating a local folder and cd'ing into it. This folder will be used as the staging ground for downloading all required Terraform modules and holding the configuration for the cluster you are about to create. 
+1) Let’s start by creating a local folder and cd'ing into it. This folder will be used as the staging ground for downloading all required Terraform modules and holding the configuration for the cluster you are about to create.
 
 ```bash
-mkdir dcos-tf-aws-demo && cd dcos-tf-aws-demo 
+mkdir dcos-tf-aws-demo && cd dcos-tf-aws-demo
 ```
 
 2) Once that is done, copy and paste the example code below into a new file and save it as `main.tf` in the newly created folder.
@@ -88,14 +87,15 @@ It also specifies that the following output should be printed once cluster creat
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
 
-  cluster_name="my-open-dcos-cluster"
-  ssh_public_key_file="~/.ssh/id_rsa.pub"
+  cluster_name        = "my-open-dcos-cluster"
+  ssh_public_key_file = "~/.ssh/id_rsa.pub"
 
   num_masters        = "1"
   num_private_agents = "2"
   num_public_agents  = "1"
 
   dcos_variant = "open"
+  dcos_version = "1.11.4"
 }
 
 output "masters-ips" {
@@ -109,7 +109,7 @@ output "cluster-address" {
 output "public-agents-loadbalancer" {
   value = "${module.dcos.public-agents-loadbalancer}"
 }
-``` 
+```
 
 For simplicity, all variables in this example have been hard-coded.  If you want to change the cluster name or vary the number of masters/agents, feel free to adjust the values directly in this `main.tf`.
 
@@ -174,14 +174,15 @@ Terraform makes it easy to scale your cluster to add additional agents (public o
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
 
-  cluster_name="my-open-dcos-cluster"
-  ssh_public_key_file="~/.ssh/id_rsa.pub"
+  cluster_name        = "my-open-dcos-cluster"
+  ssh_public_key_file = "~/.ssh/id_rsa.pub"
 
   num_masters        = "1"
   num_private_agents = "3"
   num_public_agents  = "1"
 
   dcos_variant = "open"
+  dcos_version = "1.11.4"
 }
 
 output "masters-ips" {
@@ -201,7 +202,7 @@ output "public-agents-loadbalancer" {
 
 ```bash
 terraform plan -out=plan.out
-``` 
+```
 
 Doing this helps us to ensure that our state is stable and to confirm that we will only be creating the resources necessary to scale our Private Agents to the desired number.
 
@@ -232,28 +233,29 @@ You should see now 4 total nodes connected like below via the DC/OS UI.
 
 # Upgrading Your Cluster
 Terraform also makes it easy to upgrade our cluster to a newer version of DC/OS.
-If you are interested in learning more about the upgrade procedure that Terraform performs, please see the official [DC/OS Upgrade documentation](https://docs.mesosphere.com/1.11/installing/production/upgrading/). 
+If you are interested in learning more about the upgrade procedure that Terraform performs, please see the official [DC/OS Upgrade documentation](https://docs.mesosphere.com/1.11/installing/production/upgrading/).
 
-1) In order to perform an upgrade, we need to go back to our `main.tf` and specify an additional parameter (`dcos_install_mode`). By default this parameter is set to `install`, which is why we were able to leave it unset when creating the initial DC/OS cluster and scaling it. 
+1) In order to perform an upgrade, we need to go back to our `main.tf` and specify an additional parameter (`dcos_install_mode`). By default this parameter is set to `install`, which is why we were able to leave it unset when creating the initial DC/OS cluster and scaling it.
 
 Since we’re now upgrading, however, we need to set this parameter to `upgrade`.
 
 **NOTE:** We do not actually upgrade DC/OS to a newer version during this procedure. We simply upgrade it in place to the same version in order to demonstrate how it can be done.
 
+**IMPORTANT:** Do not change any number of masters, agents or public agents while performing an upgrade.
 
 ```hcl
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
 
-  cluster_name="my-open-dcos-cluster"
-  ssh_public_key_file="~/.ssh/id_rsa.pub"
+  cluster_name        = "my-open-dcos-cluster"
+  ssh_public_key_file = "~/.ssh/id_rsa.pub"
 
   num_masters        = "1"
   num_private_agents = "3"
   num_public_agents  = "1"
 
   dcos_variant = "open"
-  dcos_install_mode = "upgrade"
+  dcos_version = "1.11.5"
 }
 
 output "masters-ips" {
@@ -272,7 +274,7 @@ output "public-agents-loadbalancer" {
 2) Re-run our execution plan.  
 
 ```bash
-terraform plan -out=plan.out
+terraform plan -out=plan.out -var dcos_install_mode=upgrade
 ```
 
 You should see an output like below.
@@ -302,7 +304,7 @@ Once the apply completes, you can verify that the cluster was upgraded via the D
 If you ever decide you would like to destroy your cluster, simply run the following command and wait for it to complete:
 
 ```bash
-terraform destroy 
+terraform destroy
 ```
 
 **Note:** Runing this command will cause your entire cluster and all at its associated resources to be destroyed. Only run this command if you are absolutely sure you no longer need access to your cluster.
