@@ -2,8 +2,8 @@
 
 pipeline {
     agent none
-    deleteDir()
     stages {
+        step([$class: 'WsCleanup'])
         stage('Checkout') {
             checkout scm
         }
