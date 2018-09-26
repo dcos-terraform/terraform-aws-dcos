@@ -4,7 +4,7 @@ pipeline {
     agent none
     stages {
         stage('Clean Start') {
-            step([$class: 'WsCleanup'])
+            steps([$class: 'WsCleanup'])
         }
         stage('Checkout') {
             steps {
