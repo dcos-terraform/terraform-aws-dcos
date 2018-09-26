@@ -16,6 +16,13 @@ pipeline {
                 sh 'terraform validate -check-variables=false'
             }
         }
+        stage('Validate README go generated') {
+            agent { label 'terraform' }
+            steps {
+                sh 'terraform-docs md ./ >README.md'
+                sh 'git --no-pager diff --exit-code'
+            }
+        }
         stage('Validate variables.tf descriptions') {
             agent { label "tfdescsan" }
             steps {
