@@ -2,7 +2,11 @@
 
 pipeline {
     agent none
+    deleteDir()
     stages {
+        stage('Checkout') {
+            checkout scm
+        }
         stage('Terraform FMT') {
             agent { label 'terraform' }
             steps {
