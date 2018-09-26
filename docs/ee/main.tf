@@ -1,3 +1,8 @@
+variable "dcos_install_mode" {
+  description = "specifies which type of command to execute. Options: install or upgrade"
+  default = "install"
+}
+
 module "dcos" {
   source = "dcos-terraform/dcos/aws"
 
@@ -11,6 +16,7 @@ module "dcos" {
   dcos_variant              = "ee"
   dcos_version              = "1.11.4"
   dcos_license_key_contents = "LICENSE_KEY_HERE"
+  dcos_install_mode = "${var.dcos_install_mode}"
 }
 
 output "masters-ips" {
