@@ -12,7 +12,7 @@ pipeline {
         stage('Terraform validate') {
             agent { label 'terraform' }
             steps {
-                sh 'terraform init'
+                sh 'terraform init --upgrade'
                 sh 'terraform validate -check-variables=false'
             }
         }
