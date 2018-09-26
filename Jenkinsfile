@@ -3,9 +3,6 @@
 pipeline {
     agent none
     stages {
-        stage('Clean Start') {
-            steps([$class: 'WsCleanup'])
-        }
         stage('Checkout') {
             steps {
                 checkout scm
@@ -42,6 +39,9 @@ pipeline {
             steps {
                 sh 'tfdescsan --test --tsv https://dcos-terraform-mappings.mesosphere.com/ --var outputs.tf --cloud "$(echo ${JOB_NAME##*/terraform-} | sed -E "s/(rm)?-.*//")"'
             }
+        }
+        stage('Cleanup') {
+            steps([$class: 'WsCleanup'])
         }
     }
 }
