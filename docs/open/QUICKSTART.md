@@ -84,6 +84,11 @@ It also specifies that the following output should be printed once cluster creat
 - ```public-agent-loadbalancer``` - The URL of your Public routable services.
 
 ```hcl
+variable "dcos_install_mode" {
+  description = "specifies which type of command to execute. Options: install or upgrade"
+  default = "install"
+}
+
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
 
@@ -96,6 +101,7 @@ module "dcos" {
 
   dcos_variant = "open"
   dcos_version = "1.11.4"
+  dcos_install_mode = "${var.dcos_install_mode}"
 }
 
 output "masters-ips" {
@@ -171,6 +177,11 @@ Terraform makes it easy to scale your cluster to add additional agents (public o
 
 
 ```hcl
+variable "dcos_install_mode" {
+  description = "specifies which type of command to execute. Options: install or upgrade"
+  default = "install"
+}
+
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
 
@@ -183,6 +194,7 @@ module "dcos" {
 
   dcos_variant = "open"
   dcos_version = "1.11.4"
+  dcos_install_mode = "${var.dcos_install_mode}"
 }
 
 output "masters-ips" {
@@ -242,6 +254,11 @@ Since we’re now upgrading, however, we need to set this parameter to `upgrade`
 **IMPORTANT:** Do not change any number of masters, agents or public agents while performing an upgrade.
 
 ```hcl
+variable "dcos_install_mode" {
+  description = "specifies which type of command to execute. Options: install or upgrade"
+  default = "install"
+}
+
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
 
@@ -254,6 +271,7 @@ module "dcos" {
 
   dcos_variant = "open"
   dcos_version = "1.11.5"
+  dcos_install_mode = "${var.dcos_install_mode}"
 }
 
 output "masters-ips" {
