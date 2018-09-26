@@ -91,8 +91,13 @@ It also specifies that the following output should be printed once cluster creat
 - ```public-agent-loadbalancer``` - The URL of your Public routable services.
 
 ```hcl
+variable "dcos_install_mode" {
+  description = "specifies which type of command to execute. Options: install or upgrade"
+  default = "install"
+}
+
 module "dcos" {
-  source  = "dcos-terraform/dcos/aws"
+  source = "dcos-terraform/dcos/aws"
 
   cluster_name        = "my-ee-dcos"
   ssh_public_key_file = "~/.ssh/id_rsa.pub"
@@ -101,9 +106,10 @@ module "dcos" {
   num_private_agents = "2"
   num_public_agents  = "1"
 
-  dcos_variant                 = "ee"
-  dcos_version                 = "1.11.4"
-  dcos_license_key_contents    = "LICENSE_KEY_HERE"
+  dcos_variant              = "ee"
+  dcos_version              = "1.11.4"
+  dcos_license_key_contents = "LICENSE_KEY_HERE"
+  dcos_install_mode = "${var.dcos_install_mode}"
 }
 
 output "masters-ips" {
@@ -178,6 +184,11 @@ Terraform makes it easy to scale your cluster to add additional agents (public o
 
 
 ```hcl
+variable "dcos_install_mode" {
+  description = "specifies which type of command to execute. Options: install or upgrade"
+  default = "install"
+}
+
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
 
@@ -191,6 +202,7 @@ module "dcos" {
   dcos_variant                 = "ee"
   dcos_version                 = "1.11.4"
   dcos_license_key_contents    = "LICENSE_KEY_HERE"
+  dcos_install_mode = "${var.dcos_install_mode}"
 }
 
 output "masters-ips" {
@@ -250,6 +262,11 @@ Since we’re now upgrading, however, we need to set this parameter to `upgrade`
 **IMPORTANT:** Do not change any number of masters, agents or public agents while performing an upgrade.
 
 ```hcl
+variable "dcos_install_mode" {
+  description = "specifies which type of command to execute. Options: install or upgrade"
+  default = "install"
+}
+
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
 
@@ -263,6 +280,7 @@ module "dcos" {
   dcos_variant                 = "ee"
   dcos_version                 = "1.11.5"
   dcos_license_key_contents    = "LICENSE_KEY_HERE"
+  dcos_install_mode = "${var.dcos_install_mode}"
 }
 
 output "masters-ips" {
