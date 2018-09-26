@@ -1,6 +1,8 @@
 DC/OS on AWS
 ============
-[Quick Start Guide for Open Source DC/OS](https://github.com/dcos-terraform/terraform-aws-dcos/blob/master/docs/open/QUICKSTART.md) 
+Creates a DC/OS Cluster on AWS
+
+[Quick Start Guide for Open Source DC/OS](https://github.com/dcos-terraform/terraform-aws-dcos/blob/master/docs/open/QUICKSTART.md)
 
 [Quick Start Guide for Enterprise DC/OS](https://github.com/dcos-terraform/terraform-aws-dcos/blob/master/docs/ee/QUICKSTART.md)
 
@@ -15,7 +17,7 @@ module "dcos" {
   version = "~> 0.1"
 
   cluster_name = "mydcoscluster"
-  ssh_public_key_file = "~/.ssh/key.pub"
+  ssh_public_key = "ssh-rsa ..."
 
   num_masters = "3"
   num_private_agents = "2"
@@ -26,21 +28,22 @@ module "dcos" {
 }
 ```
 
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | admin_ips | List of CIDR admin IPs | string | `<list>` | no |
 | availability_zones | Availability zones to be used | list | `<list>` | no |
-| aws_ami | AMI that will be used for the instances instead of the Mesosphere provided AMIs | string | `` | no |
+| aws_ami | AMI that will be used for the instances instead of Mesosphere provided AMIs | string | `` | no |
 | aws_key_name | Specify the aws ssh key to use. We assume its already loaded in your SSH agent. Set ssh_public_key to none | string | `` | no |
 | bootstrap_associate_public_ip_address | [BOOTSTRAP] Associate a public ip address with there instances | string | `true` | no |
 | bootstrap_aws_ami | [BOOTSTRAP] AMI to be used | string | `` | no |
 | bootstrap_instance_type | [BOOTSTRAP] Instance type | string | `t2.medium` | no |
 | bootstrap_os | [BOOTSTRAP] Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `` | no |
 | bootstrap_private_ip | used for the private ip for the bootstrap url | string | `` | no |
-| bootstrap_root_volume_size | [BOOTSTRAP] Root volume size | string | `80` | no |
-| bootstrap_root_volume_type | [BOOTSTRAP] Specify the root volume type. | string | `standard` | no |
+| bootstrap_root_volume_size | [BOOTSTRAP] Root volume size in GB | string | `80` | no |
+| bootstrap_root_volume_type | [BOOTSTRAP] Root volume type | string | `standard` | no |
 | cluster_name | Name of the DC/OS cluster | string | `dcos-example` | no |
 | custom_dcos_download_path | insert location of dcos installer script (optional) | string | `` | no |
 | dcos_adminrouter_tls_1_0_enabled | Indicates whether to enable TLSv1 support in Admin Router. (optional) | string | `` | no |
@@ -89,7 +92,7 @@ module "dcos" {
 | dcos_exhibitor_storage_backend | options are aws_s3, azure, or zookeeper (recommended) | string | `static` | no |
 | dcos_exhibitor_zk_hosts | a comma-separated list of one or more ZooKeeper node IP and port addresses to use for configuring the internal Exhibitor instances. (not recommended but required with exhibitor_storage_backend set to ZooKeeper. Use aws_s3 or azure instead. Assumes external ZooKeeper is already online.) | string | `` | no |
 | dcos_exhibitor_zk_path | the filepath that Exhibitor uses to store data (not recommended but required with exhibitor_storage_backend set to `zookeeper`. Use `aws_s3` or `azure` instead. Assumes external ZooKeeper is already online.) | string | `` | no |
-| dcos_fault_domain_detect_contents | [Enterprise DC/OS] fault domain script contents. Optional but required if no fault-domain-detect script present. | string | `#!/bin/sh set -o nounset -o errexit<br><br>METADATA="$(curl http://169.254.169.254/latest/dynamic/instance-identity/document 2>/dev/null)" REGION=$(echo $METADATA | grep -Po "\"region\"\s+:\s+\"(.*?)\"" | cut -f2 -d:) ZONE=$(echo $METADATA | grep -Po "\"availabilityZone\"\s+:\s+\"(.*?)\"" | cut -f2 -d:)<br><br>echo "{\"fault_domain\":{\"region\":{\"name\": $REGION},\"zone\":{\"name\": $ZONE}}}" ` | no |
+| dcos_fault_domain_detect_contents | [Enterprise DC/OS] fault domain script contents. Optional but required if no fault-domain-detect script present. | string | `` | no |
 | dcos_fault_domain_enabled | [Enterprise DC/OS] used to control if fault domain is enabled | string | `` | no |
 | dcos_gc_delay | The maximum amount of time to wait before cleaning up the executor directories (optional) | string | `` | no |
 | dcos_gpus_are_scarce | Indicates whether to treat GPUs as a scarce resource in the cluster. (optional) | string | `` | no |
@@ -97,8 +100,8 @@ module "dcos" {
 | dcos_https_proxy | the https proxy (optional) | string | `` | no |
 | dcos_install_mode | specifies which type of command to execute. Options: `install` or `upgrade` | string | `install` | no |
 | dcos_instance_os | Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `centos_7.4` | no |
-| dcos_ip_detect_contents | Allows DC/OS to detect your private address. Use this to pass this as an input to the module rather than a file in side your bootstrap node. (recommended) | string | `#!/bin/sh # Example ip-detect script using an external authority # Uses the AWS Metadata Service to get the node's internal # ipv4 address curl -fsSL http://169.254.169.254/latest/meta-data/local-ipv4 ` | no |
-| dcos_ip_detect_public_contents | Allows DC/OS to be aware of your publicly routeable address for ease of use (recommended) | string | `#!/bin/sh set -o nounset -o errexit<br><br>curl -fsSL http://whatismyip.akamai.com/ ` | no |
+| dcos_ip_detect_contents | Allows DC/OS to detect your private address. Use this to pass this as an input to the module rather than a file in side your bootstrap node. (recommended) | string | `` | no |
+| dcos_ip_detect_public_contents | Allows DC/OS to be aware of your publicly routeable address for ease of use (recommended) | string | `` | no |
 | dcos_ip_detect_public_filename | statically set your detect-ip-public path | string | `` | no |
 | dcos_l4lb_enable_ipv6 | A boolean that indicates if layer 4 load balancing is available for IPv6 networks. (optional) | string | `` | no |
 | dcos_license_key_contents | [Enterprise DC/OS] used to privide the license key of DC/OS for Enterprise Edition. Optional if license.txt is present on bootstrap node. | string | `` | no |
@@ -107,7 +110,7 @@ module "dcos" {
 | dcos_master_dns_bindall | Indicates whether the master DNS port is open. (optional) | string | `` | no |
 | dcos_master_external_loadbalancer | Allows DC/OS to configure certs around the External Load Balancer name. If not used SSL verfication issues will arrise. EE only. (recommended) | string | `` | no |
 | dcos_master_list | statically set your master nodes (not recommended but required with exhibitor_storage_backend set to static. Use aws_s3 or azure instead, that way you can replace masters in the cloud.) | string | `` | no |
-| dcos_mesos_container_log_sink | The log manager for containers (tasks). The options are to send logs to: "journald", "logrotate", "journald+logrotate'". (optional) | string | `` | no |
+| dcos_mesos_container_log_sink | The log manager for containers (tasks). The options are to send logs to: 'journald', 'logrotate', 'journald+logrotate'. (optional) | string | `` | no |
 | dcos_mesos_dns_set_truncate_bit | Indicates whether to set the truncate bit if the response is too large to fit in a single packet. (optional) | string | `` | no |
 | dcos_mesos_max_completed_tasks_per_framework | The number of completed tasks for each framework that the Mesos master will retain in memory. (optional) | string | `` | no |
 | dcos_no_proxy | A YAML nested list (-) of addresses to exclude from the proxy. (optional) | string | `` | no |
@@ -134,9 +137,9 @@ module "dcos" {
 | dcos_superuser_password_hash | [Enterprise DC/OS] set the superuser password hash (recommended) | string | `` | no |
 | dcos_superuser_username | [Enterprise DC/OS] set the superuser username (recommended) | string | `` | no |
 | dcos_telemetry_enabled | change the telemetry option (optional) | string | `` | no |
-| dcos_variant | Main Variables | string | `open` | no |
 | dcos_ucr_default_bridge_subnet | IPv4 subnet allocated to the mesos-bridge CNI network for UCR bridge-mode networking. (optional) | string | `` | no |
 | dcos_use_proxy | to enable use of proxy for internal routing (optional) | string | `` | no |
+| dcos_variant | Main Variables | string | `open` | no |
 | dcos_version | specifies which dcos version instruction to use. Options: `1.9.0`, `1.8.8`, etc. _See [dcos_download_path](https://github.com/dcos/tf_dcos_core/blob/master/download-variables.tf) or [dcos_version](https://github.com/dcos/tf_dcos_core/tree/master/dcos-versions) tree for a full list._ | string | `1.11.4` | no |
 | dcos_zk_agent_credentials | [Enterprise DC/OS] set the ZooKeeper agent credentials (recommended) | string | `` | no |
 | dcos_zk_master_credentials | [Enterprise DC/OS] set the ZooKeeper master credentials (recommended) | string | `` | no |
@@ -145,7 +148,7 @@ module "dcos" {
 | masters_aws_ami | [MASTERS] AMI to be used | string | `` | no |
 | masters_instance_type | [MASTERS] Instance type | string | `m4.xlarge` | no |
 | masters_os | [MASTERS] Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `` | no |
-| masters_root_volume_size | [MASTERS] Root volume size | string | `120` | no |
+| masters_root_volume_size | [MASTERS] Root volume size in GB | string | `120` | no |
 | num_masters | Specify the amount of masters. For redundancy you should have at least 3 | string | `3` | no |
 | num_of_private_agents |  | string | `` | no |
 | num_of_public_agents |  | string | `` | no |
@@ -155,21 +158,23 @@ module "dcos" {
 | private_agents_aws_ami | [PRIVATE AGENTS] AMI to be used | string | `` | no |
 | private_agents_instance_type | [PRIVATE AGENTS] Instance type | string | `m4.xlarge` | no |
 | private_agents_os | [PRIVATE AGENTS] Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `` | no |
-| private_agents_root_volume_size | [PRIVATE AGENTS] Root volume size | string | `120` | no |
-| private_agents_root_volume_type | [PRIVATE AGENTS] Specify the root volume type. | string | `gp2` | no |
+| private_agents_root_volume_size | [PRIVATE AGENTS] Root volume size in GB | string | `120` | no |
+| private_agents_root_volume_type | [PRIVATE AGENTS] Root volume type | string | `gp2` | no |
 | public_agents_associate_public_ip_address | [PUBLIC AGENTS] Associate a public ip address with there instances | string | `true` | no |
 | public_agents_aws_ami | [PUBLIC AGENTS] AMI to be used | string | `` | no |
 | public_agents_instance_type | [PUBLIC AGENTS] Instance type | string | `m4.xlarge` | no |
 | public_agents_os | [PUBLIC AGENTS] Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `` | no |
 | public_agents_root_volume_size | [PUBLIC AGENTS] Root volume size | string | `120` | no |
 | public_agents_root_volume_type | [PUBLIC AGENTS] Specify the root volume type. | string | `gp2` | no |
-| ssh_public_key | SSH public key in authorized keys format (e.g. "ssh-rsa ..") to be used with the instances. Make sure you added this key to your ssh-agent | string | `` | no |
-| ssh_public_key_file | path to SSH public key. This is mandatory but can be set to `""` if you want to use `ssh_public_key` with the key as string | string | - | yes |
+| ssh_public_key | SSH public key in authorized keys format (e.g. 'ssh-rsa ..') to be used with the instances. Make sure you added this key to your ssh-agent. | string | `` | no |
+| ssh_public_key_file | Path to SSH public key. This is mandatory but can be set to an empty string if you want to use ssh_public_key with the key as string. | string | - | yes |
 | tags | Add custom tags to all resources | map | `<map>` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
+| masters-ips | Master IP addresses |
 | masters-loadbalancer | This is the load balancer address to access the DC/OS UI |
+| public-agents-loadbalancer | This is the load balancer address to access the DC/OS public agents |
 
