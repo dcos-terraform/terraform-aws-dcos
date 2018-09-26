@@ -3,9 +3,13 @@
 pipeline {
     agent none
     stages {
-        step([$class: 'WsCleanup'])
+        stage('Clean Start') {
+            step([$class: 'WsCleanup'])
+        }
         stage('Checkout') {
-            checkout scm
+            steps {
+                checkout scm
+            }
         }
         stage('Terraform FMT') {
             agent { label 'terraform' }
