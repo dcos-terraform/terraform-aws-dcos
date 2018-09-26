@@ -40,8 +40,10 @@ pipeline {
                 sh 'tfdescsan --test --tsv https://dcos-terraform-mappings.mesosphere.com/ --var outputs.tf --cloud "$(echo ${JOB_NAME##*/terraform-} | sed -E "s/(rm)?-.*//")"'
             }
         }
-        stage('Cleanup') {
-            steps([$class: 'WsCleanup'])
+    }
+    post {
+        always {
+            cleanWs()
         }
     }
 }
