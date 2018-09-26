@@ -3,11 +3,6 @@
 pipeline {
     agent none
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
         stage('Terraform FMT') {
             agent { label 'terraform' }
             steps {
