@@ -77,11 +77,11 @@ mkdir dcos-tf-aws-demo && cd dcos-tf-aws-demo
 
 2) Copy and paste the example code below into a new file and save it as `main.tf` in our folder.
 
-The example code below creates a DC/OS OSS 1.11.4 cluster on AWS with:
+The example code below creates a DC/OS EE 1.11.4 cluster on AWS with:
 - 1 Master
 - 2 Private Agents
 - 1 Public Agent
-- admin as the superuser username
+- `bootstrapuser/deleteme` login credentials
 
 It also specifies that a the list of `masters-ips`, the `cluster-address`, and the address of the `public-agents-loadbalancer` should be printed out after cluster creation is complete.
 
