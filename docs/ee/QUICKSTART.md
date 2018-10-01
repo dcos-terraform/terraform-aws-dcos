@@ -96,11 +96,16 @@ variable "dcos_install_mode" {
   default = "install"
 }
 
+data "http" "whatismyip" {
+  url = "http://whatismyip.akamai.com/"
+}
+
 module "dcos" {
   source = "dcos-terraform/dcos/aws"
 
   cluster_name        = "my-ee-dcos"
   ssh_public_key_file = "~/.ssh/id_rsa.pub"
+  admin_ips           = ["${data.http.whatismyip.body}/32"]
 
   num_masters        = "1"
   num_private_agents = "2"
@@ -125,7 +130,7 @@ output "public-agents-loadbalancer" {
 }
 ```
 
-For simplicity and example purposes, our variables are hard-coded.  If you have a desired cluster name or amount of masters/agents, feel free to adjust the values directly in this `main.tf`. 
+For simplicity and example purposes, our variables are hard-coded.  If you have a desired cluster name or amount of masters/agents, feel free to adjust the values directly in this `main.tf`.
 
 You can find additional input variables and their descriptions [here](http://registry.terraform.io/modules/dcos-terraform/dcos/aws/).
 
@@ -296,7 +301,7 @@ output "public-agents-loadbalancer" {
 }
 ```
 
-2) Re-run our execution plan. 
+2) Re-run our execution plan.
 
 ```bash
 terraform plan -out=plan.out -var dcos_install_mode=upgrade

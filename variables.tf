@@ -41,7 +41,6 @@ variable "tags" {
 
 variable "admin_ips" {
   description = "List of CIDR admin IPs"
-  default     = []
 }
 
 variable "availability_zones" {
