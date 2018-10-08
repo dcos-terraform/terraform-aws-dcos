@@ -1,18 +1,18 @@
 # Quick Start Guide
 
-If you’re new to Terraform and/or want to deploy DC/OS on AWS quickly and effortlessly - please follow this guide.  We’ll walk you through step-by-step on:
+If you’re new to Terraform and/or want to deploy DC/OS on AWS quickly and effortlessly - please follow this guide.  We’ll walk you through step-by-step on how to:
 
 
-- Creating a DC/OS EE Cluster
-- Scaling the cluster
-- Upgrading the cluster
-- Deleting the cluster
+1) Create an Open Source DC/OS Cluster on AWS
+2) Scale the cluster to a larger number of nodes
+3) Upgrade the cluster to a newer version of DC/OS
+4) Destroy the cluster and all AWS resources associated with it
 
 # Prerequisites:
-Terraform, cloud credentials, and SSH keys:
+Terraform, AWS cloud credentials, SSH keys
 
-## You’ll need Terraform.
-If you're on a Mac environment with homebrew installed, run this command.
+## Installing Terraform.
+If you're on a Mac environment with homebrew installed, simply run the following command:
 ```bash
 brew install terraform
 ```
@@ -23,20 +23,22 @@ $ terraform version
 Terraform v0.11.8
 ```
 
-For help installing Terraform on a different OS, see [here](https://www.terraform.io/downloads.html):
+For help installing Terraform on a different OS, please see [here](https://www.terraform.io/downloads.html):
 
+## Ensure you have your AWS Cloud Credentials Properly Set up
+Please follow the AWS guide [Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) how to setup your credentials.
 
-## Ensure AWS Default Region
-Current Terraform AWS Provider requires that the default region variable be set. You can set the default region using the following command:
+## Set the Default AWS Region
+The current Terraform Provider for AWS requires that the default AWS region be set before it can be used. You can set the default region with the following command:
 ```bash
-export AWS_DEFAULT_REGION="desired-aws-region"
+export AWS_DEFAULT_REGION="<desired-aws-region>"
 ```
-Example:
+For Example:
 ```bash
 export AWS_DEFAULT_REGION="us-east-1"
 ```
 
-Ensure it is set:
+Ensure it has been set:
 ```bash
 > echo $AWS_DEFAULT_REGION
 us-east-1
@@ -59,6 +61,8 @@ For Example:
 ssh-add ~/.ssh/aws-id-rsa
 ```
 
+## Enterprise Edition
+
 DC/OS Enterprise Edition also requires a valid license key provided by Mesosphere that we will pass into our `main.tf` as `dcos_license_key_contents`. For this guide we are going to use the default superuser and password to login:
 
 Username: `bootstrapuser`
@@ -66,22 +70,20 @@ Password: `deleteme`
 
 Please note that this should *NOT* be used in a Production environment and you will need generate a password hash.
 
-
 # Creating a Cluster
 
-1) Let’s start by creating a local folder.
+1) Let’s start by creating a local folder and cd'ing into it. This folder will be used as the staging ground for downloading all required Terraform modules and holding the configuration for the cluster you are about to create.
 
 ```bash
 mkdir dcos-tf-aws-demo && cd dcos-tf-aws-demo
 ```
 
-2) Copy and paste the example code below into a new file and save it as `main.tf` in our folder.
+2) Once that is done, copy and paste the example code below into a new file and save it as `main.tf` in the newly created folder.
 
-The example code below creates a DC/OS EE 1.11.4 cluster on AWS with:
+This example code tells Terraform to create a DC/OS OSS 1.11.4 cluster on AWS with:
 - 1 Master
 - 2 Private Agents
 - 1 Public Agent
-- `bootstrapuser/deleteme` login credentials
 
 It also specifies that a the list of `masters-ips`, the `cluster-address`, and the address of the `public-agents-loadbalancer` should be printed out after cluster creation is complete.
 
@@ -101,9 +103,9 @@ data "http" "whatismyip" {
 }
 
 module "dcos" {
-  source = "dcos-terraform/dcos/aws"
+  source  = "dcos-terraform/dcos/aws"
 
-  cluster_name        = "my-ee-dcos"
+  cluster_name        = "my-open-dcos"
   ssh_public_key_file = "~/.ssh/id_rsa.pub"
   admin_ips           = ["${data.http.whatismyip.body}/32"]
 
@@ -111,18 +113,21 @@ module "dcos" {
   num_private_agents = "2"
   num_public_agents  = "1"
 
-  dcos_variant              = "ee"
-  dcos_version              = "1.11.4"
-  dcos_license_key_contents = "LICENSE_KEY_HERE"
+  dcos_version = "1.11.4"
+
+  # dcos_variant      = "ee"
+  # dcos_license_key_contents = "LICENSE_KEY_HERE
+  dcos_variant = "open"
+
   dcos_install_mode = "${var.dcos_install_mode}"
 }
 
 output "masters-ips" {
-  value = "${module.dcos.masters-ips}"
+  value       = "${module.dcos.masters-ips}"
 }
 
 output "cluster-address" {
-  value = "${module.dcos.masters-loadbalancer}"
+  value       = "${module.dcos.masters-loadbalancer}"
 }
 
 output "public-agents-loadbalancer" {
@@ -130,10 +135,9 @@ output "public-agents-loadbalancer" {
 }
 ```
 
-For simplicity and example purposes, our variables are hard-coded.  If you have a desired cluster name or amount of masters/agents, feel free to adjust the values directly in this `main.tf`.
+For simplicity, all variables in this example have been hard-coded.  If you want to change the cluster name or vary the number of masters/agents, feel free to adjust the values directly in this `main.tf`.
 
 You can find additional input variables and their descriptions [here](http://registry.terraform.io/modules/dcos-terraform/dcos/aws/).
-
 
 3) Next, let’s initialize our modules.  Make sure you are cd'd into into the `dcos-tf-aws-demo` folder where you just created your `main.tf` file.
 
@@ -144,6 +148,7 @@ terraform init
 <p align=center>
 <img src="../images/install/terraform-init.png" />
 </p>
+
 
 4) After Terraform has been initialized, the next step is to run the execution plan and save it to a static file - in this case, `plan.out`.
 
@@ -167,8 +172,7 @@ Every time you run `terraform plan`, the output will always detail the resources
 terraform apply plan.out
 ```
 
-Once Terraform has completed applying our plan, you should see an output similar to the one below.  You can now enter the `cluster-address` output to access your DC/OS cluster in the browser of your choice (Chrome, Safari recommended).  
-
+Once Terraform has completed applying our plan, you should see output similar to the following:  
 
 <p align=center>
 <img src="../images/install/terraform-apply.png" />
@@ -176,10 +180,12 @@ Once Terraform has completed applying our plan, you should see an output similar
 
 And congratulations - you’re done!  In just 4 steps, you’ve successfully installed a DC/OS cluster on AWS!
 
-Use the default login mentioned above: `bootstrapuser/deleteme`
+<p align=center>
+<img src="../images/install/dcos-login.png"
+</p>
 
 <p align=center>
-<img src="../images/install/dcos-ee-login.png">
+<img src="../images/install/dcos-ui.png"
 </p>
 
 # Scaling Your Cluster
@@ -197,25 +203,28 @@ variable "dcos_install_mode" {
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
 
-  cluster_name        = "my-ee-dcos"
+  cluster_name        = "my-open-dcos"
   ssh_public_key_file = "~/.ssh/id_rsa.pub"
 
   num_masters        = "1"
   num_private_agents = "3"
   num_public_agents  = "1"
 
-  dcos_variant                 = "ee"
-  dcos_version                 = "1.11.4"
-  dcos_license_key_contents    = "LICENSE_KEY_HERE"
+  dcos_version = "1.11.4"
+
+  # dcos_variant      = "ee"
+  # dcos_license_key_contents = "LICENSE_KEY_HERE
+  dcos_variant = "open"
+
   dcos_install_mode = "${var.dcos_install_mode}"
 }
 
 output "masters-ips" {
-  value = "${module.dcos.masters-ips}"
+  value       = "${module.dcos.masters-ips}"
 }
 
 output "cluster-address" {
-  value = "${module.dcos.masters-loadbalancer}"
+  value       = "${module.dcos.masters-loadbalancer}"
 }
 
 output "public-agents-loadbalancer" {
@@ -235,9 +244,9 @@ Doing this helps us to ensure that our state is stable and to confirm that we wi
 <img src="../images/scale/terraform-plan.png" />
 </p>
 
-You should see a message similar to above.  There will be 3 resources added as a result of scaling up our cluster’s Private Agents (1 instance resource & 2 null resources which handle the DC/OS installation & prerequisites behind the scenes).
+After executing the plan, you should see a message similar to above. There will be 3 resources added as a result of scaling up our cluster’s Private Agents (1 instance resource & 2 null resources which handle the DC/OS installation & prerequisites behind the scenes).
 
-3) Now that our plan is set, just like before, let’s get Terraform to build/deploy it.
+3) Now that our plan is set, let’s get Terraform to build/deploy the new set of resources.
 
 ```bash
 terraform apply plan.out
@@ -275,25 +284,28 @@ variable "dcos_install_mode" {
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
 
-  cluster_name        = "my-ee-dcos"
+  cluster_name        = "my-open-dcos"
   ssh_public_key_file = "~/.ssh/id_rsa.pub"
 
   num_masters        = "1"
   num_private_agents = "3"
   num_public_agents  = "1"
 
-  dcos_variant                 = "ee"
-  dcos_version                 = "1.11.5"
-  dcos_license_key_contents    = "LICENSE_KEY_HERE"
+  dcos_version = "1.11.4"
+
+  # dcos_variant      = "ee"
+  # dcos_license_key_contents = "LICENSE_KEY_HERE
+  dcos_variant = "open"
+
   dcos_install_mode = "${var.dcos_install_mode}"
 }
 
 output "masters-ips" {
-  value = "${module.dcos.masters-ips}"
+  value       = "${module.dcos.masters-ips}"
 }
 
 output "cluster-address" {
-  value = "${module.dcos.masters-loadbalancer}"
+  value       = "${module.dcos.masters-loadbalancer}"
 }
 
 output "public-agents-loadbalancer" {
@@ -301,7 +313,7 @@ output "public-agents-loadbalancer" {
 }
 ```
 
-2) Re-run our execution plan.
+2) Re-run our execution plan.  
 
 ```bash
 terraform plan -out=plan.out -var dcos_install_mode=upgrade
@@ -313,8 +325,6 @@ You should see an output like below.
 <img src="../images/upgrade/terraform-plan.png" />
 </p>
 
-If you are interested in learning more about the upgrade procedure that Terraform performs, please see the official [DC/OS Upgrade documentation](https://docs.mesosphere.com/1.11/installing/production/upgrading/).
-
 
 3) Apply the plan.
 
@@ -325,9 +335,8 @@ terraform apply plan.out
 Once the apply completes, you can verify that the cluster was upgraded via the DC/OS UI.
 
 <p align=center>
-<img src="../images/upgrade/cluster-details-ee.png" />
+<img src="../images/upgrade/cluster-details-open.png" />
 </p>
-
 
 
 # Deleting Your Cluster

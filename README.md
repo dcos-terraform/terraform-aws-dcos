@@ -2,9 +2,7 @@ DC/OS on AWS
 ============
 Creates a DC/OS Cluster on AWS
 
-[Quick Start Guide for Open Source DC/OS](https://github.com/dcos-terraform/terraform-aws-dcos/blob/master/docs/open/QUICKSTART.md)
-
-[Quick Start Guide for Enterprise DC/OS](https://github.com/dcos-terraform/terraform-aws-dcos/blob/master/docs/ee/QUICKSTART.md)
+[Quick Start Guide](https://github.com/dcos-terraform/terraform-aws-dcos/blob/master/docs/quickstart/README.md)
 
 You can find more detailed documentation about this module here: [README.md](./docs/README.md)
 
@@ -33,7 +31,7 @@ module "dcos" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| admin_ips | List of CIDR admin IPs | string | `<list>` | no |
+| admin_ips | List of CIDR admin IPs | string | - | yes |
 | availability_zones | Availability zones to be used | list | `<list>` | no |
 | aws_ami | AMI that will be used for the instances instead of Mesosphere provided AMIs | string | `` | no |
 | aws_key_name | Specify the aws ssh key to use. We assume its already loaded in your SSH agent. Set ssh_public_key to none | string | `` | no |
