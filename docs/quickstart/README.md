@@ -116,7 +116,7 @@ module "dcos" {
   dcos_version = "1.11.4"
 
   # dcos_variant      = "ee"
-  # dcos_license_key_contents = "LICENSE_KEY_HERE
+  # dcos_license_key_contents = "LICENSE_KEY_HERE"
   dcos_variant = "open"
 
   dcos_install_mode = "${var.dcos_install_mode}"
