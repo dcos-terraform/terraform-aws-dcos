@@ -40,6 +40,7 @@ variable "tags" {
 }
 
 variable "admin_ips" {
+  type        = "list"
   description = "List of CIDR admin IPs"
 }
 
