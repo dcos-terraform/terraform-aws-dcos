@@ -202,10 +202,12 @@ variable "dcos_install_mode" {
 }
 
 module "dcos" {
-  source  = "dcos-terraform/dcos/aws"
+  source = "dcos-terraform/dcos/aws"
 
+  dcos_instance_os    = "coreos_1235.9.0"
   cluster_name        = "my-open-dcos"
   ssh_public_key_file = "~/.ssh/id_rsa.pub"
+  admin_ips           = ["${data.http.whatismyip.body}/32"]
 
   num_masters        = "1"
   num_private_agents = "3"
@@ -213,8 +215,8 @@ module "dcos" {
 
   dcos_version = "1.11.4"
 
-  # dcos_variant      = "ee"
-  # dcos_license_key_contents = "LICENSE_KEY_HERE
+  # dcos_variant              = "ee"
+  # dcos_license_key_contents = "${file("./license.txt")}"
   dcos_variant = "open"
 
   dcos_install_mode = "${var.dcos_install_mode}"
@@ -279,34 +281,40 @@ Since we’re now upgrading, however, we need to set this parameter to `upgrade`
 ```hcl
 variable "dcos_install_mode" {
   description = "specifies which type of command to execute. Options: install or upgrade"
-  default = "install"
+  default     = "install"
+}
+
+data "http" "whatismyip" {
+  url = "http://whatismyip.akamai.com/"
 }
 
 module "dcos" {
-  source  = "dcos-terraform/dcos/aws"
+  source = "dcos-terraform/dcos/aws"
 
+  dcos_instance_os    = "coreos_1235.9.0"
   cluster_name        = "my-open-dcos"
   ssh_public_key_file = "~/.ssh/id_rsa.pub"
+  admin_ips           = ["${data.http.whatismyip.body}/32"]
 
   num_masters        = "1"
   num_private_agents = "3"
   num_public_agents  = "1"
 
-  dcos_version = "1.11.4"
+  dcos_version = "1.11.5"
 
-  # dcos_variant      = "ee"
-  # dcos_license_key_contents = "LICENSE_KEY_HERE
+  # dcos_variant              = "ee"
+  # dcos_license_key_contents = "${file("./license.txt")}"
   dcos_variant = "open"
 
   dcos_install_mode = "${var.dcos_install_mode}"
 }
 
 output "masters-ips" {
-  value       = "${module.dcos.masters-ips}"
+  value = "${module.dcos.masters-ips}"
 }
 
 output "cluster-address" {
-  value       = "${module.dcos.masters-loadbalancer}"
+  value = "${module.dcos.masters-loadbalancer}"
 }
 
 output "public-agents-loadbalancer" {
@@ -339,6 +347,10 @@ Once the apply completes, you can verify that the cluster was upgraded via the D
 <img src="../images/upgrade/cluster-details-open.png" />
 </p>
 
+
+# Maintenance
+
+For instructions on how to maintain your cluster, follow the [maintenance](https://github.com/dcos-terraform/terraform-aws-dcos/blob/master/docs/MAINTAIN.md) documentation.
 
 # Deleting Your Cluster
 If you ever decide you would like to destroy your cluster, simply run the following command and wait for it to complete:
