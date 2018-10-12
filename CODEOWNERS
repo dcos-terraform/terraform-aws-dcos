@@ -7,4 +7,4 @@
 # Rules defined later in the file take precedence over the rules
 # defined before.
 # This will match all files for which the file name ends in `.md`
-*.md  docs@mesosphere.io
+*.md @dcos-terraform/docs
