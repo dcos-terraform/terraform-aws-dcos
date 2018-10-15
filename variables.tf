@@ -174,3 +174,8 @@ variable "public_agents_associate_public_ip_address" {
   description = "[PUBLIC AGENTS] Associate a public ip address with there instances"
   default     = true
 }
+
+variable "public_agents_additional_ports" {
+  description = "List of additional ports on public agents (in addition to 80 and 443)"
+  default     = []
+}
