@@ -30,6 +30,15 @@
 
 provider "aws" {}
 
+resource "random_id" "id" {
+  byte_length = 2
+  prefix      = "${var.cluster_name}"
+}
+
+locals {
+  cluster_name = "${var.cluster_name_random_string ? random_id.id.hex : var.cluster_name}"
+}
+
 module "dcos-infrastructure" {
   source  = "dcos-terraform/infrastructure/aws"
   version = "~> 0.0"
@@ -44,7 +53,7 @@ module "dcos-infrastructure" {
   bootstrap_os                               = "${var.bootstrap_os}"
   bootstrap_root_volume_size                 = "${var.bootstrap_root_volume_size}"
   bootstrap_root_volume_type                 = "${var.bootstrap_root_volume_type}"
-  cluster_name                               = "${var.cluster_name}"
+  cluster_name                               = "${local.cluster_name}"
   dcos_instance_os                           = "${var.dcos_instance_os}"
   masters_associate_public_ip_address        = "${var.masters_associate_public_ip_address}"
   masters_aws_ami                            = "${var.masters_aws_ami}"
@@ -111,7 +120,7 @@ module "dcos-install" {
   num_public_agents       = "${var.num_public_agents}"
 
   # DC/OS options
-  dcos_cluster_name = "${coalesce(var.dcos_cluster_name, var.cluster_name)}"
+  dcos_cluster_name = "${coalesce(var.dcos_cluster_name, local.cluster_name)}"
 
   custom_dcos_download_path                    = "${var.custom_dcos_download_path}"
   dcos_adminrouter_tls_1_0_enabled             = "${var.dcos_adminrouter_tls_1_0_enabled}"

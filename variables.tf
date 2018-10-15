@@ -179,3 +179,8 @@ variable "public_agents_additional_ports" {
   description = "List of additional ports on public agents (in addition to 80 and 443)"
   default     = []
 }
+
+variable "cluster_name_random_string" {
+  description = "Add a random string to the cluster name"
+  default     = false
+}
