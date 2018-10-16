@@ -17,6 +17,7 @@
  *
  *   cluster_name = "mydcoscluster"
  *   ssh_public_key = "ssh-rsa ..."
+ *   admin_ips = ['198.51.100.0/24']
  *
  *   num_masters = "3"
  *   num_private_agents = "2"

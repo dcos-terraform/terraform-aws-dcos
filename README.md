@@ -16,6 +16,7 @@ module "dcos" {
 
   cluster_name = "mydcoscluster"
   ssh_public_key = "ssh-rsa ..."
+  admin_ips = ['198.51.100.0/24']
 
   num_masters = "3"
   num_private_agents = "2"
@@ -43,6 +44,7 @@ module "dcos" {
 | bootstrap_root_volume_size | [BOOTSTRAP] Root volume size in GB | string | `80` | no |
 | bootstrap_root_volume_type | [BOOTSTRAP] Root volume type | string | `standard` | no |
 | cluster_name | Name of the DC/OS cluster | string | `dcos-example` | no |
+| cluster_name_random_string | Add a random string to the cluster name | string | `false` | no |
 | custom_dcos_download_path | insert location of dcos installer script (optional) | string | `` | no |
 | dcos_adminrouter_tls_1_0_enabled | Indicates whether to enable TLSv1 support in Admin Router. (optional) | string | `` | no |
 | dcos_adminrouter_tls_1_1_enabled | Indicates whether to enable TLSv1.1 support in Admin Router. (optional) | string | `` | no |
@@ -158,6 +160,7 @@ module "dcos" {
 | private_agents_os | [PRIVATE AGENTS] Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `` | no |
 | private_agents_root_volume_size | [PRIVATE AGENTS] Root volume size in GB | string | `120` | no |
 | private_agents_root_volume_type | [PRIVATE AGENTS] Root volume type | string | `gp2` | no |
+| public_agents_additional_ports | List of additional ports on public agents (in addition to 80 and 443) | string | `<list>` | no |
 | public_agents_associate_public_ip_address | [PUBLIC AGENTS] Associate a public ip address with there instances | string | `true` | no |
 | public_agents_aws_ami | [PUBLIC AGENTS] AMI to be used | string | `` | no |
 | public_agents_instance_type | [PUBLIC AGENTS] Instance type | string | `m4.xlarge` | no |
