@@ -98,6 +98,7 @@ variable "dcos_install_mode" {
   default     = "install"
 }
 
+# Used to determine your public IP for forwarding rules
 data "http" "whatismyip" {
   url = "http://whatismyip.akamai.com/"
 }
