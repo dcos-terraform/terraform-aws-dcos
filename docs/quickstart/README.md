@@ -341,7 +341,7 @@ You should see an output like below.
 terraform apply plan.out
 ```
 
-Once the apply completes, you can verify that the cluster was upgraded via the DC/OS UI.
+If you want to destroy your cluster, then use the following command and wait for it to complete.
 
 <p align=center>
 <img src="../images/upgrade/cluster-details-open.png" />

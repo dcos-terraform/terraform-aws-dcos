@@ -43,11 +43,11 @@ vi main.tf # change "ssh_public_key_file" to your local file ssh path and other 
 You can either upload your existing SSH keys or use an SSH key already created on AWS.
 
 * **Upload existing key**:
-    To upload your own key not stored on AWS, read [how to import your own key](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#how-to-generate-your-own-key-and-import-it-to-aws)
+    To upload your own key not stored on AWS, read [how to import your own key](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#how-to-generate-your-own-key-and-import-it-to-aws).
 
 
 * **Create new key**:
-    To create a new key via AWS, read [how to create a key pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair)
+    To create a new key via AWS, read [how to create a key pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair).
 
 When you have your key available, you can use ssh-add.
 
@@ -55,7 +55,7 @@ When you have your key available, you can use ssh-add.
 ssh-add ~/.ssh/path_to_your_key.pem
 ```
 
-**Note**: When using an SSH agent it is best to add the command above to your `~/.bash_profile`. Next time your terminal gets reopened, it will reload your keys automatically.
+**NOTE:** When using an SSH agent it is best to add the command above to your `~/.bash_profile`. Next time your terminal gets reopened, it will reload your keys automatically.
 
 ## Configure AWS IAM Keys
 
@@ -91,9 +91,9 @@ Here is the list of DC/OS versions supported on dcos-terraform natively:
 - [OSS Versions](https://github.com/dcos-terraform/terraform-template-dcos-core/tree/master/open/dcos-versions)
 - [Enterprise Versions](https://github.com/dcos-terraform/terraform-template-dcos-core/tree/master/ee/dcos-versions)
 
-**Note**: Master DC/OS version is not meant for production use. It is only for CI/CD testing.
+**NOTE:** Master DC/OS version is not meant for production use. It is only for CI/CD testing.
 
-To apply the configuration file and you accept all the default variables you can use this command below, otherwise you can continue along with this guide.
+Use the following command to apply the configuration file and to accept all the default variables; otherwise following the instructions in this guide.
 
 ```bash
 terraform apply
@@ -102,9 +102,9 @@ terraform apply
 
 ## Advanced YAML Configuration
 
-We have designed this project to be flexible. Here are the example working variables that allows very deep customization by using a single `main.tf` file.
+The configuration templates using Terraform are designed to be flexible. Here is an example of working variables that allows deep customization by using a single `main.tf` file.
 
-For advanced users with stringent requirements, here are DC/OS flag examples you can simply paste in `main.tf` file.
+For advanced users with stringent requirements, paste the DC/OS flag examples in `main.tf` file.
 The default variables inputs are tracked in the [terraform-aws-dcos](https://registry.terraform.io/modules/dcos-terraform/dcos/aws) terraform registry.
 
 
@@ -162,7 +162,7 @@ module "dcos" {
         auth: Ze9ja2VyY3licmljSmVFOEJrcTY2eTV1WHhnSkVuVndjVEE=
   EOF
 ```
-**Note**: The YAML comment is required for the DC/OS specific YAML settings.
+**NOTE:** The YAML comment is required for the DC/OS specific YAML settings.
 
 ## Documentation
 
