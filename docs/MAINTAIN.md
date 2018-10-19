@@ -5,18 +5,16 @@ If you would like to add more or remove (private) agents or public agents from y
 ## Adding Agents
 
 ```bash
-# update num_private_agents = "5" in cluster_profile.tfvars
-terraform apply -var-file cluster_profile.tfvars
+# update num_private_agents = "5" in main.tf
+terraform apply
 ```
 
 ## Removing Agents
 
 ```bash
-# update num_private_agents = "2" in cluster_profile.tfvars
-terraform apply -var-file cluster_profile.tfvars
+# update num_private_agents = "2" in main.tf
+terraform apply
 ```
-
-**Important**: Always remember to save your desired state in your `cluster_profile.tfvars`
 
 ## Documentation
 
