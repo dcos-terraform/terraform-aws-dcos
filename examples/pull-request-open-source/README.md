@@ -18,7 +18,7 @@ echo "cluster_name=\"my-ee-cluster\"" >> cluster.tfvars
 echo "tags={owner = \"$(whoami)\", expiration = \"2h\"}" >> cluster.tfvars
 # we have to explicitly set the version.
 echo "dcos_version=\"1.10.8\""
-# now we habe to provider the link to dcos_generate_config.sh
+# now we have to provider the link to dcos_generate_config.sh
 echo "custom_dcos_download_path=\"https://downloads.dcos.io/dcos/testing/pull/3303/dcos_generate_config.sh\""
 ```
 

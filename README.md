@@ -6,7 +6,7 @@ Creates a DC/OS Cluster on AWS
 
 You can find more detailed documentation about this module here: [README.md](./docs/README.md)
 
-EXAMPLE
+EXAMPLE: Convenience wrapper module for AWS.
 -------
 
 ```hcl
