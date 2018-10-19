@@ -15,7 +15,6 @@ If you want to use this in your own environment, feel free to fork this and cust
 
 If you're on a Mac environment with homebrew installed, run this command.
 
-
 ```bash
 brew install terraform
 ```
@@ -24,7 +23,7 @@ If you want to leverage the terraform installer, feel free to check out https://
 
 
 ## Documentation
-1. [Deploying on AWS](./INSTALL.md)
-2. [Upgrading DC/OS](./UPGRADE.md)
-3. [Maintaining Nodes](./MAINTAIN.md)
-4. [Destroy](./DESTROY.md)
+1. [Deploying on AWS](./install/README.md)
+2. [Upgrading DC/OS](./upgrade/README.md)
+3. [Maintaining Nodes](./maintain/README.md)
+4. [Destroy](./destroy/README.md)

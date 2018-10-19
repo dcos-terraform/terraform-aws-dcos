@@ -18,7 +18,7 @@ terraform apply
 
 ## Documentation
 
-1. [Deploying on AWS](./INSTALL.md)
-2. [Upgrading DC/OS](./UPGRADE.md)
+1. [Deploying on AWS](./install/README.md)
+2. [Upgrading DC/OS](./upgrade/README.md)
 3. Maintaining Nodes
-4. [Destroy](./DESTROY.md)
+4. [Destroy](./destroy/README.md)

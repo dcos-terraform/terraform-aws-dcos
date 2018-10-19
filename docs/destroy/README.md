@@ -8,7 +8,7 @@ terraform destroy
 
 ## Documentation
 
-1. [Deploying on AWS](./INSTALL.md)
-2. [Upgrading DC/OS](./UPGRADE.md)
-3. [Maintaining Nodes](./MAINTAIN.md)
+1. [Deploying on AWS](./install/README.md)
+2. [Upgrading DC/OS](./upgrade/README.md)
+3. [Maintaining Nodes](./maintain/README.md)
 4. Destroy
