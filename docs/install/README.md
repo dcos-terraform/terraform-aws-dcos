@@ -1,4 +1,10 @@
-# Install DC/OS on AWS
+---
+layout: layout.pug
+excerpt: Install DC/OS cluster on AWS using Terraform
+title: Install DC/OS on AWS 
+navigationTitle: Install
+menuWeight: 10
+---
 
 ## Prerequisites
 - [Terraform 0.11.x](https://www.terraform.io/downloads.html)
