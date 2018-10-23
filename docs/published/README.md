@@ -1,8 +1,8 @@
 ---
 layout: layout.pug
-excerpt: Quickstart for a DC/OS cluster on AWS using Terraform
-title: Quickstart for DC/OS on AWS
-navigationTitle: Quickstart
+excerpt: Guide for DC/OS on AWS using Terraform
+title: DC/OS on AWS Terraform
+navigationTitle: AWS Terraform
 menuWeight: 0
 ---
 
