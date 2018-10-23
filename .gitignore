@@ -69,3 +69,9 @@ $RECYCLE.BIN/
 terraform.tfstate
 terraform.tfstate.backup
 *.tfvars
+
+### DCOS ###
+license.txt
+detect_fault_domain
+detect_ip
+detect_ip_public

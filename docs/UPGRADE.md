@@ -11,13 +11,13 @@ Update your terraform scripts to gain access to the latest DC/OS version with th
 
 ```
 terraform get --update
-# change dcos_version = "<desired_version>" in cluster_profile.tfvars
+# change dcos_version = "<desired_version>" in main.tf
 ```
 
 ##### Upgrade DC/OS Command
 
 ```bash
-terraform apply -var-file cluster_profile.tfvars -var state=upgrade
+terraform apply -var dcos_install_mode=upgrade
 ```
 
 ## Documentation
