@@ -1,10 +1,4 @@
----
-layout: layout.pug
-excerpt: Shutdown/destroy all DC/OS resources on AWS.
-title: Destroy Cluster on AWS
-navigationTitle: Destroy Cluster
-menuWeight: 40
----
+# Destroy Cluster on AWS
 
 You can shutdown/destroy all resources from your environment by running this command below:
 

@@ -1,10 +1,4 @@
----
-layout: layout.pug
-excerpt: Maintain DC/OS cluster on AWS using Terraform
-title: Maintain DC/OS on AWS
-navigationTitle: Maintain
-menuWeight: 30
----
+# Maintain DC/OS on AWS
 
 If you would like to add more or remove (private) agents or public agents from your cluster, you can do so by telling terraform your desired state and it will make sure it gets you there.
 

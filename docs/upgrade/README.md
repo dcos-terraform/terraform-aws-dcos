@@ -1,10 +1,4 @@
----
-layout: layout.pug
-excerpt: Upgrade DC/OS cluster on AWS using Terraform
-title: Upgrade DC/OS on AWS
-navigationTitle: Upgrade
-menuWeight: 20
----
+# Upgrade DC/OS on AWS
 
 You can upgrade your DC/OS cluster with a single command. This terraform script was built to perform installs and upgrades from the inception of this project. With the upgrade procedures below, you can also have finer control on how masters or agents upgrade at a given time. This will give you the ability to change the parallelism of master or agent upgrades.
 
