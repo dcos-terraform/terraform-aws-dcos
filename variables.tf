@@ -176,7 +176,7 @@ variable "public_agents_associate_public_ip_address" {
 }
 
 variable "public_agents_additional_ports" {
-  description = "List of additional ports on public agents (in addition to 80 and 443)"
+  description = "List of additional ports allowed for public access on public agents (80 and 443 open by default)"
   default     = []
 }
 
