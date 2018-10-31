@@ -102,7 +102,7 @@ module "dcos" {
 | dcos_instance_os | Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `centos_7.4` | no |
 | dcos_ip_detect_contents | Allows DC/OS to detect your private address. Use this to pass this as an input to the module rather than a file in side your bootstrap node. (recommended) | string | `` | no |
 | dcos_ip_detect_public_contents | Allows DC/OS to be aware of your publicly routeable address for ease of use (recommended) | string | `` | no |
-| dcos_ip_detect_public_filename | statically set your detect-ip-public path | string | `` | no |
+| dcos_ip_detect_public_filename | statically set your detect-ip-public path | string | `~/genconf/ip-detect-public` | no |
 | dcos_l4lb_enable_ipv6 | A boolean that indicates if layer 4 load balancing is available for IPv6 networks. (optional) | string | `` | no |
 | dcos_license_key_contents | [Enterprise DC/OS] used to privide the license key of DC/OS for Enterprise Edition. Optional if license.txt is present on bootstrap node. | string | `` | no |
 | dcos_log_directory | The path to the installer host logs from the SSH processes. (optional) | string | `` | no |
