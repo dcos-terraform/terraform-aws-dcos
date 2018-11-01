@@ -102,7 +102,7 @@ module "dcos" {
 | dcos_instance_os | Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `centos_7.4` | no |
 | dcos_ip_detect_contents | Allows DC/OS to detect your private address. Use this to pass this as an input to the module rather than a file in side your bootstrap node. (recommended) | string | `` | no |
 | dcos_ip_detect_public_contents | Allows DC/OS to be aware of your publicly routeable address for ease of use (recommended) | string | `` | no |
-| dcos_ip_detect_public_filename | statically set your detect-ip-public path | string | `` | no |
+| dcos_ip_detect_public_filename | statically set your detect-ip-public path | string | `~/genconf/ip-detect-public` | no |
 | dcos_l4lb_enable_ipv6 | A boolean that indicates if layer 4 load balancing is available for IPv6 networks. (optional) | string | `` | no |
 | dcos_license_key_contents | [Enterprise DC/OS] used to privide the license key of DC/OS for Enterprise Edition. Optional if license.txt is present on bootstrap node. | string | `` | no |
 | dcos_log_directory | The path to the installer host logs from the SSH processes. (optional) | string | `` | no |
@@ -160,7 +160,7 @@ module "dcos" {
 | private_agents_os | [PRIVATE AGENTS] Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `` | no |
 | private_agents_root_volume_size | [PRIVATE AGENTS] Root volume size in GB | string | `120` | no |
 | private_agents_root_volume_type | [PRIVATE AGENTS] Root volume type | string | `gp2` | no |
-| public_agents_additional_ports | List of additional ports on public agents (in addition to 80 and 443) | string | `<list>` | no |
+| public_agents_additional_ports | List of additional ports allowed for public access on public agents (80 and 443 open by default) | string | `<list>` | no |
 | public_agents_associate_public_ip_address | [PUBLIC AGENTS] Associate a public ip address with there instances | string | `true` | no |
 | public_agents_aws_ami | [PUBLIC AGENTS] AMI to be used | string | `` | no |
 | public_agents_instance_type | [PUBLIC AGENTS] Instance type | string | `m4.xlarge` | no |

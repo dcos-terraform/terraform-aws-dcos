@@ -458,7 +458,7 @@ variable "dcos_bootstrap_port" {
 }
 
 variable "dcos_ip_detect_public_filename" {
-  default     = ""
+  default     = "~/genconf/ip-detect-public"
   description = "statically set your detect-ip-public path"
 }
 
