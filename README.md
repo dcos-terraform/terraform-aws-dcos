@@ -22,8 +22,52 @@ module "dcos" {
   num_private_agents = "2"
   num_public_agents = "1"
 
+  # availability_zones = ["<your_selected_region>a"]
+
+  dcos_cluster_docker_credentials_enabled =  "true"
+  dcos_cluster_docker_credentials_write_to_etc = "true"
+  dcos_cluster_docker_credentials_dcos_owned = "false"
+  dcos_cluster_docker_registry_url = "https://index.docker.io"
+  dcos_use_proxy = "yes"
+  dcos_http_proxy = "example.com"
+  dcos_https_proxy = "example.com"
+  dcos_no_proxy = <<EOF
+  # YAML
+   - "internal.net"
+   - "169.254.169.254"
+  EOF
+  dcos_overlay_network = <<EOF
+  # YAML
+      vtep_subnet: 44.128.0.0/20
+      vtep_mac_oui: 70:B3:D5:00:00:00
+      overlays:
+        - name: dcos
+          subnet: 12.0.0.0/8
+          prefix: 26
+  EOF
+  dcos_rexray_config = <<EOF
+  # YAML
+    rexray:
+      loglevel: warn
+      modules:
+        default-admin:
+          host: tcp://127.0.0.1:61003
+      storageDrivers:
+      - ec2
+      volume:
+        unmount:
+          ignoreusedcount: true
+  EOF
+  dcos_cluster_docker_credentials = <<EOF
+  # YAML
+    auths:
+      'https://index.docker.io/v1/':
+        auth: Ze9ja2VyY3licmljSmVFOEJrcTY2eTV1WHhnSkVuVndjVEE=
+  EOF
+
+  # dcos_variant              = "ee"
+  # dcos_license_key_contents = "${file("./license.txt")}"
   dcos_variant = "open"
-  # dcos_license_key_contents = ""
 }
 ```
 
