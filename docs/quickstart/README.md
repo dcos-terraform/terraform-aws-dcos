@@ -106,7 +106,7 @@ data "http" "whatismyip" {
 module "dcos" {
   source = "dcos-terraform/dcos/aws"
 
-  dcos_instance_os    = "coreos_1235.9.0"
+  dcos_instance_os    = "coreos_1855.5.0"
   cluster_name        = "my-open-dcos"
   ssh_public_key_file = "~/.ssh/id_rsa.pub"
   admin_ips           = ["${data.http.whatismyip.body}/32"]
@@ -205,7 +205,7 @@ variable "dcos_install_mode" {
 module "dcos" {
   source = "dcos-terraform/dcos/aws"
 
-  dcos_instance_os    = "coreos_1235.9.0"
+  dcos_instance_os    = "coreos_1855.5.0"
   cluster_name        = "my-open-dcos"
   ssh_public_key_file = "~/.ssh/id_rsa.pub"
   admin_ips           = ["${data.http.whatismyip.body}/32"]
@@ -292,7 +292,7 @@ data "http" "whatismyip" {
 module "dcos" {
   source = "dcos-terraform/dcos/aws"
 
-  dcos_instance_os    = "coreos_1235.9.0"
+  dcos_instance_os    = "coreos_1855.5.0"
   cluster_name        = "my-open-dcos"
   ssh_public_key_file = "~/.ssh/id_rsa.pub"
   admin_ips           = ["${data.http.whatismyip.body}/32"]
