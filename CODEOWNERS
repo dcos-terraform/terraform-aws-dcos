@@ -2,7 +2,7 @@
 # be ignored.
 
 # We can specifiy a default match using wildcards:
-# * @dcos-terraform/dev
+* @dcos-terraform/dev
 
 # Rules defined later in the file take precedence over the rules
 # defined before.
