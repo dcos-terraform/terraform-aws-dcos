@@ -85,6 +85,11 @@ variable "bootstrap_instance_type" {
   default     = "t2.medium"
 }
 
+variable "bootstrap_iam_instance_profile" {
+  description = "[BOOTSTRAP] Instance profile to be used for these instances"
+  default     = ""
+}
+
 variable "bootstrap_associate_public_ip_address" {
   description = "[BOOTSTRAP] Associate a public ip address with there instances"
   default     = true
@@ -108,6 +113,11 @@ variable "masters_root_volume_size" {
 variable "masters_instance_type" {
   description = "[MASTERS] Instance type"
   default     = "m4.xlarge"
+}
+
+variable "masters_iam_instance_profile" {
+  description = "[MASTERS] Instance profile to be used for these instances"
+  default     = ""
 }
 
 variable "masters_associate_public_ip_address" {
@@ -140,6 +150,11 @@ variable "private_agents_instance_type" {
   default     = "m4.xlarge"
 }
 
+variable "private_agents_iam_instance_profile" {
+  description = "[PRIVATE AGENTS] Instance profile to be used for these instances"
+  default     = ""
+}
+
 variable "private_agents_associate_public_ip_address" {
   description = "[PRIVATE AGENTS] Associate a public ip address with there instances"
   default     = true
@@ -168,6 +183,11 @@ variable "public_agents_root_volume_type" {
 variable "public_agents_instance_type" {
   description = "[PUBLIC AGENTS] Instance type"
   default     = "m4.xlarge"
+}
+
+variable "public_agents_iam_instance_profile" {
+  description = "[PUBLIC AGENTS] Instance profile to be used for these instances"
+  default     = ""
 }
 
 variable "public_agents_associate_public_ip_address" {
