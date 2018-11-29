@@ -4,12 +4,12 @@ variable "cluster_name" {
 }
 
 variable "aws_key_name" {
-  description = "Specify the aws ssh key to use. We assume its already loaded in your SSH agent. Set ssh_public_key to none"
+  description = "Specify the aws ssh key to use. We assume its already loaded in your SSH agent. Set ssh_public_key_file to empty string"
   default     = ""
 }
 
 variable "ssh_public_key" {
-  description = "Specify the aws ssh key to use. We assume its already loaded in your SSH agent. Set ssh_public_key_file to empty string"
+  description = "SSH public key in authorized keys format (e.g. 'ssh-rsa ..') to be used with the instances. Make sure you added this key to your ssh-agent."
 
   default = ""
 }
