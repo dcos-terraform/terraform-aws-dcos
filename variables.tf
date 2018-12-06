@@ -4,7 +4,7 @@ variable "cluster_name" {
 }
 
 variable "aws_key_name" {
-  description = "Specify the aws ssh key to use. We assume its already loaded in your SSH agent. Set ssh_public_key to none"
+  description = "Specify the aws ssh key to use. We assume its already loaded in your SSH agent. Set ssh_public_key_file to empty string"
   default     = ""
 }
 
