@@ -15,6 +15,10 @@
  *   source  = "dcos-terraform/dcos/aws"
  *   version = "~> 0.1.0"
  *
+ *   providers = {
+ *     aws = "aws"
+ *   }
+ *
  *   cluster_name = "mydcoscluster"
  *   ssh_public_key_file = "~/.ssh/id_rsa.pub"
  *   admin_ips = ["198.51.100.0/24"]
