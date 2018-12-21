@@ -13,7 +13,7 @@
  *```hcl
  * module "dcos" {
  *   source  = "dcos-terraform/dcos/aws"
- *   version = "~> 0.1"
+ *   version = "~> 0.1.0"
  *
  *   providers = {
  *     aws = "aws"
@@ -90,7 +90,7 @@ locals {
 
 module "dcos-infrastructure" {
   source  = "dcos-terraform/infrastructure/aws"
-  version = "~> 0.1"
+  version = "~> 0.1.0"
 
   admin_ips                                  = "${var.admin_ips}"
   availability_zones                         = "${var.availability_zones}"
@@ -141,7 +141,7 @@ module "dcos-infrastructure" {
 
 module "dcos-install" {
   source  = "dcos-terraform/dcos-install-remote-exec/null"
-  version = "~> 0.0"
+  version = "~> 0.0.0"
 
   # bootstrap
   bootstrap_ip         = "${module.dcos-infrastructure.bootstrap.public_ip}"

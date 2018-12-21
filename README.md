@@ -12,7 +12,7 @@ EXAMPLE
 ```hcl
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
-  version = "~> 0.1"
+  version = "~> 0.1.0"
 
   providers = {
     aws = "aws"
