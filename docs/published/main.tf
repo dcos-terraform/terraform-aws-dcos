@@ -1,3 +1,7 @@
+provider "aws" {
+  region = "us-east-1"
+}
+
 variable "dcos_install_mode" {
   description = "specifies which type of command to execute. Options: install or upgrade"
   default     = "install"
@@ -10,6 +14,10 @@ data "http" "whatismyip" {
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
   version = "~> 0.1"
+
+  providers = {
+    aws = "aws"
+  }
 
   dcos_instance_os    = "coreos_1855.5.0"
   cluster_name        = "my-open-dcos"
