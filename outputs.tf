@@ -12,3 +12,8 @@ output "public-agents-loadbalancer" {
   description = "This is the load balancer address to access the DC/OS public agents"
   value       = "${module.dcos-infrastructure.elb.public_agents_dns_name}"
 }
+
+output "vpc.id" {
+  description = "This is the id of the VPC the cluster is in"
+  value       = "${module.dcos-vpc.vpc_id}"
+}
