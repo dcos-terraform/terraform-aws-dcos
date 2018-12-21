@@ -1,4 +1,4 @@
-output "infrastructure-bootstrap.instance" {/
+output "infrastructure-bootstrap.instance" {
   description = "Bootstrap instance ID"
   value       = "${module.dcos-infrastructure.bootstrap.instance}"
 }
