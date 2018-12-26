@@ -114,3 +114,8 @@ output "infrastructure-elb.masters_internal_dns_name" {
   value       = "${module.dcos-infrastructure.elb.masters_internal_dns_name}"
 }
 
+output "infrastructure-elb.vpc_id" {
+  description = "This is the id of the VPC the cluster is in"
+  value       = "${module.dcos-infrastructure.elb.vpc.id}"
+}
+
