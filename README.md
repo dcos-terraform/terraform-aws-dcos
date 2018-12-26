@@ -223,8 +223,31 @@ module "dcos" {
 
 | Name | Description |
 |------|-------------|
+| infrastructure-bootstrap.instance | Bootstrap instance ID |
+| infrastructure-bootstrap.os_user | Bootstrap instance OS default user |
+| infrastructure-bootstrap.prereq-id | Returns the ID of the prereq script for bootstrap (if user_data or ami are not used) |
+| infrastructure-bootstrap.private_ip | Private IP of the bootstrap instance |
+| infrastructure-bootstrap.public_ip | Public IP of the bootstrap instance |
+| infrastructure-elb.masters_dns_name | This is the load balancer to access the DC/OS UI |
+| infrastructure-elb.masters_internal_dns_name | This is the load balancer to access the masters internally in the cluster |
+| infrastructure-elb.public_agents_dns_name | This is the load balancer to reach the public agents |
+| infrastructure-masters.instances | Master instances IDs |
+| infrastructure-masters.os_user | Master instances private OS default user |
+| infrastructure-masters.prereq-id | Returns the ID of the prereq script for masters (if user_data or ami are not used) |
+| infrastructure-masters.private_ips | Master instances private IPs |
+| infrastructure-masters.public_ips | Master instances public IPs |
+| infrastructure-private_agents.instances | Private Agent instances IDs |
+| infrastructure-private_agents.os_user | Private Agent instances private OS default user |
+| infrastructure-private_agents.prereq-id | Returns the ID of the prereq script for private agents (if user_data or ami are not used) |
+| infrastructure-private_agents.private_ips | Private Agent instances private IPs |
+| infrastructure-private_agents.public_ips | Private Agent public IPs |
+| infrastructure-public_agents.instances | Private Agent |
+| infrastructure-public_agents.os_user | Private Agent instances private OS default user |
+| infrastructure-public_agents.prereq-id | Returns the ID of the prereq script for public agents (if user_data or ami are not used) |
+| infrastructure-public_agents.private_ips | Public Agent instances private IPs |
+| infrastructure-public_agents.public_ips | Public Agent public IPs |
+| infrastructure.vpc_id | This is the id of the VPC the cluster is in |
 | masters-ips | Master IP addresses |
 | masters-loadbalancer | This is the load balancer address to access the DC/OS UI |
 | public-agents-loadbalancer | This is the load balancer address to access the DC/OS public agents |
-| vpc.id | This is the id of the VPC the cluster is in |
 
