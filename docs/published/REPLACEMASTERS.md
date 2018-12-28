@@ -81,7 +81,7 @@ Please note that this should *NOT* be used in a Production environment and you w
 
 1) Let's stary by creating and local folder and cd'ing into. This folder will be used as the staging ground for downloading all required Terraform modules and holding the configuration for the cluster you are about to create. 
 ```
-mkdir dynamic-masters && cd dynamic-masters && 
+mkdir dynamic-masters && cd dynamic-masters  
 ```
 
 2) Once that is done, copy and paste the example code below into a new file and save it as `main.tf` in the newly created folder.
