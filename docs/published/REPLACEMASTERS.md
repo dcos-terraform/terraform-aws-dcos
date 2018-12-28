@@ -146,7 +146,7 @@ module "dcos" {
   dcos_exhibitor_explicit_keys   = "false"
   dcos_exhibitor_storage_backend = "aws_s3"
   dcos_s3_prefix                 = "exhibitor"
-  dcos_s3_bucket                 = "ext-exhibitor-test"
+  dcos_s3_bucket                 = "ext-exhibitor"
   dcos_aws_region                = "us-east-1" 
   dcos_master_discovery          = "master_http_loadbalancer"
   dcos_exhibitor_address         = "${module.dcos.masters-internal-loadbalancer}"
@@ -169,9 +169,9 @@ For simplicity, all variables in this example have been hard-coded.  If you want
 
 You can find additional input variables and their descriptions [here](http://registry.terraform.io/modules/dcos-terraform/dcos/aws/).
 
-3) Create a file called `license.key` with your Enterprise license key in your current directory.
+3) Create a file called `license.txt` with your Enterprise license key in your current directory.
 ```
-echo 'YOUR-DCOS-LICENSE-asbad-1343x' > license.key
+echo 'YOUR-DCOS-LICENSE-asbad-1343x' > license.txt
 ```
 
 4) Issue the following Terraform Commands to have Terraform initialize, plan and build your cluster.
