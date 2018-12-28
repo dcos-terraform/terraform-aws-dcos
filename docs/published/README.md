@@ -39,22 +39,6 @@ For help installing Terraform on a different OS, please see [here](https://www.t
 ## Ensure you have your AWS Cloud Credentials Properly Set up
 Please follow the AWS guide [Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) how to setup your credentials.
 
-## Set the Default AWS Region
-The current Terraform Provider for AWS requires that the default AWS region be set before it can be used. You can set the default region with the following command:
-```bash
-export AWS_DEFAULT_REGION="<desired-aws-region>"
-```
-For Example:
-```bash
-export AWS_DEFAULT_REGION="us-east-1"
-```
-
-Ensure it has been set:
-```bash
-> echo $AWS_DEFAULT_REGION
-us-east-1
-```
-
 ## Add your SSH keys to your ssh agent:
 
 Terraform requires SSH access to the instances you launch as part of your DC/OS cluster. As such, we need to make sure that the SSH key used to SSH to these instances is added to your `ssh-agent`, prior to running `terraform`.
@@ -104,6 +88,10 @@ It also specifies that the following output should be printed once cluster creat
 - `public-agent-loadbalancer` - The URL of your Public routable services.
 
 ```hcl
+provider "aws" {
+  region = "us-east-1"
+}
+
 variable "dcos_install_mode" {
   description = "specifies which type of command to execute. Options: install or upgrade"
   default     = "install"
@@ -116,7 +104,7 @@ data "http" "whatismyip" {
 
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
-  version = "~> 0.1"
+  version = "~> 0.1.0"
 
   dcos_instance_os    = "coreos_1855.5.0"
   cluster_name        = "my-open-dcos"
@@ -209,14 +197,23 @@ Terraform makes it easy to scale your cluster to add additional agents (public o
 
 
 ```hcl
+provider "aws" {
+  region = "us-east-1"
+}
+
 variable "dcos_install_mode" {
   description = "specifies which type of command to execute. Options: install or upgrade"
-  default = "install"
+  default     = "install"
+}
+
+# Used to determine your public IP for forwarding rules
+data "http" "whatismyip" {
+  url = "http://whatismyip.akamai.com/"
 }
 
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
-  version = "~> 0.1"
+  version = "~> 0.1.0"
 
   dcos_instance_os    = "coreos_1855.5.0"
   cluster_name        = "my-open-dcos"
@@ -293,18 +290,23 @@ Since we’re now upgrading, however, we need to set this parameter to `upgrade`
 <p class="message--important"><strong>IMPORTANT: </strong>Do not change any number of masters, agents or public agents while performing an upgrade.</p>
 
 ```hcl
+provider "aws" {
+  region = "us-east-1"
+}
+
 variable "dcos_install_mode" {
   description = "specifies which type of command to execute. Options: install or upgrade"
   default     = "install"
 }
 
+# Used to determine your public IP for forwarding rules
 data "http" "whatismyip" {
   url = "http://whatismyip.akamai.com/"
 }
 
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
-  version = "~> 0.1"
+  version = "~> 0.1.0"
 
   dcos_instance_os    = "coreos_1855.5.0"
   cluster_name        = "my-open-dcos"

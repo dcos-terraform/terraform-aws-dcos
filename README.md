@@ -12,7 +12,11 @@ EXAMPLE
 ```hcl
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
-  version = "~> 0.1"
+  version = "~> 0.1.0"
+
+  providers = {
+    aws = "aws"
+  }
 
   cluster_name = "mydcoscluster"
   ssh_public_key_file = "~/.ssh/id_rsa.pub"
@@ -79,7 +83,7 @@ module "dcos" {
 | admin_ips | List of CIDR admin IPs | list | - | yes |
 | availability_zones | Availability zones to be used | list | `<list>` | no |
 | aws_ami | AMI that will be used for the instances instead of Mesosphere provided AMIs | string | `` | no |
-| aws_key_name | Specify the aws ssh key to use. We assume its already loaded in your SSH agent. Set ssh_public_key to none | string | `` | no |
+| aws_key_name | Specify the aws ssh key to use. We assume its already loaded in your SSH agent. Set ssh_public_key_file to empty string | string | `` | no |
 | bootstrap_associate_public_ip_address | [BOOTSTRAP] Associate a public ip address with there instances | string | `true` | no |
 | bootstrap_aws_ami | [BOOTSTRAP] AMI to be used | string | `` | no |
 | bootstrap_instance_type | [BOOTSTRAP] Instance type | string | `t2.medium` | no |
@@ -219,6 +223,7 @@ module "dcos" {
 
 | Name | Description |
 |------|-------------|
+| masters-internal-loadbalancer | This is the internal load balancer address to access the DC/OS Services |
 | masters-ips | Master IP addresses |
 | masters-loadbalancer | This is the load balancer address to access the DC/OS UI |
 | public-agents-loadbalancer | This is the load balancer address to access the DC/OS public agents |

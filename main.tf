@@ -13,7 +13,11 @@
  *```hcl
  * module "dcos" {
  *   source  = "dcos-terraform/dcos/aws"
- *   version = "~> 0.1"
+ *   version = "~> 0.1.0"
+ *
+ *   providers = {
+ *     aws = "aws"
+ *   }
  *
  *   cluster_name = "mydcoscluster"
  *   ssh_public_key_file = "~/.ssh/id_rsa.pub"
@@ -85,7 +89,9 @@ locals {
 }
 
 module "dcos-infrastructure" {
-  source  = "dcos-terraform/infrastructure/aws"
+  #source  = "dcos-terraform/infrastructure/aws"
+  #version = "~> 0.1.0"
+  source  = "git::https://github.com/dcos-terraform/terraform-aws-infrastructure?ref=dynam-masters-poc"
   version = "~> 0.1"
 
   admin_ips                                  = "${var.admin_ips}"
@@ -125,6 +131,9 @@ module "dcos-infrastructure" {
   ssh_public_key_file                        = "${var.ssh_public_key_file}"
   tags                                       = "${var.tags}"
 
+  # If defining external exhibitor storage
+  aws_s3_bucket = "${var.dcos_s3_bucket}"
+
   providers = {
     aws = "aws"
   }
@@ -137,7 +146,7 @@ module "dcos-infrastructure" {
 
 module "dcos-install" {
   source  = "dcos-terraform/dcos-install-remote-exec/null"
-  version = "~> 0.0"
+  version = "~> 0.0.0"
 
   # bootstrap
   bootstrap_ip         = "${module.dcos-infrastructure.bootstrap.public_ip}"
