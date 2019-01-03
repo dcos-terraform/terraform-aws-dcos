@@ -89,8 +89,9 @@ locals {
 }
 
 module "dcos-infrastructure" {
-  source  = "github.com/dcos-terraform/terraform-aws-infrastructure?ref=conditional-bootstrap"
-#  version = "~> 0.1"
+  source = "github.com/dcos-terraform/terraform-aws-infrastructure?ref=conditional-bootstrap"
+
+  #  version = "~> 0.1"
 
   admin_ips                                  = "${var.admin_ips}"
   availability_zones                         = "${var.availability_zones}"
@@ -128,7 +129,6 @@ module "dcos-infrastructure" {
   ssh_public_key                             = "${var.ssh_public_key}"
   ssh_public_key_file                        = "${var.ssh_public_key_file}"
   tags                                       = "${var.tags}"
-
   providers = {
     aws = "aws"
   }

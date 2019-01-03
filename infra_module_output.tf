@@ -121,7 +121,7 @@ output "infrastructure.vpc_id" {
 
 output "infrastructure.vpc_cidr_block" {
   description = "This is the id of the VPC the cluster is in"
-  value       = "${module.dcos-infrastructure.vpc.id}"
+  value       = "${module.dcos-infrastructure.vpc.cidr_block}"
 }
 
 output "infrastructure.vpc_main_route_table_id" {
