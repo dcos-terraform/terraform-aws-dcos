@@ -129,6 +129,9 @@ module "dcos-infrastructure" {
   ssh_public_key_file                        = "${var.ssh_public_key_file}"
   tags                                       = "${var.tags}"
 
+  # If defining external exhibitor storage
+  aws_s3_bucket = "${var.dcos_s3_bucket}"
+
   providers = {
     aws = "aws"
   }
