@@ -12,7 +12,11 @@ EXAMPLE
 ```hcl
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
-  version = "~> 0.1"
+  version = "~> 0.1.0"
+
+  providers = {
+    aws = "aws"
+  }
 
   cluster_name = "mydcoscluster"
   ssh_public_key_file = "~/.ssh/id_rsa.pub"
@@ -223,6 +227,7 @@ module "dcos" {
 
 | Name | Description |
 |------|-------------|
+| masters-internal-loadbalancer | This is the internal load balancer address to access the DC/OS Services |
 | masters-ips | Master IP addresses |
 | masters-loadbalancer | This is the load balancer address to access the DC/OS UI |
 | public-agents-loadbalancer | This is the load balancer address to access the DC/OS public agents |
