@@ -143,8 +143,9 @@ module "dcos-infrastructure" {
 /////////////////////////////////////////
 
 module "dcos-install" {
-  source  = "dcos-terraform/dcos-install-remote-exec/null"
-  version = "~> 0.0.0"
+  source = "dcos-terraform/dcos-install-remote-exec/null"
+
+  version = "~> 0.1.0"
 
   # bootstrap
   bootstrap_ip         = "${module.dcos-infrastructure.bootstrap.public_ip}"
@@ -172,8 +173,7 @@ module "dcos-install" {
   num_public_agents       = "${var.num_public_agents}"
 
   # DC/OS options
-  dcos_cluster_name = "${coalesce(var.dcos_cluster_name, local.cluster_name)}"
-
+  dcos_cluster_name                            = "${coalesce(var.dcos_cluster_name, local.cluster_name)}"
   custom_dcos_download_path                    = "${var.custom_dcos_download_path}"
   dcos_adminrouter_tls_1_0_enabled             = "${var.dcos_adminrouter_tls_1_0_enabled}"
   dcos_adminrouter_tls_1_1_enabled             = "${var.dcos_adminrouter_tls_1_1_enabled}"
@@ -271,4 +271,5 @@ module "dcos-install" {
   dcos_zk_agent_credentials                    = "${var.dcos_zk_agent_credentials}"
   dcos_zk_master_credentials                   = "${var.dcos_zk_master_credentials}"
   dcos_zk_super_credentials                    = "${var.dcos_zk_super_credentials}"
+  dcos_enable_mesos_input_plugin               = "${var.dcos_enable_mesos_input_plugin}"
 }
