@@ -121,6 +121,7 @@ module "dcos-infrastructure" {
   private_agents_os                          = "${var.private_agents_os}"
   private_agents_root_volume_size            = "${var.private_agents_root_volume_size}"
   private_agents_root_volume_type            = "${var.private_agents_root_volume_type}"
+  private_agents_extra_volumes               = ["${var.private_agents_extra_volumes}"]
   public_agents_associate_public_ip_address  = "${var.public_agents_associate_public_ip_address}"
   public_agents_aws_ami                      = "${var.public_agents_aws_ami}"
   public_agents_iam_instance_profile         = "${var.public_agents_iam_instance_profile}"
