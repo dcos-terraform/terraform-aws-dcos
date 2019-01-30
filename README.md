@@ -212,6 +212,7 @@ module "dcos" {
 | public_agents_associate_public_ip_address | [PUBLIC AGENTS] Associate a public ip address with there instances | string | `true` | no |
 | public_agents_aws_ami | [PUBLIC AGENTS] AMI to be used | string | `` | no |
 | public_agents_instance_type | [PUBLIC AGENTS] Instance type | string | `m4.xlarge` | no |
+| public_agents_ips | List of ips allowed access to public agents. admin_ips are joined to this list | list | `<list>` | no |
 | public_agents_os | [PUBLIC AGENTS] Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `` | no |
 | public_agents_root_volume_size | [PUBLIC AGENTS] Root volume size | string | `120` | no |
 | public_agents_root_volume_type | [PUBLIC AGENTS] Specify the root volume type. | string | `gp2` | no |
