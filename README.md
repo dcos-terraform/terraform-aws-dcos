@@ -86,6 +86,7 @@ module "dcos" {
 | aws_key_name | Specify the aws ssh key to use. We assume its already loaded in your SSH agent. Set ssh_public_key_file to empty string | string | `` | no |
 | bootstrap_associate_public_ip_address | [BOOTSTRAP] Associate a public ip address with there instances | string | `true` | no |
 | bootstrap_aws_ami | [BOOTSTRAP] AMI to be used | string | `` | no |
+| bootstrap_iam_instance_profile | [BOOTSTRAP] Instance profile to be used for these instances | string | `` | no |
 | bootstrap_instance_type | [BOOTSTRAP] Instance type | string | `t2.medium` | no |
 | bootstrap_os | [BOOTSTRAP] Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `` | no |
 | bootstrap_private_ip | used for the private ip for the bootstrap url | string | `` | no |
@@ -195,6 +196,7 @@ module "dcos" {
 | dcos_zk_super_credentials | [Enterprise DC/OS] set the zk super credentials (recommended) | string | `` | no |
 | masters_associate_public_ip_address | [MASTERS] Associate a public ip address with there instances | string | `true` | no |
 | masters_aws_ami | [MASTERS] AMI to be used | string | `` | no |
+| masters_iam_instance_profile | [MASTERS] Instance profile to be used for these instances | string | `` | no |
 | masters_instance_type | [MASTERS] Instance type | string | `m4.xlarge` | no |
 | masters_os | [MASTERS] Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `` | no |
 | masters_root_volume_size | [MASTERS] Root volume size in GB | string | `120` | no |
@@ -205,6 +207,7 @@ module "dcos" {
 | num_public_agents | Specify the amount of public agents. These agents will host marathon-lb and edgelb | string | `1` | no |
 | private_agents_associate_public_ip_address | [PRIVATE AGENTS] Associate a public ip address with there instances | string | `true` | no |
 | private_agents_aws_ami | [PRIVATE AGENTS] AMI to be used | string | `` | no |
+| private_agents_iam_instance_profile | [PRIVATE AGENTS] Instance profile to be used for these instances | string | `` | no |
 | private_agents_instance_type | [PRIVATE AGENTS] Instance type | string | `m4.xlarge` | no |
 | private_agents_os | [PRIVATE AGENTS] Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `` | no |
 | private_agents_root_volume_size | [PRIVATE AGENTS] Root volume size in GB | string | `120` | no |
@@ -213,6 +216,7 @@ module "dcos" {
 | public_agents_additional_ports | List of additional ports allowed for public access on public agents (80 and 443 open by default) | string | `<list>` | no |
 | public_agents_associate_public_ip_address | [PUBLIC AGENTS] Associate a public ip address with there instances | string | `true` | no |
 | public_agents_aws_ami | [PUBLIC AGENTS] AMI to be used | string | `` | no |
+| public_agents_iam_instance_profile | [PUBLIC AGENTS] Instance profile to be used for these instances | string | `` | no |
 | public_agents_instance_type | [PUBLIC AGENTS] Instance type | string | `m4.xlarge` | no |
 | public_agents_os | [PUBLIC AGENTS] Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `` | no |
 | public_agents_root_volume_size | [PUBLIC AGENTS] Root volume size | string | `120` | no |

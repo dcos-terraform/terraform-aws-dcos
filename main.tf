@@ -90,7 +90,7 @@ locals {
 
 module "dcos-infrastructure" {
   source  = "dcos-terraform/infrastructure/aws"
-  version = "~> 0.1.0"
+  version = "~> 0.1.4"
 
   admin_ips                                  = "${var.admin_ips}"
   availability_zones                         = "${var.availability_zones}"
@@ -98,6 +98,7 @@ module "dcos-infrastructure" {
   aws_key_name                               = "${var.aws_key_name}"
   bootstrap_associate_public_ip_address      = "${var.bootstrap_associate_public_ip_address}"
   bootstrap_aws_ami                          = "${var.bootstrap_aws_ami}"
+  bootstrap_iam_instance_profile             = "${var.bootstrap_iam_instance_profile}"
   bootstrap_instance_type                    = "${var.bootstrap_instance_type}"
   bootstrap_os                               = "${var.bootstrap_os}"
   bootstrap_root_volume_size                 = "${var.bootstrap_root_volume_size}"
@@ -107,6 +108,7 @@ module "dcos-infrastructure" {
   masters_associate_public_ip_address        = "${var.masters_associate_public_ip_address}"
   masters_aws_ami                            = "${var.masters_aws_ami}"
   masters_instance_type                      = "${var.masters_instance_type}"
+  masters_iam_instance_profile               = "${var.masters_iam_instance_profile}"
   masters_os                                 = "${var.masters_os}"
   masters_root_volume_size                   = "${var.masters_root_volume_size}"
   num_masters                                = "${var.num_masters}"
@@ -115,11 +117,13 @@ module "dcos-infrastructure" {
   private_agents_associate_public_ip_address = "${var.private_agents_associate_public_ip_address}"
   private_agents_aws_ami                     = "${var.private_agents_aws_ami}"
   private_agents_instance_type               = "${var.private_agents_instance_type}"
+  private_agents_iam_instance_profile        = "${var.private_agents_iam_instance_profile}"
   private_agents_os                          = "${var.private_agents_os}"
   private_agents_root_volume_size            = "${var.private_agents_root_volume_size}"
   private_agents_root_volume_type            = "${var.private_agents_root_volume_type}"
   public_agents_associate_public_ip_address  = "${var.public_agents_associate_public_ip_address}"
   public_agents_aws_ami                      = "${var.public_agents_aws_ami}"
+  public_agents_iam_instance_profile         = "${var.public_agents_iam_instance_profile}"
   public_agents_instance_type                = "${var.public_agents_instance_type}"
   public_agents_os                           = "${var.public_agents_os}"
   public_agents_root_volume_size             = "${var.public_agents_root_volume_size}"
