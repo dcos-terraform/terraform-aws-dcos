@@ -180,6 +180,12 @@ variable "public_agents_additional_ports" {
   default     = []
 }
 
+variable "public_agents_access_ips" {
+  description = "List of ips allowed access to public agents. admin_ips are joined to this list"
+  type        = "list"
+  default     = ["0.0.0.0/0"]
+}
+
 variable "cluster_name_random_string" {
   description = "Add a random string to the cluster name"
   default     = false
