@@ -29,7 +29,11 @@ variable "dcos_security" {
 }
 
 variable "dcos_resolvers" {
-  default     = ""
+  default = <<EOF
+# YAML
+ - "169.254.169.253"
+EOF
+
   description = "A YAML nested list (-) of DNS resolvers for your DC/OS cluster nodes. (recommended)"
 }
 
