@@ -13,7 +13,7 @@
  *```hcl
  * module "dcos" {
  *   source  = "dcos-terraform/dcos/aws"
- *   version = "~> 0.1"
+ *   version = "~> 0.1.0"
  *
  *   providers = {
  *     aws = "aws"
@@ -89,9 +89,8 @@ locals {
 }
 
 module "dcos-infrastructure" {
-  source = "github.com/dcos-terraform/terraform-aws-infrastructure?ref=conditional-bootstrap"
-
-  #  version = "~> 0.1"
+  source  = "dcos-terraform/infrastructure/aws"
+  version = "~> 0.1.4"
 
   admin_ips                                  = "${var.admin_ips}"
   availability_zones                         = "${var.availability_zones}"
@@ -99,6 +98,7 @@ module "dcos-infrastructure" {
   aws_key_name                               = "${var.aws_key_name}"
   bootstrap_associate_public_ip_address      = "${var.bootstrap_associate_public_ip_address}"
   bootstrap_aws_ami                          = "${var.bootstrap_aws_ami}"
+  bootstrap_iam_instance_profile             = "${var.bootstrap_iam_instance_profile}"
   bootstrap_instance_type                    = "${var.bootstrap_instance_type}"
   bootstrap_os                               = "${var.bootstrap_os}"
   bootstrap_root_volume_size                 = "${var.bootstrap_root_volume_size}"
@@ -108,6 +108,7 @@ module "dcos-infrastructure" {
   masters_associate_public_ip_address        = "${var.masters_associate_public_ip_address}"
   masters_aws_ami                            = "${var.masters_aws_ami}"
   masters_instance_type                      = "${var.masters_instance_type}"
+  masters_iam_instance_profile               = "${var.masters_iam_instance_profile}"
   masters_os                                 = "${var.masters_os}"
   masters_root_volume_size                   = "${var.masters_root_volume_size}"
   num_masters                                = "${var.num_masters}"
@@ -116,19 +117,26 @@ module "dcos-infrastructure" {
   private_agents_associate_public_ip_address = "${var.private_agents_associate_public_ip_address}"
   private_agents_aws_ami                     = "${var.private_agents_aws_ami}"
   private_agents_instance_type               = "${var.private_agents_instance_type}"
+  private_agents_iam_instance_profile        = "${var.private_agents_iam_instance_profile}"
   private_agents_os                          = "${var.private_agents_os}"
   private_agents_root_volume_size            = "${var.private_agents_root_volume_size}"
   private_agents_root_volume_type            = "${var.private_agents_root_volume_type}"
   public_agents_associate_public_ip_address  = "${var.public_agents_associate_public_ip_address}"
   public_agents_aws_ami                      = "${var.public_agents_aws_ami}"
+  public_agents_iam_instance_profile         = "${var.public_agents_iam_instance_profile}"
   public_agents_instance_type                = "${var.public_agents_instance_type}"
   public_agents_os                           = "${var.public_agents_os}"
   public_agents_root_volume_size             = "${var.public_agents_root_volume_size}"
   public_agents_root_volume_type             = "${var.public_agents_root_volume_type}"
+  public_agents_access_ips                   = ["${var.public_agents_access_ips}"]
   public_agents_additional_ports             = ["${var.public_agents_additional_ports}"]
   ssh_public_key                             = "${var.ssh_public_key}"
   ssh_public_key_file                        = "${var.ssh_public_key_file}"
   tags                                       = "${var.tags}"
+
+  # If defining external exhibitor storage
+  aws_s3_bucket = "${var.dcos_s3_bucket}"
+
   providers = {
     aws = "aws"
   }
@@ -140,8 +148,9 @@ module "dcos-infrastructure" {
 /////////////////////////////////////////
 
 module "dcos-install" {
-  source  = "dcos-terraform/dcos-install-remote-exec/null"
-  version = "~> 0.0"
+  source = "dcos-terraform/dcos-install-remote-exec/null"
+
+  version = "~> 0.1.0"
 
   # bootstrap
   bootstrap_ip         = "${module.dcos-infrastructure.bootstrap.public_ip}"
@@ -169,8 +178,7 @@ module "dcos-install" {
   num_public_agents       = "${var.num_public_agents}"
 
   # DC/OS options
-  dcos_cluster_name = "${coalesce(var.dcos_cluster_name, local.cluster_name)}"
-
+  dcos_cluster_name                            = "${coalesce(var.dcos_cluster_name, local.cluster_name)}"
   custom_dcos_download_path                    = "${var.custom_dcos_download_path}"
   dcos_adminrouter_tls_1_0_enabled             = "${var.dcos_adminrouter_tls_1_0_enabled}"
   dcos_adminrouter_tls_1_1_enabled             = "${var.dcos_adminrouter_tls_1_1_enabled}"
@@ -268,4 +276,5 @@ module "dcos-install" {
   dcos_zk_agent_credentials                    = "${var.dcos_zk_agent_credentials}"
   dcos_zk_master_credentials                   = "${var.dcos_zk_master_credentials}"
   dcos_zk_super_credentials                    = "${var.dcos_zk_super_credentials}"
+  dcos_enable_mesos_input_plugin               = "${var.dcos_enable_mesos_input_plugin}"
 }

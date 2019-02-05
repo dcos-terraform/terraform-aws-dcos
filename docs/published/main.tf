@@ -17,8 +17,13 @@ provider "aws" {
 }
 
 module "dcos" {
+<<<<<<< HEAD
   source  = "git@github.com:dcos-terraform/terraform-aws-dcos?ref=multi-region"
   # version = "~> 0.1.0"
+=======
+  source  = "dcos-terraform/dcos/aws"
+  version = "~> 0.1.0"
+>>>>>>> 4fa09ef86efda42653994017504c367da5bdea24
 
   providers = {
     aws = "aws"
