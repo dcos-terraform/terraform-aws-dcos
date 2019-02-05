@@ -82,7 +82,7 @@ module "dcos" {
 |------|-------------|:----:|:-----:|:-----:|
 | admin_ips | List of CIDR admin IPs | list | - | yes |
 | availability_zones | Availability zones to be used | list | `<list>` | no |
-| aws_ami | AMI that will be used for the instances instead of Mesosphere provided AMIs | string | `` | no |
+| aws_ami | AMI that will be used for the instances instead of the Mesosphere chosen default images. Custom AMIs must fulfill the Mesosphere DC/OS system-requirements: See https://docs.mesosphere.com/1.12/installing/production/system-requirements/ | string | `` | no |
 | aws_key_name | Specify the aws ssh key to use. We assume its already loaded in your SSH agent. Set ssh_public_key_file to empty string | string | `` | no |
 | bootstrap_associate_public_ip_address | [BOOTSTRAP] Associate a public ip address with there instances | string | `true` | no |
 | bootstrap_aws_ami | [BOOTSTRAP] AMI to be used | string | `` | no |
