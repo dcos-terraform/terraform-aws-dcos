@@ -207,6 +207,7 @@ module "dcos" {
 | num_public_agents | Specify the amount of public agents. These agents will host marathon-lb and edgelb | string | `1` | no |
 | private_agents_associate_public_ip_address | [PRIVATE AGENTS] Associate a public ip address with there instances | string | `true` | no |
 | private_agents_aws_ami | [PRIVATE AGENTS] AMI to be used | string | `` | no |
+| private_agents_extra_volumes | [PRIVATE AGENTS] Extra volumes for each private agent | string | `<list>` | no |
 | private_agents_iam_instance_profile | [PRIVATE AGENTS] Instance profile to be used for these instances | string | `` | no |
 | private_agents_instance_type | [PRIVATE AGENTS] Instance type | string | `m4.xlarge` | no |
 | private_agents_os | [PRIVATE AGENTS] Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `` | no |
