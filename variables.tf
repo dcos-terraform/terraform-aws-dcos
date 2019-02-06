@@ -51,7 +51,7 @@ variable "availability_zones" {
 }
 
 variable "aws_ami" {
-  description = "AMI that will be used for the instances instead of Mesosphere provided AMIs"
+  description = "AMI that will be used for the instances instead of the Mesosphere chosen default images. Custom AMIs must fulfill the Mesosphere DC/OS system-requirements: See https://docs.mesosphere.com/1.12/installing/production/system-requirements/"
   default     = ""
 }
 
@@ -214,4 +214,9 @@ variable "public_agents_access_ips" {
 variable "cluster_name_random_string" {
   description = "Add a random string to the cluster name"
   default     = false
+}
+
+variable "subnet_range" {
+  description = "Private IP space to be used in CIDR format"
+  default     = ""
 }

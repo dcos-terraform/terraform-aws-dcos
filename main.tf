@@ -133,6 +133,7 @@ module "dcos-infrastructure" {
   public_agents_additional_ports             = ["${var.public_agents_additional_ports}"]
   ssh_public_key                             = "${var.ssh_public_key}"
   ssh_public_key_file                        = "${var.ssh_public_key_file}"
+  subnet_range                               = "${var.subnet_range}"
   tags                                       = "${var.tags}"
 
   # If defining external exhibitor storage
