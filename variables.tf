@@ -210,3 +210,9 @@ variable "cluster_name_random_string" {
   description = "Add a random string to the cluster name"
   default     = false
 }
+
+variable "internal_networks" {
+  description = "Subnet ranges for all internal networks"
+  type        = "list"
+  default     = []
+}

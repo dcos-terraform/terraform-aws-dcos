@@ -194,6 +194,7 @@ module "dcos" {
 | dcos_zk_agent_credentials | [Enterprise DC/OS] set the ZooKeeper agent credentials (recommended) | string | `` | no |
 | dcos_zk_master_credentials | [Enterprise DC/OS] set the ZooKeeper master credentials (recommended) | string | `` | no |
 | dcos_zk_super_credentials | [Enterprise DC/OS] set the zk super credentials (recommended) | string | `` | no |
+| internal_networks | Subnet ranges for all internal networks | list | `<list>` | no |
 | masters_associate_public_ip_address | [MASTERS] Associate a public ip address with there instances | string | `true` | no |
 | masters_aws_ami | [MASTERS] AMI to be used | string | `` | no |
 | masters_iam_instance_profile | [MASTERS] Instance profile to be used for these instances | string | `` | no |
@@ -229,7 +230,6 @@ module "dcos" {
 
 | Name | Description |
 |------|-------------|
-<<<<<<< HEAD
 | infrastructure-bootstrap.instance | Bootstrap instance ID |
 | infrastructure-bootstrap.os_user | Bootstrap instance OS default user |
 | infrastructure-bootstrap.prereq-id | Returns the ID of the prereq script for bootstrap (if user_data or ami are not used) |
@@ -257,9 +257,7 @@ module "dcos" {
 | infrastructure.vpc_cidr_block | This is the id of the VPC the cluster is in |
 | infrastructure.vpc_id | This is the id of the VPC the cluster is in |
 | infrastructure.vpc_main_route_table_id | This is the id of the VPC's main routing table the cluster is in |
-=======
 | masters-internal-loadbalancer | This is the internal load balancer address to access the DC/OS Services |
->>>>>>> 4fa09ef86efda42653994017504c367da5bdea24
 | masters-ips | Master IP addresses |
 | masters-loadbalancer | This is the load balancer address to access the DC/OS UI |
 | public-agents-loadbalancer | This is the load balancer address to access the DC/OS public agents |
