@@ -110,6 +110,8 @@ module "dcos-infrastructure" {
   masters_instance_type                      = "${var.masters_instance_type}"
   masters_iam_instance_profile               = "${var.masters_iam_instance_profile}"
   masters_os                                 = "${var.masters_os}"
+  masters_private_ip_list                    = "${var.masters_private_ip_list}"
+  masters_aws_ami_list                       = "${var.masters_aws_ami_list}"
   masters_root_volume_size                   = "${var.masters_root_volume_size}"
   num_masters                                = "${var.num_masters}"
   num_private_agents                         = "${var.num_private_agents}"

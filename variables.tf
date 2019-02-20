@@ -100,6 +100,16 @@ variable "masters_aws_ami" {
   default     = ""
 }
 
+variable "masters_private_ip_list" {
+  description = "[MASTERS] Private IPs list to be used"
+  default     = []
+}
+
+variable "masters_aws_ami_list" {
+  description = "[MASTERS] AMI list to be used"
+  default     = ""
+}
+
 variable "masters_os" {
   description = "[MASTERS] Operating system to use. Instead of using your own AMI you could use a provided OS."
   default     = ""
