@@ -17,3 +17,8 @@ output "public-agents-loadbalancer" {
   description = "This is the load balancer address to access the DC/OS public agents"
   value       = "${module.dcos-infrastructure.elb.public_agents_dns_name}"
 }
+
+output "masters-private-ips" {
+  description = "Master instances private IPs"
+  value       = ["${module.dcos-infrastructure.masters.private_ips}"]
+}
