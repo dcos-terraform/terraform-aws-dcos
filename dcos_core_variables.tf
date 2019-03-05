@@ -15,7 +15,7 @@ variable "dcos_install_mode" {
 
 variable "dcos_version" {
   default     = "1.11.4"
-  description = "specifies which dcos version instruction to use. Options: `1.9.0`, `1.8.8`, etc. _See [dcos_download_path](https://github.com/dcos/tf_dcos_core/blob/master/download-variables.tf) or [dcos_version](https://github.com/dcos/tf_dcos_core/tree/master/dcos-versions) tree for a full list._"
+  description = "specifies which dcos version instruction to use. Options: `1.9.0`, `1.8.8`, etc. _See [dcos_download_path](https://github.com/dcos-terraform/terraform-template-dcos-core/blob/master/open/download-variables.tf) or [dcos_version](https://github.com/dcos-terraform/terraform-template-dcos-core/tree/master/open/dcos-versions) tree for a full list._"
 }
 
 # variable "role" {
@@ -85,7 +85,7 @@ variable "dcos_aws_template_storage_secret_access_key" {
 
 variable "dcos_exhibitor_storage_backend" {
   default     = "static"
-  description = "options are aws_s3, azure, or zookeeper (recommended)"
+  description = "options are static, aws_s3, azure, or zookeeper (recommended)"
 }
 
 variable "dcos_exhibitor_zk_hosts" {
