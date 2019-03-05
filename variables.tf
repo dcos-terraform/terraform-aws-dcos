@@ -51,7 +51,7 @@ variable "availability_zones" {
 }
 
 variable "aws_ami" {
-  description = "AMI that will be used for the instances instead of Mesosphere provided AMIs"
+  description = "AMI that will be used for the instances instead of the Mesosphere chosen default images. Custom AMIs must fulfill the Mesosphere DC/OS system-requirements: See https://docs.mesosphere.com/1.12/installing/production/system-requirements/"
   default     = ""
 }
 
@@ -143,6 +143,11 @@ variable "private_agents_root_volume_size" {
 variable "private_agents_root_volume_type" {
   description = "[PRIVATE AGENTS] Root volume type"
   default     = "gp2"
+}
+
+variable "private_agents_extra_volumes" {
+  description = "[PRIVATE AGENTS] Extra volumes for each private agent"
+  default     = []
 }
 
 variable "private_agents_instance_type" {

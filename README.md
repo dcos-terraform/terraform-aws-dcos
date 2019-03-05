@@ -2,7 +2,7 @@ DC/OS on AWS
 ============
 Creates a DC/OS Cluster on AWS
 
-[Quick Start Guide](https://github.com/dcos-terraform/terraform-aws-dcos/blob/master/docs/quickstart/README.md)
+[Quick Start Guide](https://github.com/dcos-terraform/terraform-aws-dcos/blob/master/docs/published/README.md)
 
 You can find more detailed documentation about this module here: [README.md](./docs/README.md)
 
@@ -82,7 +82,7 @@ module "dcos" {
 |------|-------------|:----:|:-----:|:-----:|
 | admin_ips | List of CIDR admin IPs | list | - | yes |
 | availability_zones | Availability zones to be used | list | `<list>` | no |
-| aws_ami | AMI that will be used for the instances instead of Mesosphere provided AMIs | string | `` | no |
+| aws_ami | AMI that will be used for the instances instead of the Mesosphere chosen default images. Custom AMIs must fulfill the Mesosphere DC/OS system-requirements: See https://docs.mesosphere.com/1.12/installing/production/system-requirements/ | string | `` | no |
 | aws_key_name | Specify the aws ssh key to use. We assume its already loaded in your SSH agent. Set ssh_public_key_file to empty string | string | `` | no |
 | bootstrap_associate_public_ip_address | [BOOTSTRAP] Associate a public ip address with there instances | string | `true` | no |
 | bootstrap_aws_ami | [BOOTSTRAP] AMI to be used | string | `` | no |
@@ -139,7 +139,7 @@ module "dcos" {
 | dcos_exhibitor_azure_account_name | the azure account name for exhibitor storage (optional but required with dcos_exhibitor_address) | string | `` | no |
 | dcos_exhibitor_azure_prefix | the azure account name for exhibitor storage (optional but required with dcos_exhibitor_address) | string | `` | no |
 | dcos_exhibitor_explicit_keys | set whether you are using AWS API keys to grant Exhibitor access to S3. (optional) | string | `` | no |
-| dcos_exhibitor_storage_backend | options are aws_s3, azure, or zookeeper (recommended) | string | `static` | no |
+| dcos_exhibitor_storage_backend | options are static, aws_s3, azure, or zookeeper (recommended) | string | `static` | no |
 | dcos_exhibitor_zk_hosts | a comma-separated list of one or more ZooKeeper node IP and port addresses to use for configuring the internal Exhibitor instances. (not recommended but required with exhibitor_storage_backend set to ZooKeeper. Use aws_s3 or azure instead. Assumes external ZooKeeper is already online.) | string | `` | no |
 | dcos_exhibitor_zk_path | the filepath that Exhibitor uses to store data (not recommended but required with exhibitor_storage_backend set to `zookeeper`. Use `aws_s3` or `azure` instead. Assumes external ZooKeeper is already online.) | string | `` | no |
 | dcos_fault_domain_detect_contents | [Enterprise DC/OS] fault domain script contents. Optional but required if no fault-domain-detect script present. | string | `` | no |
@@ -190,7 +190,7 @@ module "dcos" {
 | dcos_ucr_default_bridge_subnet | IPv4 subnet allocated to the mesos-bridge CNI network for UCR bridge-mode networking. (optional) | string | `` | no |
 | dcos_use_proxy | to enable use of proxy for internal routing (optional) | string | `` | no |
 | dcos_variant | Main Variables | string | `open` | no |
-| dcos_version | specifies which dcos version instruction to use. Options: `1.9.0`, `1.8.8`, etc. _See [dcos_download_path](https://github.com/dcos/tf_dcos_core/blob/master/download-variables.tf) or [dcos_version](https://github.com/dcos/tf_dcos_core/tree/master/dcos-versions) tree for a full list._ | string | `1.11.4` | no |
+| dcos_version | specifies which dcos version instruction to use. Options: `1.9.0`, `1.8.8`, etc. _See [dcos_download_path](https://github.com/dcos-terraform/terraform-template-dcos-core/blob/master/open/download-variables.tf) or [dcos_version](https://github.com/dcos-terraform/terraform-template-dcos-core/tree/master/open/dcos-versions) tree for a full list._ | string | `1.11.4` | no |
 | dcos_zk_agent_credentials | [Enterprise DC/OS] set the ZooKeeper agent credentials (recommended) | string | `` | no |
 | dcos_zk_master_credentials | [Enterprise DC/OS] set the ZooKeeper master credentials (recommended) | string | `` | no |
 | dcos_zk_super_credentials | [Enterprise DC/OS] set the zk super credentials (recommended) | string | `` | no |
@@ -208,6 +208,7 @@ module "dcos" {
 | num_public_agents | Specify the amount of public agents. These agents will host marathon-lb and edgelb | string | `1` | no |
 | private_agents_associate_public_ip_address | [PRIVATE AGENTS] Associate a public ip address with there instances | string | `true` | no |
 | private_agents_aws_ami | [PRIVATE AGENTS] AMI to be used | string | `` | no |
+| private_agents_extra_volumes | [PRIVATE AGENTS] Extra volumes for each private agent | string | `<list>` | no |
 | private_agents_iam_instance_profile | [PRIVATE AGENTS] Instance profile to be used for these instances | string | `` | no |
 | private_agents_instance_type | [PRIVATE AGENTS] Instance type | string | `m4.xlarge` | no |
 | private_agents_os | [PRIVATE AGENTS] Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `` | no |
