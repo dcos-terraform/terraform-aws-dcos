@@ -216,6 +216,12 @@ variable "cluster_name_random_string" {
   default     = false
 }
 
+variable "internal_networks" {
+  description = "Subnet ranges for all internal networks"
+  type        = "list"
+  default     = []
+}
+
 variable "subnet_range" {
   description = "Private IP space to be used in CIDR format"
   default     = "172.16.0.0/16"

@@ -194,6 +194,7 @@ module "dcos" {
 | dcos_zk_agent_credentials | [Enterprise DC/OS] set the ZooKeeper agent credentials (recommended) | string | `` | no |
 | dcos_zk_master_credentials | [Enterprise DC/OS] set the ZooKeeper master credentials (recommended) | string | `` | no |
 | dcos_zk_super_credentials | [Enterprise DC/OS] set the zk super credentials (recommended) | string | `` | no |
+| internal_networks | Subnet ranges for all internal networks | list | `<list>` | no |
 | masters_associate_public_ip_address | [MASTERS] Associate a public ip address with there instances | string | `true` | no |
 | masters_aws_ami | [MASTERS] AMI to be used | string | `` | no |
 | masters_iam_instance_profile | [MASTERS] Instance profile to be used for these instances | string | `` | no |
@@ -231,6 +232,33 @@ module "dcos" {
 
 | Name | Description |
 |------|-------------|
+| infrastructure-bootstrap.instance | Bootstrap instance ID |
+| infrastructure-bootstrap.os_user | Bootstrap instance OS default user |
+| infrastructure-bootstrap.prereq-id | Returns the ID of the prereq script for bootstrap (if user_data or ami are not used) |
+| infrastructure-bootstrap.private_ip | Private IP of the bootstrap instance |
+| infrastructure-bootstrap.public_ip | Public IP of the bootstrap instance |
+| infrastructure-elb.masters_dns_name | This is the load balancer to access the DC/OS UI |
+| infrastructure-elb.masters_internal_dns_name | This is the load balancer to access the masters internally in the cluster |
+| infrastructure-elb.public_agents_dns_name | This is the load balancer to reach the public agents |
+| infrastructure-masters.instances | Master instances IDs |
+| infrastructure-masters.os_user | Master instances private OS default user |
+| infrastructure-masters.prereq-id | Returns the ID of the prereq script for masters (if user_data or ami are not used) |
+| infrastructure-masters.private_ips | Master instances private IPs |
+| infrastructure-masters.public_ips | Master instances public IPs |
+| infrastructure-private_agents.instances | Private Agent instances IDs |
+| infrastructure-private_agents.os_user | Private Agent instances private OS default user |
+| infrastructure-private_agents.prereq-id | Returns the ID of the prereq script for private agents (if user_data or ami are not used) |
+| infrastructure-private_agents.private_ips | Private Agent instances private IPs |
+| infrastructure-private_agents.public_ips | Private Agent public IPs |
+| infrastructure-public_agents.instances | Private Agent |
+| infrastructure-public_agents.os_user | Private Agent instances private OS default user |
+| infrastructure-public_agents.prereq-id | Returns the ID of the prereq script for public agents (if user_data or ami are not used) |
+| infrastructure-public_agents.private_ips | Public Agent instances private IPs |
+| infrastructure-public_agents.public_ips | Public Agent public IPs |
+| infrastructure.security_group_internal_id | This is the id of the internal security_group that the cluster is in |
+| infrastructure.vpc_cidr_block | This is the id of the VPC the cluster is in |
+| infrastructure.vpc_id | This is the id of the VPC the cluster is in |
+| infrastructure.vpc_main_route_table_id | This is the id of the VPC's main routing table the cluster is in |
 | masters-internal-loadbalancer | This is the internal load balancer address to access the DC/OS Services |
 | masters-ips | Master IP addresses |
 | masters-loadbalancer | This is the load balancer address to access the DC/OS UI |
