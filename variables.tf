@@ -215,3 +215,8 @@ variable "cluster_name_random_string" {
   description = "Add a random string to the cluster name"
   default     = false
 }
+
+variable "subnet_range" {
+  description = "Private IP space to be used in CIDR format"
+  default     = "172.12.0.0/16"
+}
