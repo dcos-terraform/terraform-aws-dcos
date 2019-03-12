@@ -216,7 +216,7 @@ variable "cluster_name_random_string" {
   default     = false
 }
 
-variable "internal_networks" {
+variable "accepted_internal_networks" {
   description = "Subnet ranges for all internal networks"
   type        = "list"
   default     = []
