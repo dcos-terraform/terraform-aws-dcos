@@ -177,7 +177,7 @@ module "dcos" {
 | dcos_process_timeout | The allowable amount of time, in seconds, for an action to begin after the process forks. (optional) | string | `` | no |
 | dcos_public_agent_list | statically set your public agents (not recommended) | string | `` | no |
 | dcos_resolvers | A YAML nested list (-) of DNS resolvers for your DC/OS cluster nodes. (recommended) | string | `# YAML  - "169.254.169.253" ` | no |
-| dcos_rexray_config | The REX-Ray configuration method for enabling external persistent volumes in Marathon. (optional) | string | `` | no |
+| dcos_rexray_config | The REX-Ray configuration method for enabling external persistent volumes in Marathon. (optional) | string | `# YAML   rexray:     loglevel: info     service: ebs   libstorage:     server:       tasks:         logTimeout: 5m     integration:       volume:         operations:           unmount:             ignoreusedcount: true ` | no |
 | dcos_rexray_config_filename | The REX-Ray configuration filename for enabling external persistent volumes in Marathon. (optional) | string | `` | no |
 | dcos_rexray_config_method | The REX-Ray configuration method for enabling external persistent volumes in Marathon.  (optional) | string | `` | no |
 | dcos_s3_bucket | name of the s3 bucket for the exhibitor backend (recommended but required with dcos_exhibitor_address) | string | `` | no |

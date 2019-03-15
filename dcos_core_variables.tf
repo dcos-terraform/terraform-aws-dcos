@@ -479,7 +479,22 @@ variable "dcos_ip_detect_contents" {
 }
 
 variable "dcos_rexray_config" {
-  default     = ""
+  default = <<EOF
+# YAML
+  rexray:
+    loglevel: info
+    service: ebs
+  libstorage:
+    server:
+      tasks:
+        logTimeout: 5m
+    integration:
+      volume:
+        operations:
+          unmount:
+            ignoreusedcount: true
+EOF
+
   description = "The REX-Ray configuration method for enabling external persistent volumes in Marathon. (optional)"
 }
 
