@@ -80,6 +80,7 @@ module "dcos" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
+| accepted_internal_networks | Subnet ranges for all internal networks | list | `<list>` | no |
 | admin_ips | List of CIDR admin IPs | list | - | yes |
 | availability_zones | Availability zones to be used | list | `<list>` | no |
 | aws_ami | AMI that will be used for the instances instead of the Mesosphere chosen default images. Custom AMIs must fulfill the Mesosphere DC/OS system-requirements: See https://docs.mesosphere.com/1.12/installing/production/system-requirements/ | string | `` | no |
@@ -139,7 +140,7 @@ module "dcos" {
 | dcos_exhibitor_azure_account_name | the azure account name for exhibitor storage (optional but required with dcos_exhibitor_address) | string | `` | no |
 | dcos_exhibitor_azure_prefix | the azure account name for exhibitor storage (optional but required with dcos_exhibitor_address) | string | `` | no |
 | dcos_exhibitor_explicit_keys | set whether you are using AWS API keys to grant Exhibitor access to S3. (optional) | string | `` | no |
-| dcos_exhibitor_storage_backend | options are aws_s3, azure, or zookeeper (recommended) | string | `static` | no |
+| dcos_exhibitor_storage_backend | options are static, aws_s3, azure, or zookeeper (recommended) | string | `static` | no |
 | dcos_exhibitor_zk_hosts | a comma-separated list of one or more ZooKeeper node IP and port addresses to use for configuring the internal Exhibitor instances. (not recommended but required with exhibitor_storage_backend set to ZooKeeper. Use aws_s3 or azure instead. Assumes external ZooKeeper is already online.) | string | `` | no |
 | dcos_exhibitor_zk_path | the filepath that Exhibitor uses to store data (not recommended but required with exhibitor_storage_backend set to `zookeeper`. Use `aws_s3` or `azure` instead. Assumes external ZooKeeper is already online.) | string | `` | no |
 | dcos_fault_domain_detect_contents | [Enterprise DC/OS] fault domain script contents. Optional but required if no fault-domain-detect script present. | string | `` | no |
@@ -175,7 +176,7 @@ module "dcos" {
 | dcos_previous_version_master_index | Used to track the index of master for quering the previous DC/OS version during upgrading. (optional) applicable: 1.9+ | string | `0` | no |
 | dcos_process_timeout | The allowable amount of time, in seconds, for an action to begin after the process forks. (optional) | string | `` | no |
 | dcos_public_agent_list | statically set your public agents (not recommended) | string | `` | no |
-| dcos_resolvers | A YAML nested list (-) of DNS resolvers for your DC/OS cluster nodes. (recommended) | string | `` | no |
+| dcos_resolvers | A YAML nested list (-) of DNS resolvers for your DC/OS cluster nodes. (recommended) | string | `# YAML  - "169.254.169.253" ` | no |
 | dcos_rexray_config | The REX-Ray configuration method for enabling external persistent volumes in Marathon. (optional) | string | `` | no |
 | dcos_rexray_config_filename | The REX-Ray configuration filename for enabling external persistent volumes in Marathon. (optional) | string | `` | no |
 | dcos_rexray_config_method | The REX-Ray configuration method for enabling external persistent volumes in Marathon.  (optional) | string | `` | no |
@@ -224,12 +225,40 @@ module "dcos" {
 | public_agents_root_volume_type | [PUBLIC AGENTS] Specify the root volume type. | string | `gp2` | no |
 | ssh_public_key | SSH public key in authorized keys format (e.g. 'ssh-rsa ..') to be used with the instances. Make sure you added this key to your ssh-agent. | string | `` | no |
 | ssh_public_key_file | Path to SSH public key. This is mandatory but can be set to an empty string if you want to use ssh_public_key with the key as string. | string | - | yes |
+| subnet_range | Private IP space to be used in CIDR format | string | `172.16.0.0/16` | no |
 | tags | Add custom tags to all resources | map | `<map>` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
+| infrastructure-bootstrap.instance | Bootstrap instance ID |
+| infrastructure-bootstrap.os_user | Bootstrap instance OS default user |
+| infrastructure-bootstrap.prereq-id | Returns the ID of the prereq script for bootstrap (if user_data or ami are not used) |
+| infrastructure-bootstrap.private_ip | Private IP of the bootstrap instance |
+| infrastructure-bootstrap.public_ip | Public IP of the bootstrap instance |
+| infrastructure-elb.masters_dns_name | This is the load balancer to access the DC/OS UI |
+| infrastructure-elb.masters_internal_dns_name | This is the load balancer to access the masters internally in the cluster |
+| infrastructure-elb.public_agents_dns_name | This is the load balancer to reach the public agents |
+| infrastructure-masters.instances | Master instances IDs |
+| infrastructure-masters.os_user | Master instances private OS default user |
+| infrastructure-masters.prereq-id | Returns the ID of the prereq script for masters (if user_data or ami are not used) |
+| infrastructure-masters.private_ips | Master instances private IPs |
+| infrastructure-masters.public_ips | Master instances public IPs |
+| infrastructure-private_agents.instances | Private Agent instances IDs |
+| infrastructure-private_agents.os_user | Private Agent instances private OS default user |
+| infrastructure-private_agents.prereq-id | Returns the ID of the prereq script for private agents (if user_data or ami are not used) |
+| infrastructure-private_agents.private_ips | Private Agent instances private IPs |
+| infrastructure-private_agents.public_ips | Private Agent public IPs |
+| infrastructure-public_agents.instances | Private Agent |
+| infrastructure-public_agents.os_user | Private Agent instances private OS default user |
+| infrastructure-public_agents.prereq-id | Returns the ID of the prereq script for public agents (if user_data or ami are not used) |
+| infrastructure-public_agents.private_ips | Public Agent instances private IPs |
+| infrastructure-public_agents.public_ips | Public Agent public IPs |
+| infrastructure.security_group_internal_id | This is the id of the internal security_group that the cluster is in |
+| infrastructure.vpc_cidr_block | This is the id of the VPC the cluster is in |
+| infrastructure.vpc_id | This is the id of the VPC the cluster is in |
+| infrastructure.vpc_main_route_table_id | This is the id of the VPC's main routing table the cluster is in |
 | masters-internal-loadbalancer | This is the internal load balancer address to access the DC/OS Services |
 | masters-ips | Master IP addresses |
 | masters-loadbalancer | This is the load balancer address to access the DC/OS UI |

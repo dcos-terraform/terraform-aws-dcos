@@ -85,7 +85,7 @@ variable "dcos_aws_template_storage_secret_access_key" {
 
 variable "dcos_exhibitor_storage_backend" {
   default     = "static"
-  description = "options are aws_s3, azure, or zookeeper (recommended)"
+  description = "options are static, aws_s3, azure, or zookeeper (recommended)"
 }
 
 variable "dcos_exhibitor_zk_hosts" {
