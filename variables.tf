@@ -57,7 +57,7 @@ variable "aws_ami" {
 
 variable "dcos_instance_os" {
   description = "Operating system to use. Instead of using your own AMI you could use a provided OS."
-  default     = "centos_7.5"
+  default     = "centos_7.4"
 }
 
 variable "bootstrap_aws_ami" {

@@ -167,16 +167,18 @@ module "dcos-install" {
   num_masters        = "${var.num_masters}"
 
   # private agent
-  private_agent_ips        = ["${module.dcos-infrastructure.private_agents.public_ips}"]
-  private_agents_os_user   = "${module.dcos-infrastructure.private_agents.os_user}"
-  private_agents_prereq-id = "${module.dcos-infrastructure.private_agents.prereq-id}"
-  num_private_agents       = "${var.num_private_agents}"
+  private_agent_ips         = ["${module.dcos-infrastructure.private_agents.public_ips}"]
+  private_agent_private_ips = ["${module.dcos-infrastructure.private_agents.private_ips}"]
+  private_agents_os_user    = "${module.dcos-infrastructure.private_agents.os_user}"
+  private_agents_prereq-id  = "${module.dcos-infrastructure.private_agents.prereq-id}"
+  num_private_agents        = "${var.num_private_agents}"
 
   # public agent
-  public_agent_ips        = ["${module.dcos-infrastructure.public_agents.public_ips}"]
-  public_agents_os_user   = "${module.dcos-infrastructure.public_agents.os_user}"
-  public_agents_prereq-id = "${module.dcos-infrastructure.public_agents.prereq-id}"
-  num_public_agents       = "${var.num_public_agents}"
+  public_agent_ips         = ["${module.dcos-infrastructure.public_agents.public_ips}"]
+  public_agent_private_ips = ["${module.dcos-infrastructure.public_agents.private_ips}"]
+  public_agents_os_user    = "${module.dcos-infrastructure.public_agents.os_user}"
+  public_agents_prereq-id  = "${module.dcos-infrastructure.public_agents.prereq-id}"
+  num_public_agents        = "${var.num_public_agents}"
 
   # DC/OS options
   dcos_cluster_name                            = "${coalesce(var.dcos_cluster_name, local.cluster_name)}"
@@ -242,7 +244,7 @@ module "dcos-install" {
   dcos_master_discovery                        = "${var.dcos_master_discovery}"
   dcos_master_dns_bindall                      = "${var.dcos_master_dns_bindall}"
   dcos_master_external_loadbalancer            = "${coalesce(var.dcos_master_external_loadbalancer,module.dcos-infrastructure.elb.masters_dns_name)}"
-  dcos_master_list                             = "${var.dcos_master_list}"
+  dcos_master_list                             = ["${var.dcos_master_list}"]
   dcos_mesos_container_log_sink                = "${var.dcos_mesos_container_log_sink}"
   dcos_mesos_dns_set_truncate_bit              = "${var.dcos_mesos_dns_set_truncate_bit}"
   dcos_mesos_max_completed_tasks_per_framework = "${var.dcos_mesos_max_completed_tasks_per_framework}"
@@ -258,7 +260,7 @@ module "dcos-install" {
   dcos_previous_version_master_index           = "${var.dcos_previous_version_master_index}"
   dcos_process_timeout                         = "${var.dcos_process_timeout}"
   dcos_public_agent_list                       = "${var.dcos_public_agent_list}"
-  dcos_resolvers                               = "${var.dcos_resolvers}"
+  dcos_resolvers                               = ["${var.dcos_resolvers}"]
   dcos_rexray_config                           = "${var.dcos_rexray_config}"
   dcos_rexray_config_filename                  = "${var.dcos_rexray_config_filename}"
   dcos_rexray_config_method                    = "${var.dcos_rexray_config_method}"

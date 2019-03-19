@@ -29,8 +29,8 @@ variable "dcos_security" {
 }
 
 variable "dcos_resolvers" {
-  default     = ""
-  description = "A YAML nested list (-) of DNS resolvers for your DC/OS cluster nodes. (recommended)"
+  default     = ["8.8.8.8", "8.8.4.4"]
+  description = "list of DNS resolvers for your DC/OS cluster nodes. (recommended)"
 }
 
 variable "dcos_skip_checks" {
@@ -433,7 +433,7 @@ variable "dcos_master_list" {
 }
 
 variable "dcos_public_agent_list" {
-  default     = ""
+  default     = []
   description = "statically set your public agents (not recommended)"
 }
 
@@ -448,12 +448,12 @@ variable "dcos_previous_version_master_index" {
 }
 
 variable "dcos_agent_list" {
-  default     = ""
+  default     = []
   description = "used to list the agents in the config.yaml (optional)"
 }
 
 variable "dcos_bootstrap_port" {
-  default     = "80"
+  default     = "8080"
   description = "used to specify the port of the bootstrap url"
 }
 
