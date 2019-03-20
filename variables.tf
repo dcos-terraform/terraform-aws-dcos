@@ -46,7 +46,7 @@ variable "admin_ips" {
 
 variable "availability_zones" {
   type        = "list"
-  description = "Availability zones to be used"
+  description = "List of availability_zones to be used as the same format that are required by the platform/cloud providers. i.e [\"RegionZone\"]"
   default     = []
 }
 

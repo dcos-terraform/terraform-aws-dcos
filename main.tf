@@ -27,7 +27,7 @@
  *   num_private_agents = "2"
  *   num_public_agents = "1"
  *
- *   # availability_zones = ["<your_selected_region>a"]
+ *   # availability_zones = ["RegionZone"]
  *
  *   dcos_cluster_docker_credentials_enabled =  "true"
  *   dcos_cluster_docker_credentials_write_to_etc = "true"

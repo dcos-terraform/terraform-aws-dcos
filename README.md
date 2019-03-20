@@ -26,7 +26,7 @@ module "dcos" {
   num_private_agents = "2"
   num_public_agents = "1"
 
-  # availability_zones = ["<your_selected_region>a"]
+  # availability_zones = ["RegionZone"]
 
   dcos_cluster_docker_credentials_enabled =  "true"
   dcos_cluster_docker_credentials_write_to_etc = "true"
@@ -81,7 +81,7 @@ module "dcos" {
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | admin_ips | List of CIDR admin IPs | list | - | yes |
-| availability_zones | Availability zones to be used | list | `<list>` | no |
+| availability_zones | List of availability_zones to be used as the same format that are required by the platform/cloud providers. i.e ["RegionZone"] | list | `<list>` | no |
 | aws_ami | AMI that will be used for the instances instead of the Mesosphere chosen default images. Custom AMIs must fulfill the Mesosphere DC/OS system-requirements: See https://docs.mesosphere.com/1.12/installing/production/system-requirements/ | string | `` | no |
 | aws_key_name | Specify the aws ssh key to use. We assume its already loaded in your SSH agent. Set ssh_public_key_file to empty string | string | `` | no |
 | bootstrap_associate_public_ip_address | [BOOTSTRAP] Associate a public ip address with there instances | string | `true` | no |
