@@ -99,19 +99,19 @@ output "infrastructure-public_agents.prereq-id" {
   value       = "${module.dcos-infrastructure.public_agents.prereq-id}"
 }
 
-output "infrastructure-elb.public_agents_dns_name" {
+output "infrastructure-lb.public_agents_dns_name" {
   description = "This is the load balancer to reach the public agents"
-  value       = "${module.dcos-infrastructure.elb.public_agents_dns_name}"
+  value       = "${module.dcos-infrastructure.lb.public_agents_dns_name}"
 }
 
-output "infrastructure-elb.masters_dns_name" {
+output "infrastructure-lb.masters_dns_name" {
   description = "This is the load balancer to access the DC/OS UI"
-  value       = "${module.dcos-infrastructure.elb.masters_dns_name}"
+  value       = "${module.dcos-infrastructure.lb.masters_dns_name}"
 }
 
-output "infrastructure-elb.masters_internal_dns_name" {
+output "infrastructure-lb.masters_internal_dns_name" {
   description = "This is the load balancer to access the masters internally in the cluster"
-  value       = "${module.dcos-infrastructure.elb.masters_internal_dns_name}"
+  value       = "${module.dcos-infrastructure.lb.masters_internal_dns_name}"
 }
 
 output "infrastructure.vpc_id" {
