@@ -105,7 +105,7 @@ module "dcos-infrastructure" {
   bootstrap_root_volume_type                 = "${var.bootstrap_root_volume_type}"
   cluster_name                               = "${local.cluster_name}"
   dcos_instance_os                           = "${var.dcos_instance_os}"
-  internal_networks                          = ["${var.internal_networks}"]
+  accepted_internal_networks                 = ["${var.accepted_internal_networks}"]
   masters_associate_public_ip_address        = "${var.masters_associate_public_ip_address}"
   masters_aws_ami                            = "${var.masters_aws_ami}"
   masters_instance_type                      = "${var.masters_instance_type}"
