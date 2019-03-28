@@ -280,3 +280,5 @@ module "dcos-install" {
   dcos_zk_super_credentials                    = "${var.dcos_zk_super_credentials}"
   dcos_enable_mesos_input_plugin               = "${var.dcos_enable_mesos_input_plugin}"
 }
+
+# Added faux new feature
