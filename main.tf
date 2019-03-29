@@ -155,6 +155,10 @@ module "dcos-install" {
 
   version = "~> 0.1.1"
 
+  # ansible related config
+  ansible_bundled_container = "${var.ansible_bundled_container}"
+  ansible_additional_config = "${var.ansible_additional_config}"
+
   # bootstrap
   bootstrap_ip         = "${module.dcos-infrastructure.bootstrap.public_ip}"
   bootstrap_private_ip = "${module.dcos-infrastructure.bootstrap.private_ip}"
@@ -170,14 +174,14 @@ module "dcos-install" {
 
   # private agent
   private_agent_ips         = ["${module.dcos-infrastructure.private_agents.public_ips}"]
-  private_agent_private_ips = ["${module.dcos-infrastructure.private_agents.private_ips}"]
+  private_agent_private_ips = ["${concat(module.dcos-infrastructure.private_agents.private_ips,var.additional_private_agent_ips)}"]
   private_agents_os_user    = "${module.dcos-infrastructure.private_agents.os_user}"
   private_agents_prereq-id  = "${module.dcos-infrastructure.private_agents.prereq-id}"
   num_private_agents        = "${var.num_private_agents}"
 
   # public agent
   public_agent_ips         = ["${module.dcos-infrastructure.public_agents.public_ips}"]
-  public_agent_private_ips = ["${module.dcos-infrastructure.public_agents.private_ips}"]
+  public_agent_private_ips = ["${concat(module.dcos-infrastructure.public_agents.private_ips,var.additional_public_agent_ips)}"]
   public_agents_os_user    = "${module.dcos-infrastructure.public_agents.os_user}"
   public_agents_prereq-id  = "${module.dcos-infrastructure.public_agents.prereq-id}"
   num_public_agents        = "${var.num_public_agents}"

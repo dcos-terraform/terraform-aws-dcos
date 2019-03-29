@@ -226,3 +226,23 @@ variable "subnet_range" {
   description = "Private IP space to be used in CIDR format"
   default     = "172.16.0.0/16"
 }
+
+variable "additional_public_agent_ips" {
+  description = "Additional public agent IPs."
+  default     = []
+}
+
+variable "additional_private_agent_ips" {
+  description = "Additional private agent IPs."
+  default     = []
+}
+
+variable "ansible_bundled_container" {
+  default     = "mesosphere/dcos-ansible-bundle:latest"
+  description = "Docker container with bundled dcos-ansible and ansible executables"
+}
+
+variable "ansible_additional_config" {
+  default     = ""
+  description = "Add additional config options to ansible. This is getting merged with generated defaults. Do not specify `dcos:`"
+}
