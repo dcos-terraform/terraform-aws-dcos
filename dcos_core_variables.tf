@@ -8,11 +8,6 @@ variable "bootstrap_private_ip" {
   description = "used for the private ip for the bootstrap url"
 }
 
-variable "dcos_install_mode" {
-  default     = "install"
-  description = "specifies which type of command to execute. Options: `install` or `upgrade`"
-}
-
 variable "dcos_version" {
   default     = "1.11.4"
   description = "specifies which dcos version instruction to use. Options: `1.9.0`, `1.8.8`, etc. _See [dcos_download_path](https://github.com/dcos-terraform/terraform-template-dcos-core/blob/master/open/download-variables.tf) or [dcos_version](https://github.com/dcos-terraform/terraform-template-dcos-core/tree/master/open/dcos-versions) tree for a full list._"
