@@ -12,7 +12,7 @@ EXAMPLE
 ```hcl
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
-  version = "~> 0.1.0"
+  version = "~> 0.2.0"
 
   providers = {
     aws = "aws"
@@ -36,38 +36,38 @@ module "dcos" {
   dcos_http_proxy = "example.com"
   dcos_https_proxy = "example.com"
   dcos_no_proxy = <<EOF
-  # YAML
-   - "internal.net"
-   - "169.254.169.254"
+# YAML
+- "internal.net"
+- "169.254.169.254"
   EOF
   dcos_overlay_network = <<EOF
-  # YAML
-      vtep_subnet: 44.128.0.0/20
-      vtep_mac_oui: 70:B3:D5:00:00:00
-      overlays:
-        - name: dcos
-          subnet: 12.0.0.0/8
-          prefix: 26
-  EOF
+# YAML
+vtep_subnet: 44.128.0.0/20
+vtep_mac_oui: 70:B3:D5:00:00:00
+overlays:
+  - name: dcos
+    subnet: 12.0.0.0/8
+    prefix: 26
+EOF
   dcos_rexray_config = <<EOF
-  # YAML
-    rexray:
-      loglevel: warn
-      modules:
-        default-admin:
-          host: tcp://127.0.0.1:61003
-      storageDrivers:
-      - ec2
-      volume:
-        unmount:
-          ignoreusedcount: true
-  EOF
+# YAML
+rexray:
+  loglevel: warn
+  modules:
+    default-admin:
+      host: tcp://127.0.0.1:61003
+  storageDrivers:
+  - ec2
+  volume:
+    unmount:
+      ignoreusedcount: true
+EOF
   dcos_cluster_docker_credentials = <<EOF
-  # YAML
-    auths:
-      'https://index.docker.io/v1/':
-        auth: Ze9ja2VyY3licmljSmVFOEJrcTY2eTV1WHhnSkVuVndjVEE=
-  EOF
+# YAML
+auths:
+  'https://index.docker.io/v1/':
+    auth: Ze9ja2VyY3licmljSmVFOEJrcTY2eTV1WHhnSkVuVndjVEE=
+EOF
 
   # dcos_variant              = "ee"
   # dcos_license_key_contents = "${file("./license.txt")}"
