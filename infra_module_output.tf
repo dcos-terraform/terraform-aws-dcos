@@ -1,6 +1,6 @@
-output "infrastructure.aws_key_pair.key_name" {
-  description = "This is the key_name of the ssh key created"
-  value       = "${module.dcos-infrastructure.aws_key_pair.key_name}"
+output "infrastructure.aws_key_name" {
+  description = "This is the AWS key name used for the cluster"
+  value       = "${module.dcos-infrastructure.aws_key_name}"
 }
 
 output "infrastructure.bootstrap.instance" {
