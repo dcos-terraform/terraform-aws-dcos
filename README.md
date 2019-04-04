@@ -79,11 +79,10 @@ EOF
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| admin\_ips | List of CIDR admin IPs | list | n/a | yes |
-| ssh\_public\_key\_file | Path to SSH public key. This is mandatory but can be set to an empty string if you want to use ssh_public_key with the key as string. | string | n/a | yes |
 | accepted\_internal\_networks | Subnet ranges for all internal networks | list | `<list>` | no |
 | additional\_private\_agent\_ips | Additional private agent IPs. | list | `<list>` | no |
 | additional\_public\_agent\_ips | Additional public agent IPs. | list | `<list>` | no |
+| admin\_ips | List of CIDR admin IPs | list | n/a | yes |
 | ansible\_additional\_config | Add additional config options to ansible. This is getting merged with generated defaults. Do not specify `dcos:` | string | `""` | no |
 | ansible\_bundled\_container | Docker container with bundled dcos-ansible and ansible executables | string | `"mesosphere/dcos-ansible-bundle:latest"` | no |
 | availability\_zones | Availability zones to be used | list | `<list>` | no |
@@ -91,6 +90,7 @@ EOF
 | aws\_key\_name | Specify the aws ssh key to use. We assume its already loaded in your SSH agent. Set ssh_public_key_file to empty string | string | `""` | no |
 | bootstrap\_associate\_public\_ip\_address | [BOOTSTRAP] Associate a public ip address with there instances | string | `"true"` | no |
 | bootstrap\_aws\_ami | [BOOTSTRAP] AMI to be used | string | `""` | no |
+| bootstrap\_hostname\_format | [BOOTSTRAP] Format the hostname inputs are index+1, region, cluster_name | string | `"%[3]s-bootstrap%[1]d-%[2]s"` | no |
 | bootstrap\_iam\_instance\_profile | [BOOTSTRAP] Instance profile to be used for these instances | string | `""` | no |
 | bootstrap\_instance\_type | [BOOTSTRAP] Instance type | string | `"t2.medium"` | no |
 | bootstrap\_os | [BOOTSTRAP] Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `""` | no |
@@ -194,12 +194,13 @@ EOF
 | dcos\_ucr\_default\_bridge\_subnet | IPv4 subnet allocated to the mesos-bridge CNI network for UCR bridge-mode networking. (optional) | string | `""` | no |
 | dcos\_use\_proxy | to enable use of proxy for internal routing (optional) | string | `""` | no |
 | dcos\_variant | Main Variables | string | `"open"` | no |
-| dcos\_version | specifies which dcos version instruction to use. Options: `1.9.0`, `1.8.8`, etc. _See [dcos_download_path](https://github.com/dcos-terraform/terraform-template-dcos-core/blob/master/open/download-variables.tf) or [dcos_version](https://github.com/dcos-terraform/terraform-template-dcos-core/tree/master/open/dcos-versions) tree for a full list._ | string | `"1.11.4"` | no |
+| dcos\_version | specifies which dcos version instruction to use. Options: `1.9.0`, `1.8.8`, etc. _See [dcos_download_path](https://github.com/dcos-terraform/terraform-template-dcos-core/blob/master/open/download-variables.tf) or [dcos_version](https://github.com/dcos-terraform/terraform-template-dcos-core/tree/master/open/dcos-versions) tree for a full list._ | string | `"1.12.3"` | no |
 | dcos\_zk\_agent\_credentials | [Enterprise DC/OS] set the ZooKeeper agent credentials (recommended) | string | `""` | no |
 | dcos\_zk\_master\_credentials | [Enterprise DC/OS] set the ZooKeeper master credentials (recommended) | string | `""` | no |
 | dcos\_zk\_super\_credentials | [Enterprise DC/OS] set the zk super credentials (recommended) | string | `""` | no |
 | masters\_associate\_public\_ip\_address | [MASTERS] Associate a public ip address with there instances | string | `"true"` | no |
 | masters\_aws\_ami | [MASTERS] AMI to be used | string | `""` | no |
+| masters\_hostname\_format | [MASTERS] Format the hostname inputs are index+1, region, cluster_name | string | `"%[3]s-master%[1]d-%[2]s"` | no |
 | masters\_iam\_instance\_profile | [MASTERS] Instance profile to be used for these instances | string | `""` | no |
 | masters\_instance\_type | [MASTERS] Instance type | string | `"m4.xlarge"` | no |
 | masters\_os | [MASTERS] Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `""` | no |
@@ -212,6 +213,7 @@ EOF
 | private\_agents\_associate\_public\_ip\_address | [PRIVATE AGENTS] Associate a public ip address with there instances | string | `"true"` | no |
 | private\_agents\_aws\_ami | [PRIVATE AGENTS] AMI to be used | string | `""` | no |
 | private\_agents\_extra\_volumes | [PRIVATE AGENTS] Extra volumes for each private agent | list | `<list>` | no |
+| private\_agents\_hostname\_format | [PRIVATE AGENTS] Format the hostname inputs are index+1, region, cluster_name | string | `"%[3]s-privateagent%[1]d-%[2]s"` | no |
 | private\_agents\_iam\_instance\_profile | [PRIVATE AGENTS] Instance profile to be used for these instances | string | `""` | no |
 | private\_agents\_instance\_type | [PRIVATE AGENTS] Instance type | string | `"m4.xlarge"` | no |
 | private\_agents\_os | [PRIVATE AGENTS] Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `""` | no |
@@ -221,12 +223,14 @@ EOF
 | public\_agents\_additional\_ports | List of additional ports allowed for public access on public agents (80 and 443 open by default) | list | `<list>` | no |
 | public\_agents\_associate\_public\_ip\_address | [PUBLIC AGENTS] Associate a public ip address with there instances | string | `"true"` | no |
 | public\_agents\_aws\_ami | [PUBLIC AGENTS] AMI to be used | string | `""` | no |
+| public\_agents\_hostname\_format | [PUBLIC AGENTS] Format the hostname inputs are index+1, region, cluster_name | string | `"%[3]s-publicagent%[1]d-%[2]s"` | no |
 | public\_agents\_iam\_instance\_profile | [PUBLIC AGENTS] Instance profile to be used for these instances | string | `""` | no |
 | public\_agents\_instance\_type | [PUBLIC AGENTS] Instance type | string | `"m4.xlarge"` | no |
 | public\_agents\_os | [PUBLIC AGENTS] Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `""` | no |
 | public\_agents\_root\_volume\_size | [PUBLIC AGENTS] Root volume size | string | `"120"` | no |
 | public\_agents\_root\_volume\_type | [PUBLIC AGENTS] Specify the root volume type. | string | `"gp2"` | no |
 | ssh\_public\_key | SSH public key in authorized keys format (e.g. 'ssh-rsa ..') to be used with the instances. Make sure you added this key to your ssh-agent. | string | `""` | no |
+| ssh\_public\_key\_file | Path to SSH public key. This is mandatory but can be set to an empty string if you want to use ssh_public_key with the key as string. | string | n/a | yes |
 | subnet\_range | Private IP space to be used in CIDR format | string | `"172.16.0.0/16"` | no |
 | tags | Add custom tags to all resources | map | `<map>` | no |
 
@@ -234,33 +238,37 @@ EOF
 
 | Name | Description |
 |------|-------------|
-| infrastructure-bootstrap.instance | Bootstrap instance ID |
-| infrastructure-bootstrap.os\_user | Bootstrap instance OS default user |
-| infrastructure-bootstrap.prereq-id | Returns the ID of the prereq script for bootstrap (if user_data or ami are not used) |
-| infrastructure-bootstrap.private\_ip | Private IP of the bootstrap instance |
-| infrastructure-bootstrap.public\_ip | Public IP of the bootstrap instance |
-| infrastructure-lb.masters\_dns\_name | This is the load balancer to access the DC/OS UI |
-| infrastructure-lb.masters\_internal\_dns\_name | This is the load balancer to access the masters internally in the cluster |
-| infrastructure-lb.public\_agents\_dns\_name | This is the load balancer to reach the public agents |
-| infrastructure-masters.instances | Master instances IDs |
-| infrastructure-masters.os\_user | Master instances private OS default user |
-| infrastructure-masters.prereq-id | Returns the ID of the prereq script for masters (if user_data or ami are not used) |
-| infrastructure-masters.private\_ips | Master instances private IPs |
-| infrastructure-masters.public\_ips | Master instances public IPs |
-| infrastructure-private\_agents.instances | Private Agent instances IDs |
-| infrastructure-private\_agents.os\_user | Private Agent instances private OS default user |
-| infrastructure-private\_agents.prereq-id | Returns the ID of the prereq script for private agents (if user_data or ami are not used) |
-| infrastructure-private\_agents.private\_ips | Private Agent instances private IPs |
-| infrastructure-private\_agents.public\_ips | Private Agent public IPs |
-| infrastructure-public\_agents.instances | Public Agent instances IDs |
-| infrastructure-public\_agents.os\_user | Private Agent instances private OS default user |
-| infrastructure-public\_agents.prereq-id | Returns the ID of the prereq script for public agents (if user_data or ami are not used) |
-| infrastructure-public\_agents.private\_ips | Public Agent instances private IPs |
-| infrastructure-public\_agents.public\_ips | Public Agent public IPs |
-| infrastructure.security\_group\_internal\_id | This is the id of the internal security_group that the cluster is in |
-| infrastructure.vpc\_cidr\_block | This is the id of the VPC the cluster is in |
-| infrastructure.vpc\_id | This is the id of the VPC the cluster is in |
-| infrastructure.vpc\_main\_route\_table\_id | This is the id of the VPC's main routing table the cluster is in |
+| infrastructure.aws\_key\_name | This is the AWS key name used for the cluster |
+| infrastructure.bootstrap.instance | Bootstrap instance ID |
+| infrastructure.bootstrap.os\_user | Bootstrap instance OS default user |
+| infrastructure.bootstrap.prereq-id | Returns the ID of the prereq script for bootstrap (if user_data or ami are not used) |
+| infrastructure.bootstrap.private\_ip | Private IP of the bootstrap instance |
+| infrastructure.bootstrap.public\_ip | Public IP of the bootstrap instance |
+| infrastructure.iam.agent\_profile | Name of the agent profile |
+| infrastructure.lb.masters\_dns\_name | This is the load balancer to access the DC/OS UI |
+| infrastructure.lb.masters\_internal\_dns\_name | This is the load balancer to access the masters internally in the cluster |
+| infrastructure.lb.public\_agents\_dns\_name | This is the load balancer to reach the public agents |
+| infrastructure.masters.instances | Master instances IDs |
+| infrastructure.masters.os\_user | Master instances private OS default user |
+| infrastructure.masters.prereq-id | Returns the ID of the prereq script for masters (if user_data or ami are not used) |
+| infrastructure.masters.private\_ips | Master instances private IPs |
+| infrastructure.masters.public\_ips | Master instances public IPs |
+| infrastructure.private\_agents.instances | Private Agent instances IDs |
+| infrastructure.private\_agents.os\_user | Private Agent instances private OS default user |
+| infrastructure.private\_agents.prereq-id | Returns the ID of the prereq script for private agents (if user_data or ami are not used) |
+| infrastructure.private\_agents.private\_ips | Private Agent instances private IPs |
+| infrastructure.private\_agents.public\_ips | Private Agent public IPs |
+| infrastructure.public\_agents.instances | Public Agent instances IDs |
+| infrastructure.public\_agents.os\_user | Private Agent instances private OS default user |
+| infrastructure.public\_agents.prereq-id | Returns the ID of the prereq script for public agents (if user_data or ami are not used) |
+| infrastructure.public\_agents.private\_ips | Public Agent instances private IPs |
+| infrastructure.public\_agents.public\_ips | Public Agent public IPs |
+| infrastructure.security\_groups.admin | This is the id of the admin security_group that the cluster is in |
+| infrastructure.security\_groups.internal | This is the id of the internal security_group that the cluster is in |
+| infrastructure.vpc.cidr\_block | This is the id of the VPC the cluster is in |
+| infrastructure.vpc.id | This is the id of the VPC the cluster is in |
+| infrastructure.vpc.main\_route\_table\_id | This is the id of the VPC's main routing table the cluster is in |
+| infrastructure.vpc.subnet\_ids | This is the list of subnet_ids the cluster is in |
 | masters-internal-loadbalancer | This is the internal load balancer address to access the DC/OS Services |
 | masters-ips | Master IP addresses |
 | masters-loadbalancer | This is the load balancer address to access the DC/OS UI |
