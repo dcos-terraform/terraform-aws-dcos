@@ -264,5 +264,5 @@ variable "ansible_bundled_container" {
 
 variable "ansible_additional_config" {
   default     = ""
-  description = "Add additional config options to ansible. This is getting merged with generated defaults. Do not specify `dcos:`"
+  description = "Add additional config options to ansible. This is getting merged with generated defaults. Do not specify \`dcos:\`"
 }
