@@ -106,9 +106,11 @@ module "dcos-infrastructure" {
   cluster_name                               = "${local.cluster_name}"
   dcos_instance_os                           = "${var.dcos_instance_os}"
   accepted_internal_networks                 = ["${var.accepted_internal_networks}"]
+  masters_acm_cert_arn                       = "${var.masters_acm_cert_arn}"
   masters_associate_public_ip_address        = "${var.masters_associate_public_ip_address}"
   masters_aws_ami                            = "${var.masters_aws_ami}"
   masters_instance_type                      = "${var.masters_instance_type}"
+  masters_internal_acm_cert_arn              = "${var.masters_internal_acm_cert_arn}"
   masters_iam_instance_profile               = "${var.masters_iam_instance_profile}"
   masters_os                                 = "${var.masters_os}"
   masters_root_volume_size                   = "${var.masters_root_volume_size}"
@@ -123,6 +125,7 @@ module "dcos-infrastructure" {
   private_agents_root_volume_size            = "${var.private_agents_root_volume_size}"
   private_agents_root_volume_type            = "${var.private_agents_root_volume_type}"
   private_agents_extra_volumes               = ["${var.private_agents_extra_volumes}"]
+  public_agents_acm_cert_arn                 = "${var.public_agents_acm_cert_arn}"
   public_agents_associate_public_ip_address  = "${var.public_agents_associate_public_ip_address}"
   public_agents_aws_ami                      = "${var.public_agents_aws_ami}"
   public_agents_iam_instance_profile         = "${var.public_agents_iam_instance_profile}"
