@@ -79,6 +79,8 @@
 
 provider "aws" {}
 
+data "aws_region" "current" {}
+
 resource "random_id" "id" {
   byte_length = 2
   prefix      = "${var.cluster_name}"
@@ -86,6 +88,18 @@ resource "random_id" "id" {
 
 locals {
   cluster_name = "${var.cluster_name_random_string ? random_id.id.hex : var.cluster_name}"
+}
+
+data "null_data_source" "bucketlocals" {
+  inputs = {
+    dcos_s3_prefix                 = "${var.with_replaceable_masters ? "exhibitor" : ""}"
+    dcos_exhibitor_explicit_keys   = "${var.with_replaceable_masters ? " false" : ""}"
+    dcos_aws_region                = "${var.with_replaceable_masters ? data.aws_region.current.name : ""}"
+    dcos_master_discovery          = "${var.with_replaceable_masters ? "master_http_loadbalancer" : ""}"
+    dcos_exhibitor_address         = "${var.with_replaceable_masters ? module.dcos-infrastructure.lb.masters_internal_dns_name : ""}"
+    dcos_num_masters               = "${var.with_replaceable_masters ? var.num_masters : ""}"
+    dcos_exhibitor_storage_backend = "${var.with_replaceable_masters ? "aws_s3" : ""}"
+  }
 }
 
 module "dcos-infrastructure" {
@@ -137,8 +151,7 @@ module "dcos-infrastructure" {
   subnet_range                               = "${var.subnet_range}"
   tags                                       = "${var.tags}"
 
-  # If defining external exhibitor storage
-  aws_s3_bucket = "${var.dcos_s3_bucket}"
+  aws_create_s3_bucket = "${var.with_replaceable_masters}"
 
   providers = {
     aws = "aws"
@@ -197,7 +210,7 @@ module "dcos-install" {
   dcos_audit_logging                           = "${var.dcos_audit_logging}"
   dcos_auth_cookie_secure_flag                 = "${var.dcos_auth_cookie_secure_flag}"
   dcos_aws_access_key_id                       = "${var.dcos_aws_access_key_id}"
-  dcos_aws_region                              = "${var.dcos_aws_region}"
+  dcos_aws_region                              = "${coalesce(var.dcos_aws_region,data.null_data_source.bucketlocals.outputs["dcos_aws_region"])}"
   dcos_aws_secret_access_key                   = "${var.dcos_aws_secret_access_key}"
   dcos_aws_template_storage_access_key_id      = "${var.dcos_aws_template_storage_access_key_id}"
   dcos_aws_template_storage_bucket             = "${var.dcos_aws_template_storage_bucket}"
@@ -226,12 +239,12 @@ module "dcos-install" {
   dcos_docker_remove_delay                     = "${var.dcos_docker_remove_delay}"
   dcos_enable_docker_gc                        = "${var.dcos_enable_docker_gc}"
   dcos_enable_gpu_isolation                    = "${var.dcos_enable_gpu_isolation}"
-  dcos_exhibitor_address                       = "${var.dcos_exhibitor_address}"
+  dcos_exhibitor_address                       = "${coalesce(var.dcos_exhibitor_address, data.null_data_source.bucketlocals.outputs["dcos_exhibitor_address"])}"
   dcos_exhibitor_azure_account_key             = "${var.dcos_exhibitor_azure_account_key}"
   dcos_exhibitor_azure_account_name            = "${var.dcos_exhibitor_azure_account_name}"
   dcos_exhibitor_azure_prefix                  = "${var.dcos_exhibitor_azure_prefix}"
-  dcos_exhibitor_explicit_keys                 = "${var.dcos_exhibitor_explicit_keys}"
-  dcos_exhibitor_storage_backend               = "${var.dcos_exhibitor_storage_backend}"
+  dcos_exhibitor_explicit_keys                 = "${coalesce(var.dcos_exhibitor_explicit_keys,data.null_data_source.bucketlocals.outputs["dcos_exhibitor_explicit_keys"])}"
+  dcos_exhibitor_storage_backend               = "${coalesce(data.null_data_source.bucketlocals.outputs["dcos_exhibitor_storage_backend"], var.dcos_exhibitor_explicit_keys)}"
   dcos_exhibitor_zk_hosts                      = "${var.dcos_exhibitor_zk_hosts}"
   dcos_exhibitor_zk_path                       = "${var.dcos_exhibitor_zk_path}"
   dcos_fault_domain_detect_contents            = "${coalesce(var.dcos_fault_domain_detect_contents, file("${path.module}/scripts/fault-domain-detect.sh"))}"
@@ -246,7 +259,7 @@ module "dcos-install" {
   dcos_l4lb_enable_ipv6                        = "${var.dcos_l4lb_enable_ipv6}"
   dcos_license_key_contents                    = "${var.dcos_license_key_contents}"
   dcos_log_directory                           = "${var.dcos_log_directory}"
-  dcos_master_discovery                        = "${var.dcos_master_discovery}"
+  dcos_master_discovery                        = "${coalesce(data.null_data_source.bucketlocals.outputs["dcos_master_discovery"],var.dcos_master_discovery)}"
   dcos_master_dns_bindall                      = "${var.dcos_master_dns_bindall}"
   dcos_master_external_loadbalancer            = "${coalesce(var.dcos_master_external_loadbalancer,module.dcos-infrastructure.lb.masters_dns_name)}"
   dcos_master_list                             = ["${var.dcos_master_list}"]
@@ -254,7 +267,7 @@ module "dcos-install" {
   dcos_mesos_dns_set_truncate_bit              = "${var.dcos_mesos_dns_set_truncate_bit}"
   dcos_mesos_max_completed_tasks_per_framework = "${var.dcos_mesos_max_completed_tasks_per_framework}"
   dcos_no_proxy                                = "${var.dcos_no_proxy}"
-  dcos_num_masters                             = "${var.dcos_num_masters}"
+  dcos_num_masters                             = "${coalesce(var.dcos_num_masters, data.null_data_source.bucketlocals.outputs["dcos_num_masters"])}"
   dcos_oauth_enabled                           = "${var.dcos_oauth_enabled}"
   dcos_overlay_config_attempts                 = "${var.dcos_overlay_config_attempts}"
   dcos_overlay_enable                          = "${var.dcos_overlay_enable}"
@@ -269,8 +282,8 @@ module "dcos-install" {
   dcos_rexray_config                           = "${var.dcos_rexray_config}"
   dcos_rexray_config_filename                  = "${var.dcos_rexray_config_filename}"
   dcos_rexray_config_method                    = "${var.dcos_rexray_config_method}"
-  dcos_s3_bucket                               = "${var.dcos_s3_bucket}"
-  dcos_s3_prefix                               = "${var.dcos_s3_prefix}"
+  dcos_s3_bucket                               = "${coalesce(var.dcos_s3_bucket,module.dcos-infrastructure.aws_s3_bucket_name)}"
+  dcos_s3_prefix                               = "${coalesce(var.dcos_s3_prefix, data.null_data_source.bucketlocals.outputs["dcos_s3_prefix"])}"
   dcos_security                                = "${var.dcos_security}"
   dcos_skip_checks                             = "${var.dcos_skip_checks}"
   dcos_staged_package_storage_uri              = "${var.dcos_staged_package_storage_uri}"
