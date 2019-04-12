@@ -271,3 +271,18 @@ variable "with_replaceable_masters" {
   description = "Create S3 bucket for exhibitor and configure DC/OS to use it."
   default     = false
 }
+
+variable "masters_acm_cert_arn" {
+  description = "ACM certifacte to be used for the masters load balancer"
+  default     = ""
+}
+
+variable "masters_internal_acm_cert_arn" {
+  description = "ACM certifacte to be used for the internal masters load balancer"
+  default     = ""
+}
+
+variable "public_agents_acm_cert_arn" {
+  description = "ACM certifacte to be used for the public agents load balancer"
+  default     = ""
+}

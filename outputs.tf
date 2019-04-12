@@ -17,3 +17,8 @@ output "public-agents-loadbalancer" {
   description = "This is the load balancer address to access the DC/OS public agents"
   value       = "${module.dcos-infrastructure.lb.public_agents_dns_name}"
 }
+
+output "config" {
+  description = "The battle-tested provisioner contents of the output by DC/OS role to perform requried admin actions in behalf of the user as documented in http://mesosphere.com and http://dcos.io"
+  value       = "${module.dcos-install.config}"
+}
