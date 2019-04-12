@@ -79,10 +79,11 @@ EOF
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
+| admin\_ips | List of CIDR admin IPs | list | n/a | yes |
+| ssh\_public\_key\_file | Path to SSH public key. This is mandatory but can be set to an empty string if you want to use ssh_public_key with the key as string. | string | n/a | yes |
 | accepted\_internal\_networks | Subnet ranges for all internal networks | list | `<list>` | no |
 | additional\_private\_agent\_ips | Additional private agent IPs. | list | `<list>` | no |
 | additional\_public\_agent\_ips | Additional public agent IPs. | list | `<list>` | no |
-| admin\_ips | List of CIDR admin IPs | list | n/a | yes |
 | ansible\_additional\_config | Add additional config options to ansible. This is getting merged with generated defaults. Do not specify `dcos:` | string | `""` | no |
 | ansible\_bundled\_container | Docker container with bundled dcos-ansible and ansible executables | string | `"mesosphere/dcos-ansible-bundle:latest"` | no |
 | availability\_zones | List of availability_zones to be used as the same format that are required by the platform/cloud providers. i.e ['RegionZone'] | list | `<list>` | no |
@@ -233,9 +234,9 @@ EOF
 | public\_agents\_root\_volume\_size | [PUBLIC AGENTS] Root volume size | string | `"120"` | no |
 | public\_agents\_root\_volume\_type | [PUBLIC AGENTS] Specify the root volume type. | string | `"gp2"` | no |
 | ssh\_public\_key | SSH public key in authorized keys format (e.g. 'ssh-rsa ..') to be used with the instances. Make sure you added this key to your ssh-agent. | string | `""` | no |
-| ssh\_public\_key\_file | Path to SSH public key. This is mandatory but can be set to an empty string if you want to use ssh_public_key with the key as string. | string | n/a | yes |
 | subnet\_range | Private IP space to be used in CIDR format | string | `"172.16.0.0/16"` | no |
 | tags | Add custom tags to all resources | map | `<map>` | no |
+| with\_replaceable\_masters | Create S3 bucket for exhibitor and configure DC/OS to use it. | string | `"false"` | no |
 
 ## Outputs
 
