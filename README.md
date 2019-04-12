@@ -198,11 +198,13 @@ EOF
 | dcos\_zk\_agent\_credentials | [Enterprise DC/OS] set the ZooKeeper agent credentials (recommended) | string | `""` | no |
 | dcos\_zk\_master\_credentials | [Enterprise DC/OS] set the ZooKeeper master credentials (recommended) | string | `""` | no |
 | dcos\_zk\_super\_credentials | [Enterprise DC/OS] set the zk super credentials (recommended) | string | `""` | no |
+| masters\_acm\_cert\_arn | ACM certifacte to be used for the masters load balancer | string | `""` | no |
 | masters\_associate\_public\_ip\_address | [MASTERS] Associate a public ip address with there instances | string | `"true"` | no |
 | masters\_aws\_ami | [MASTERS] AMI to be used | string | `""` | no |
 | masters\_hostname\_format | [MASTERS] Format the hostname inputs are index+1, region, cluster_name | string | `"%[3]s-master%[1]d-%[2]s"` | no |
 | masters\_iam\_instance\_profile | [MASTERS] Instance profile to be used for these instances | string | `""` | no |
 | masters\_instance\_type | [MASTERS] Instance type | string | `"m4.xlarge"` | no |
+| masters\_internal\_acm\_cert\_arn | ACM certifacte to be used for the internal masters load balancer | string | `""` | no |
 | masters\_os | [MASTERS] Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `""` | no |
 | masters\_root\_volume\_size | [MASTERS] Root volume size in GB | string | `"120"` | no |
 | num\_masters | Specify the amount of masters. For redundancy you should have at least 3 | string | `"3"` | no |
@@ -220,6 +222,7 @@ EOF
 | private\_agents\_root\_volume\_size | [PRIVATE AGENTS] Root volume size in GB | string | `"120"` | no |
 | private\_agents\_root\_volume\_type | [PRIVATE AGENTS] Root volume type | string | `"gp2"` | no |
 | public\_agents\_access\_ips | List of ips allowed access to public agents. admin_ips are joined to this list | list | `<list>` | no |
+| public\_agents\_acm\_cert\_arn | ACM certifacte to be used for the public agents load balancer | string | `""` | no |
 | public\_agents\_additional\_ports | List of additional ports allowed for public access on public agents (80 and 443 open by default) | list | `<list>` | no |
 | public\_agents\_associate\_public\_ip\_address | [PUBLIC AGENTS] Associate a public ip address with there instances | string | `"true"` | no |
 | public\_agents\_aws\_ami | [PUBLIC AGENTS] AMI to be used | string | `""` | no |
@@ -238,6 +241,7 @@ EOF
 
 | Name | Description |
 |------|-------------|
+| config | The battle-tested provisioner contents of the output by DC/OS role to perform requried admin actions in behalf of the user as documented in http://mesosphere.com and http://dcos.io |
 | infrastructure.aws\_key\_name | This is the AWS key name used for the cluster |
 | infrastructure.bootstrap.instance | Bootstrap instance ID |
 | infrastructure.bootstrap.os\_user | Bootstrap instance OS default user |

@@ -266,3 +266,18 @@ variable "ansible_additional_config" {
   default     = ""
   description = "Add additional config options to ansible. This is getting merged with generated defaults. Do not specify `dcos:`"
 }
+
+variable "masters_acm_cert_arn" {
+  description = "ACM certifacte to be used for the masters load balancer"
+  default     = ""
+}
+
+variable "masters_internal_acm_cert_arn" {
+  description = "ACM certifacte to be used for the internal masters load balancer"
+  default     = ""
+}
+
+variable "public_agents_acm_cert_arn" {
+  description = "ACM certifacte to be used for the public agents load balancer"
+  default     = ""
+}
