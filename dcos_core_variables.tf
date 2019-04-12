@@ -1,6 +1,6 @@
 # Main Variables
 variable "dcos_variant" {
-  description = "Main Variables"
+  description = "Specifies which DC/OS variant it should be: `open` (Open Source) or `ee` (Enterprise Edition)"
   default     = "open"
 }
 
@@ -141,12 +141,12 @@ variable "dcos_exhibitor_address" {
 }
 
 variable "num_of_public_agents" {
-  description = "UNDEFINED"
+  description = "Specify the amount of public agents. These agents will host marathon-lb and edgelb"
   default     = ""
 }
 
 variable "num_of_private_agents" {
-  description = "UNDEFINED"
+  description = "Specify the amount of private agents. These agents will provide your main resources"
   default     = ""
 }
 
@@ -221,7 +221,7 @@ variable "dcos_ca_certificate_path" {
 }
 
 variable "dcos_ca_certificate_key_path" {
-  description = "DC/OS CA certificate key path"
+  description = "[Enterprise DC/OS] Path (relative to the $DCOS_INSTALL_DIR) to a file containing a single X.509 certificate private key in the OpenSSL PEM format. (optional)"
   default     = ""
 }
 
