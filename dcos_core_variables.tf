@@ -1,7 +1,7 @@
 # Main Variables
 variable "dcos_variant" {
   description = "Main Variables"
-  default = "open"
+  default     = "open"
 }
 
 variable "bootstrap_private_ip" {
@@ -142,12 +142,12 @@ variable "dcos_exhibitor_address" {
 
 variable "num_of_public_agents" {
   description = "UNDEFINED"
-  default = ""
+  default     = ""
 }
 
 variable "num_of_private_agents" {
   description = "UNDEFINED"
-  default = ""
+  default     = ""
 }
 
 variable "dcos_num_masters" {
@@ -222,7 +222,7 @@ variable "dcos_ca_certificate_path" {
 
 variable "dcos_ca_certificate_key_path" {
   description = "DC/OS CA certificate key path"
-  default = ""
+  default     = ""
 }
 
 variable "dcos_config" {
@@ -486,7 +486,7 @@ variable "custom_dcos_download_path" {
 
 variable "dcos_cluster_docker_registry_enabled" {
   description = "DC/OS cluster docker registry enabled"
-  default = ""
+  default     = ""
 }
 
 variable "dcos_enable_docker_gc" {
