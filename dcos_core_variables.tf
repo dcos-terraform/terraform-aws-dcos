@@ -1,27 +1,28 @@
 # Main Variables
 variable "dcos_variant" {
-  default = "open"
+  description = "Specifies which DC/OS variant it should be: `open` (Open Source) or `ee` (Enterprise Edition)"
+  default     = "open"
 }
 
 variable "bootstrap_private_ip" {
   default     = ""
-  description = "used for the private ip for the bootstrap url"
+  description = "Private IP bootstrap nginx is listening on. Used to build the bootstrap URL."
 }
 
 variable "dcos_version" {
   default     = "1.12.3"
-  description = "specifies which dcos version instruction to use. Options: `1.9.0`, `1.8.8`, etc. _See [dcos_download_path](https://github.com/dcos-terraform/terraform-template-dcos-core/blob/master/open/download-variables.tf) or [dcos_version](https://github.com/dcos-terraform/terraform-template-dcos-core/tree/master/open/dcos-versions) tree for a full list._"
+  description = "Specifies which DC/OS version instruction to use. Options: 1.12.3, 1.11.10, etc. See dcos_download_path or dcos_version tree for a full list."
 }
 
 # DCOS bootstrap node variables
 variable "dcos_security" {
   default     = ""
-  description = "[Enterprise DC/OS] set the security level of DC/OS. Default is permissive. (recommended)"
+  description = "[Enterprise DC/OS] set the security level of DC/OS, either 'strict' or 'permissive'. Default is 'permissive'. (recommended)"
 }
 
 variable "dcos_resolvers" {
   default     = ["8.8.8.8", "8.8.4.4"]
-  description = "list of DNS resolvers for your DC/OS cluster nodes. (recommended)"
+  description = "A YAML nested list (-) of DNS resolvers for your DC/OS cluster nodes. (recommended)"
 }
 
 variable "dcos_skip_checks" {
@@ -46,32 +47,32 @@ variable "dcos_master_discovery" {
 
 variable "dcos_aws_template_storage_bucket" {
   default     = ""
-  description = "the aws CloudFormation bucket name (optional)"
+  description = "AWS CloudFormation bucket name (optional)"
 }
 
 variable "dcos_aws_template_storage_bucket_path" {
   default     = ""
-  description = "the aws CloudFormation bucket path (optional)"
+  description = "AWS CloudFormation bucket path (optional)"
 }
 
 variable "dcos_aws_template_storage_region_name" {
   default     = ""
-  description = "the aws CloudFormation region name (optional)"
+  description = "AWS CloudFormation region name (optional)"
 }
 
 variable "dcos_aws_template_upload" {
   default     = ""
-  description = "to automatically upload the customized advanced templates to your S3 bucket. (optional)"
+  description = "To automatically upload the customized advanced templates to your S3 bucket. (optional)"
 }
 
 variable "dcos_aws_template_storage_access_key_id" {
   default     = ""
-  description = "the aws key ID for CloudFormation template storage (optional)"
+  description = "AWS key ID for CloudFormation template storage (optional)"
 }
 
 variable "dcos_aws_template_storage_secret_access_key" {
   default     = ""
-  description = "the aws secret key for the CloudFormation template (optional)"
+  description = "AWS secret key for the CloudFormation template (optional)"
 }
 
 variable "dcos_exhibitor_storage_backend" {
@@ -86,22 +87,22 @@ variable "dcos_exhibitor_zk_hosts" {
 
 variable "dcos_exhibitor_zk_path" {
   default     = ""
-  description = "the filepath that Exhibitor uses to store data (not recommended but required with exhibitor_storage_backend set to `zookeeper`. Use `aws_s3` or `azure` instead. Assumes external ZooKeeper is already online.)"
+  description = "the filepath that Exhibitor uses to store data (not recommended but required with exhibitor_storage_backend set to zookeeper. Use aws_s3 or azureinstead. Assumes external ZooKeeper is already online.)"
 }
 
 variable "dcos_aws_access_key_id" {
   default     = ""
-  description = "the aws key ID for exhibitor storage  (optional but required with dcos_exhibitor_address)"
+  description = "AWS key ID for exhibitor storage (optional but required with dcos_exhibitor_address)"
 }
 
 variable "dcos_aws_region" {
   default     = ""
-  description = "the aws region for exhibitor storage (optional but required with dcos_exhibitor_address)"
+  description = "AWS region for exhibitor storage (optional but required with dcos_exhibitor_address)"
 }
 
 variable "dcos_aws_secret_access_key" {
   default     = ""
-  description = "the aws secret key for exhibitor storage (optional but required with dcos_exhibitor_address)"
+  description = "AWS secret key for exhibitor storage (optional but required with dcos_exhibitor_address)"
 }
 
 variable "dcos_exhibitor_explicit_keys" {
@@ -140,11 +141,13 @@ variable "dcos_exhibitor_address" {
 }
 
 variable "num_of_public_agents" {
-  default = ""
+  description = "Specify the amount of public agents. These agents will host marathon-lb and edgelb"
+  default     = ""
 }
 
 variable "num_of_private_agents" {
-  default = ""
+  description = "Specify the amount of private agents. These agents will provide your main resources"
+  default     = ""
 }
 
 variable "dcos_num_masters" {
@@ -159,7 +162,7 @@ variable "dcos_customer_key" {
 
 variable "dcos_rexray_config_method" {
   default     = ""
-  description = "The REX-Ray configuration method for enabling external persistent volumes in Marathon.  (optional)"
+  description = "The REX-Ray configuration method for enabling external persistent volumes in Marathon. (optional)"
 }
 
 variable "dcos_rexray_config_filename" {
@@ -218,7 +221,8 @@ variable "dcos_ca_certificate_path" {
 }
 
 variable "dcos_ca_certificate_key_path" {
-  default = ""
+  description = "[Enterprise DC/OS] Path (relative to the $DCOS_INSTALL_DIR) to a file containing a single X.509 certificate private key in the OpenSSL PEM format. (optional)"
+  default     = ""
 }
 
 variable "dcos_config" {
@@ -295,7 +299,7 @@ variable "dcos_superuser_username" {
 
 variable "dcos_telemetry_enabled" {
   default     = ""
-  description = "change the telemetry option (optional)"
+  description = "Change the telemetry option (optional)"
 }
 
 variable "dcos_zk_super_credentials" {
@@ -340,7 +344,7 @@ variable "dcos_dns_search" {
 
 variable "dcos_dns_forward_zones" {
   default     = ""
-  description = "Allow to forward DNS to certain domain requests to specific server. The [following syntax](https://github.com/dcos/dcos-docs/blob/master/1.10/installing/custom/configuration/configuration-parameters.md#dns_forward_zones) must be used in combination with [Terraform string heredoc](https://www.terraform.io/docs/configuration/variables.html#strings). (optional) (:warning: DC/OS 1.10+)"
+  description = "Allow to forward DNS to certain domain requests to specific server. The following syntax must be used in combination with Terraform string heredoc. (optional) (:warning: DC/OS 1.10+)"
 }
 
 variable "dcos_master_dns_bindall" {
@@ -350,27 +354,27 @@ variable "dcos_master_dns_bindall" {
 
 variable "dcos_use_proxy" {
   default     = ""
-  description = "to enable use of proxy for internal routing (optional)"
+  description = "To enable use of proxy for internal routing (optional)"
 }
 
 variable "dcos_http_proxy" {
   default     = ""
-  description = "the http proxy (optional)"
+  description = "http proxy (optional)"
 }
 
 variable "dcos_https_proxy" {
   default     = ""
-  description = "the https proxy (optional)"
+  description = "https proxy (optional)"
 }
 
 variable "dcos_no_proxy" {
   default     = ""
-  description = " A YAML nested list (-) of addresses to exclude from the proxy. (optional)"
+  description = "A YAML nested list (-) of addresses to exclude from the proxy. (optional)"
 }
 
 variable "dcos_check_time" {
   default     = ""
-  description = "check if Network Time Protocol (NTP) is enabled during DC/OS startup. (optional)"
+  description = "Check if Network Time Protocol (NTP) is enabled during DC/OS startup. (optional)"
 }
 
 variable "dcos_docker_remove_delay" {
@@ -400,7 +404,7 @@ variable "dcos_process_timeout" {
 
 variable "dcos_cluster_docker_credentials" {
   default     = ""
-  description = "The dictionary of Docker credentials to pass. (optional)"
+  description = "Dictionary of Docker credentials to pass. (optional)"
 }
 
 variable "dcos_cluster_docker_credentials_dcos_owned" {
@@ -445,7 +449,7 @@ variable "dcos_agent_list" {
 
 variable "dcos_bootstrap_port" {
   default     = "8080"
-  description = "used to specify the port of the bootstrap url"
+  description = "Port of the bootstrap URL"
 }
 
 variable "dcos_ip_detect_public_filename" {
@@ -456,7 +460,7 @@ variable "dcos_ip_detect_public_filename" {
 variable "dcos_ip_detect_public_contents" {
   default = ""
 
-  description = " Allows DC/OS to be aware of your publicly routeable address for ease of use (recommended)"
+  description = "Allows DC/OS to be aware of your publicly routeable address for ease of use (recommended)"
 }
 
 variable "dcos_ip_detect_contents" {
@@ -472,7 +476,7 @@ variable "dcos_rexray_config" {
 
 variable "dcos_cluster_docker_registry_url" {
   default     = ""
-  description = "The custom URL that Mesos uses to pull Docker images from. If set, it will configure the Mesos’ --docker_registry flag to the specified URL. (optional)"
+  description = "The custom URL that Mesos uses to pull Docker images from. If set, it will configure the Mesos --docker_registry flag to the specified URL. (optional)"
 }
 
 variable "custom_dcos_download_path" {
@@ -481,7 +485,8 @@ variable "custom_dcos_download_path" {
 }
 
 variable "dcos_cluster_docker_registry_enabled" {
-  default = ""
+  description = "DC/OS cluster docker registry enabled"
+  default     = ""
 }
 
 variable "dcos_enable_docker_gc" {
