@@ -21,7 +21,7 @@ variable "dcos_security" {
 }
 
 variable "dcos_resolvers" {
-  default     = ["8.8.8.8", "8.8.4.4"]
+  default     = ["169.254.169.253"]
   description = "A YAML nested list (-) of DNS resolvers for your DC/OS cluster nodes. (recommended)"
 }
 
