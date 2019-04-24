@@ -89,7 +89,7 @@ locals {
 }
 
 module "dcos-infrastructure" {
-  source = "github.com/dcos-terraform/terraform-aws-infrastructure?ref=conditional-bootstrap"
+  source = "github.com/dcos-terraform/terraform-aws-infrastructure?ref=conditional-bootstrap-test-only"
 
   #  version = "~> 0.1"
 
@@ -141,7 +141,7 @@ module "dcos-infrastructure" {
 
 module "dcos-install" {
   source  = "dcos-terraform/dcos-install-remote-exec/null"
-  version = "~> 0.0"
+  version = "~> 0.1.0"
 
   # bootstrap
   bootstrap_ip         = "${module.dcos-infrastructure.bootstrap.public_ip}"
