@@ -81,7 +81,7 @@ module "dcos" {
 |------|-------------|:----:|:-----:|:-----:|
 | admin\_ips | List of CIDR admin IPs | list | n/a | yes |
 | ssh\_public\_key\_file | Path to SSH public key. This is mandatory but can be set to an empty string if you want to use ssh_public_key with the key as string. | string | n/a | yes |
-| availability\_zones | Availability zones to be used | list | `<list>` | no |
+| availability\_zones | List of availability_zones to be used as the same format that are required by the platform/cloud providers. i.e ['RegionZone'] | list | `<list>` | no |
 | aws\_ami | AMI that will be used for the instances instead of the Mesosphere chosen default images. Custom AMIs must fulfill the Mesosphere DC/OS system-requirements: See https://docs.mesosphere.com/1.12/installing/production/system-requirements/ | string | `""` | no |
 | aws\_key\_name | Specify the aws ssh key to use. We assume its already loaded in your SSH agent. Set ssh_public_key_file to empty string | string | `""` | no |
 | bootstrap\_associate\_public\_ip\_address | [BOOTSTRAP] Associate a public ip address with there instances | string | `"true"` | no |
@@ -89,7 +89,7 @@ module "dcos" {
 | bootstrap\_iam\_instance\_profile | [BOOTSTRAP] Instance profile to be used for these instances | string | `""` | no |
 | bootstrap\_instance\_type | [BOOTSTRAP] Instance type | string | `"t2.medium"` | no |
 | bootstrap\_os | [BOOTSTRAP] Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `""` | no |
-| bootstrap\_private\_ip | used for the private ip for the bootstrap url | string | `""` | no |
+| bootstrap\_private\_ip | Private IP bootstrap nginx is listening on. Used to build the bootstrap URL. | string | `""` | no |
 | bootstrap\_root\_volume\_size | [BOOTSTRAP] Root volume size in GB | string | `"80"` | no |
 | bootstrap\_root\_volume\_type | [BOOTSTRAP] Root volume type | string | `"standard"` | no |
 | cluster\_name | Name of the DC/OS cluster | string | `"dcos-example"` | no |
@@ -102,33 +102,33 @@ module "dcos" {
 | dcos\_agent\_list | used to list the agents in the config.yaml (optional) | string | `""` | no |
 | dcos\_audit\_logging | [Enterprise DC/OS] enable security decisions are logged for Mesos, Marathon, and Jobs. (optional) | string | `""` | no |
 | dcos\_auth\_cookie\_secure\_flag | [Enterprise DC/OS] allow web browsers to send the DC/OS authentication cookie through a non-HTTPS connection. (optional) | string | `""` | no |
-| dcos\_aws\_access\_key\_id | the aws key ID for exhibitor storage  (optional but required with dcos_exhibitor_address) | string | `""` | no |
-| dcos\_aws\_region | the aws region for exhibitor storage (optional but required with dcos_exhibitor_address) | string | `""` | no |
-| dcos\_aws\_secret\_access\_key | the aws secret key for exhibitor storage (optional but required with dcos_exhibitor_address) | string | `""` | no |
-| dcos\_aws\_template\_storage\_access\_key\_id | the aws key ID for CloudFormation template storage (optional) | string | `""` | no |
-| dcos\_aws\_template\_storage\_bucket | the aws CloudFormation bucket name (optional) | string | `""` | no |
-| dcos\_aws\_template\_storage\_bucket\_path | the aws CloudFormation bucket path (optional) | string | `""` | no |
-| dcos\_aws\_template\_storage\_region\_name | the aws CloudFormation region name (optional) | string | `""` | no |
-| dcos\_aws\_template\_storage\_secret\_access\_key | the aws secret key for the CloudFormation template (optional) | string | `""` | no |
-| dcos\_aws\_template\_upload | to automatically upload the customized advanced templates to your S3 bucket. (optional) | string | `""` | no |
-| dcos\_bootstrap\_port | used to specify the port of the bootstrap url | string | `"80"` | no |
+| dcos\_aws\_access\_key\_id | AWS key ID for exhibitor storage (optional but required with dcos_exhibitor_address) | string | `""` | no |
+| dcos\_aws\_region | AWS region for exhibitor storage (optional but required with dcos_exhibitor_address) | string | `""` | no |
+| dcos\_aws\_secret\_access\_key | AWS secret key for exhibitor storage (optional but required with dcos_exhibitor_address) | string | `""` | no |
+| dcos\_aws\_template\_storage\_access\_key\_id | AWS key ID for CloudFormation template storage (optional) | string | `""` | no |
+| dcos\_aws\_template\_storage\_bucket | AWS CloudFormation bucket name (optional) | string | `""` | no |
+| dcos\_aws\_template\_storage\_bucket\_path | AWS CloudFormation bucket path (optional) | string | `""` | no |
+| dcos\_aws\_template\_storage\_region\_name | AWS CloudFormation region name (optional) | string | `""` | no |
+| dcos\_aws\_template\_storage\_secret\_access\_key | AWS secret key for the CloudFormation template (optional) | string | `""` | no |
+| dcos\_aws\_template\_upload | To automatically upload the customized advanced templates to your S3 bucket. (optional) | string | `""` | no |
+| dcos\_bootstrap\_port | Port of the bootstrap URL | string | `"80"` | no |
 | dcos\_bouncer\_expiration\_auth\_token\_days | [Enterprise DC/OS] Sets the auth token time-to-live (TTL) for Identity and Access Management. (optional) | string | `""` | no |
 | dcos\_ca\_certificate\_chain\_path | [Enterprise DC/OS] Path (relative to the $DCOS_INSTALL_DIR) to a file containing the complete CA certification chain required for end-entity certificate verification, in the OpenSSL PEM format. (optional) | string | `""` | no |
-| dcos\_ca\_certificate\_key\_path |  | string | `""` | no |
+| dcos\_ca\_certificate\_key\_path | [Enterprise DC/OS] Path (relative to the $DCOS_INSTALL_DIR) to a file containing a single X.509 certificate private key in the OpenSSL PEM format. (optional) | string | `""` | no |
 | dcos\_ca\_certificate\_path | [Enterprise DC/OS] Path (relative to the $DCOS_INSTALL_DIR) to a file containing a single X.509 CA certificate in the OpenSSL PEM format. (optional) | string | `""` | no |
-| dcos\_check\_time | check if Network Time Protocol (NTP) is enabled during DC/OS startup. (optional) | string | `""` | no |
-| dcos\_cluster\_docker\_credentials | The dictionary of Docker credentials to pass. (optional) | string | `""` | no |
+| dcos\_check\_time | Check if Network Time Protocol (NTP) is enabled during DC/OS startup. (optional) | string | `""` | no |
+| dcos\_cluster\_docker\_credentials | Dictionary of Docker credentials to pass. (optional) | string | `""` | no |
 | dcos\_cluster\_docker\_credentials\_dcos\_owned | Indicates whether to store the credentials file in /opt/mesosphere or /etc/mesosphere/docker_credentials. A sysadmin cannot edit /opt/mesosphere directly (optional) | string | `""` | no |
 | dcos\_cluster\_docker\_credentials\_enabled | Indicates whether to pass the Mesos --docker_config option to Mesos. (optional) | string | `""` | no |
 | dcos\_cluster\_docker\_credentials\_write\_to\_etc | Indicates whether to write a cluster credentials file. (optional) | string | `""` | no |
-| dcos\_cluster\_docker\_registry\_enabled |  | string | `""` | no |
-| dcos\_cluster\_docker\_registry\_url | The custom URL that Mesos uses to pull Docker images from. If set, it will configure the Mesos’ --docker_registry flag to the specified URL. (optional) | string | `""` | no |
+| dcos\_cluster\_docker\_registry\_enabled | DC/OS cluster docker registry enabled | string | `""` | no |
+| dcos\_cluster\_docker\_registry\_url | The custom URL that Mesos uses to pull Docker images from. If set, it will configure the Mesos --docker_registry flag to the specified URL. (optional) | string | `""` | no |
 | dcos\_cluster\_name | sets the DC/OS cluster name | string | `""` | no |
 | dcos\_config | used to add any extra arguments in the config.yaml that are not specified here. (optional) | string | `""` | no |
 | dcos\_custom\_checks | Custom installation checks that are added to the default check configuration process. (optional) | string | `""` | no |
 | dcos\_customer\_key | [Enterprise DC/OS] sets the customer key (optional) | string | `""` | no |
 | dcos\_dns\_bind\_ip\_blacklist | A list of IP addresses that DC/OS DNS resolvers cannot bind to. (optional) | string | `""` | no |
-| dcos\_dns\_forward\_zones | Allow to forward DNS to certain domain requests to specific server. The [following syntax](https://github.com/dcos/dcos-docs/blob/master/1.10/installing/custom/configuration/configuration-parameters.md#dns_forward_zones) must be used in combination with [Terraform string heredoc](https://www.terraform.io/docs/configuration/variables.html#strings). (optional) (:warning: DC/OS 1.10+) | string | `""` | no |
+| dcos\_dns\_forward\_zones | Allow to forward DNS to certain domain requests to specific server. The following syntax must be used in combination with Terraform string heredoc. (optional) (:warning: DC/OS 1.10+) | string | `""` | no |
 | dcos\_dns\_search | A space-separated list of domains that are tried when an unqualified domain is entered. (optional) | string | `""` | no |
 | dcos\_docker\_remove\_delay | The amount of time to wait before removing stale Docker images stored on the agent nodes and the Docker image generated by the installer. (optional) | string | `""` | no |
 | dcos\_enable\_docker\_gc | Indicates whether to run the docker-gc script, a simple Docker container and image garbage collection script, once every hour to clean up stray Docker containers. (optional) | string | `""` | no |
@@ -141,14 +141,14 @@ module "dcos" {
 | dcos\_exhibitor\_explicit\_keys | set whether you are using AWS API keys to grant Exhibitor access to S3. (optional) | string | `""` | no |
 | dcos\_exhibitor\_storage\_backend | options are static, aws_s3, azure, or zookeeper (recommended) | string | `"static"` | no |
 | dcos\_exhibitor\_zk\_hosts | a comma-separated list of one or more ZooKeeper node IP and port addresses to use for configuring the internal Exhibitor instances. (not recommended but required with exhibitor_storage_backend set to ZooKeeper. Use aws_s3 or azure instead. Assumes external ZooKeeper is already online.) | string | `""` | no |
-| dcos\_exhibitor\_zk\_path | the filepath that Exhibitor uses to store data (not recommended but required with exhibitor_storage_backend set to `zookeeper`. Use `aws_s3` or `azure` instead. Assumes external ZooKeeper is already online.) | string | `""` | no |
+| dcos\_exhibitor\_zk\_path | the filepath that Exhibitor uses to store data (not recommended but required with exhibitor_storage_backend set to zookeeper. Use aws_s3 or azureinstead. Assumes external ZooKeeper is already online.) | string | `""` | no |
 | dcos\_fault\_domain\_detect\_contents | [Enterprise DC/OS] fault domain script contents. Optional but required if no fault-domain-detect script present. | string | `""` | no |
 | dcos\_fault\_domain\_enabled | [Enterprise DC/OS] used to control if fault domain is enabled | string | `""` | no |
 | dcos\_gc\_delay | The maximum amount of time to wait before cleaning up the executor directories (optional) | string | `""` | no |
 | dcos\_gpus\_are\_scarce | Indicates whether to treat GPUs as a scarce resource in the cluster. (optional) | string | `""` | no |
-| dcos\_http\_proxy | the http proxy (optional) | string | `""` | no |
-| dcos\_https\_proxy | the https proxy (optional) | string | `""` | no |
-| dcos\_install\_mode | specifies which type of command to execute. Options: `install` or `upgrade` | string | `"install"` | no |
+| dcos\_http\_proxy | http proxy (optional) | string | `""` | no |
+| dcos\_https\_proxy | https proxy (optional) | string | `""` | no |
+| dcos\_install\_mode | Type of command to execute. Options: install or upgrade | string | `"install"` | no |
 | dcos\_instance\_os | Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `"centos_7.5"` | no |
 | dcos\_ip\_detect\_contents | Allows DC/OS to detect your private address. Use this to pass this as an input to the module rather than a file in side your bootstrap node. (recommended) | string | `""` | no |
 | dcos\_ip\_detect\_public\_contents | Allows DC/OS to be aware of your publicly routeable address for ease of use (recommended) | string | `""` | no |
@@ -178,19 +178,19 @@ module "dcos" {
 | dcos\_resolvers | A YAML nested list (-) of DNS resolvers for your DC/OS cluster nodes. (recommended) | string | `""` | no |
 | dcos\_rexray\_config | The REX-Ray configuration method for enabling external persistent volumes in Marathon. (optional) | string | `""` | no |
 | dcos\_rexray\_config\_filename | The REX-Ray configuration filename for enabling external persistent volumes in Marathon. (optional) | string | `""` | no |
-| dcos\_rexray\_config\_method | The REX-Ray configuration method for enabling external persistent volumes in Marathon.  (optional) | string | `""` | no |
+| dcos\_rexray\_config\_method | The REX-Ray configuration method for enabling external persistent volumes in Marathon. (optional) | string | `""` | no |
 | dcos\_s3\_bucket | name of the s3 bucket for the exhibitor backend (recommended but required with dcos_exhibitor_address) | string | `""` | no |
 | dcos\_s3\_prefix | name of the s3 prefix for the exhibitor backend (recommended but required with dcos_exhibitor_address) | string | `""` | no |
-| dcos\_security | [Enterprise DC/OS] set the security level of DC/OS. Default is permissive. (recommended) | string | `""` | no |
+| dcos\_security | [Enterprise DC/OS] set the security level of DC/OS, either 'strict' or 'permissive'. Default is 'permissive'. (recommended) | string | `""` | no |
 | dcos\_skip\_checks | Upgrade option: Used to skip all dcos checks that may block an upgrade if any DC/OS component is unhealthly. (optional) applicable: 1.10+ | string | `"false"` | no |
 | dcos\_staged\_package\_storage\_uri | Where to temporarily store DC/OS packages while they are being added. (optional) | string | `""` | no |
 | dcos\_superuser\_password\_hash | [Enterprise DC/OS] set the superuser password hash (recommended) | string | `""` | no |
 | dcos\_superuser\_username | [Enterprise DC/OS] set the superuser username (recommended) | string | `""` | no |
-| dcos\_telemetry\_enabled | change the telemetry option (optional) | string | `""` | no |
+| dcos\_telemetry\_enabled | Change the telemetry option (optional) | string | `""` | no |
 | dcos\_ucr\_default\_bridge\_subnet | IPv4 subnet allocated to the mesos-bridge CNI network for UCR bridge-mode networking. (optional) | string | `""` | no |
-| dcos\_use\_proxy | to enable use of proxy for internal routing (optional) | string | `""` | no |
-| dcos\_variant | Main Variables | string | `"open"` | no |
-| dcos\_version | specifies which dcos version instruction to use. Options: `1.9.0`, `1.8.8`, etc. _See [dcos_download_path](https://github.com/dcos-terraform/terraform-template-dcos-core/blob/master/open/download-variables.tf) or [dcos_version](https://github.com/dcos-terraform/terraform-template-dcos-core/tree/master/open/dcos-versions) tree for a full list._ | string | `"1.11.4"` | no |
+| dcos\_use\_proxy | To enable use of proxy for internal routing (optional) | string | `""` | no |
+| dcos\_variant | Specifies which DC/OS variant it should be: `open` (Open Source) or `ee` (Enterprise Edition) | string | `"open"` | no |
+| dcos\_version | Specifies which DC/OS version instruction to use. Options: 1.12.3, 1.11.10, etc. See dcos_download_path or dcos_version tree for a full list. | string | `"1.11.4"` | no |
 | dcos\_zk\_agent\_credentials | [Enterprise DC/OS] set the ZooKeeper agent credentials (recommended) | string | `""` | no |
 | dcos\_zk\_master\_credentials | [Enterprise DC/OS] set the ZooKeeper master credentials (recommended) | string | `""` | no |
 | dcos\_zk\_super\_credentials | [Enterprise DC/OS] set the zk super credentials (recommended) | string | `""` | no |
@@ -201,8 +201,8 @@ module "dcos" {
 | masters\_os | [MASTERS] Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `""` | no |
 | masters\_root\_volume\_size | [MASTERS] Root volume size in GB | string | `"120"` | no |
 | num\_masters | Specify the amount of masters. For redundancy you should have at least 3 | string | `"3"` | no |
-| num\_of\_private\_agents |  | string | `""` | no |
-| num\_of\_public\_agents |  | string | `""` | no |
+| num\_of\_private\_agents | Specify the amount of private agents. These agents will provide your main resources | string | `""` | no |
+| num\_of\_public\_agents | Specify the amount of public agents. These agents will host marathon-lb and edgelb | string | `""` | no |
 | num\_private\_agents | Specify the amount of private agents. These agents will provide your main resources | string | `"2"` | no |
 | num\_public\_agents | Specify the amount of public agents. These agents will host marathon-lb and edgelb | string | `"1"` | no |
 | private\_agents\_associate\_public\_ip\_address | [PRIVATE AGENTS] Associate a public ip address with there instances | string | `"true"` | no |
