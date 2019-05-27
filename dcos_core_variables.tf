@@ -1,7 +1,7 @@
 # Main Variables
 variable "dcos_variant" {
   description = "Specifies which DC/OS variant it should be: `open` (Open Source) or `ee` (Enterprise Edition)"
-  default = "open"
+  default     = "open"
 }
 
 variable "bootstrap_private_ip" {
@@ -151,12 +151,12 @@ variable "dcos_exhibitor_address" {
 
 variable "num_of_public_agents" {
   description = "Specify the amount of public agents. These agents will host marathon-lb and edgelb"
-  default = ""
+  default     = ""
 }
 
 variable "num_of_private_agents" {
   description = "Specify the amount of private agents. These agents will provide your main resources"
-  default = ""
+  default     = ""
 }
 
 variable "dcos_num_masters" {
@@ -231,7 +231,7 @@ variable "dcos_ca_certificate_path" {
 
 variable "dcos_ca_certificate_key_path" {
   description = "[Enterprise DC/OS] Path (relative to the $DCOS_INSTALL_DIR) to a file containing a single X.509 certificate private key in the OpenSSL PEM format. (optional)"
-  default = ""
+  default     = ""
 }
 
 variable "dcos_config" {
@@ -495,7 +495,7 @@ variable "custom_dcos_download_path" {
 
 variable "dcos_cluster_docker_registry_enabled" {
   description = "DC/OS cluster docker registry enabled"
-  default = ""
+  default     = ""
 }
 
 variable "dcos_enable_docker_gc" {
