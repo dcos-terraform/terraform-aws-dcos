@@ -235,3 +235,4 @@ module "dcos" {
 | masters-ips | Master IP addresses |
 | masters-loadbalancer | This is the load balancer address to access the DC/OS UI |
 | public-agents-loadbalancer | This is the load balancer address to access the DC/OS public agents |
+
