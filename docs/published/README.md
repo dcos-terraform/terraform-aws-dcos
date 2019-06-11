@@ -89,7 +89,7 @@ It also specifies that the following output should be printed once cluster creat
 
 ```hcl
 provider "aws" {
-  region = "us-east-1"
+  region = "us-west-2"
 }
 
 variable "dcos_install_mode" {
@@ -105,6 +105,10 @@ data "http" "whatismyip" {
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
   version = "~> 0.1.0"
+
+  providers = {
+    aws = "aws"
+  }
 
   dcos_instance_os    = "coreos_1855.5.0"
   cluster_name        = "my-open-dcos"
@@ -198,7 +202,7 @@ Terraform makes it easy to scale your cluster to add additional agents (public o
 
 ```hcl
 provider "aws" {
-  region = "us-east-1"
+  region = "us-west-2"
 }
 
 variable "dcos_install_mode" {
@@ -214,6 +218,10 @@ data "http" "whatismyip" {
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
   version = "~> 0.1.0"
+
+  providers = {
+    aws = "aws"
+  }
 
   dcos_instance_os    = "coreos_1855.5.0"
   cluster_name        = "my-open-dcos"
@@ -291,7 +299,7 @@ Since we’re now upgrading, however, we need to set this parameter to `upgrade`
 
 ```hcl
 provider "aws" {
-  region = "us-east-1"
+  region = "us-west-2"
 }
 
 variable "dcos_install_mode" {
@@ -307,6 +315,10 @@ data "http" "whatismyip" {
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
   version = "~> 0.1.0"
+
+  providers = {
+    aws = "aws"
+  }
 
   dcos_instance_os    = "coreos_1855.5.0"
   cluster_name        = "my-open-dcos"
