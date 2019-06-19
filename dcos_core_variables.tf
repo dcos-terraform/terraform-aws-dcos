@@ -14,6 +14,11 @@ variable "dcos_version" {
   description = "Specifies which DC/OS version instruction to use. Options: 1.12.3, 1.11.10, etc. See dcos_download_path or dcos_version tree for a full list."
 }
 
+variable "dcos_image_commit" {
+  description = "The commit hash for the build of DC/OS"
+  default     = ""
+}
+
 # DCOS bootstrap node variables
 variable "dcos_security" {
   default     = ""

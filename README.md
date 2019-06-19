@@ -154,6 +154,7 @@ EOF
 | dcos\_gpus\_are\_scarce | Indicates whether to treat GPUs as a scarce resource in the cluster. (optional) | string | `""` | no |
 | dcos\_http\_proxy | http proxy (optional) | string | `""` | no |
 | dcos\_https\_proxy | https proxy (optional) | string | `""` | no |
+| dcos\_image\_commit | The commit hash for the build of DC/OS | string | `""` | no |
 | dcos\_instance\_os | Operating system to use. Instead of using your own AMI you could use a provided OS. | string | `"centos_7.4"` | no |
 | dcos\_ip\_detect\_contents | Allows DC/OS to detect your private address. Use this to pass this as an input to the module rather than a file in side your bootstrap node. (recommended) | string | `""` | no |
 | dcos\_ip\_detect\_public\_contents | Allows DC/OS to be aware of your publicly routeable address for ease of use (recommended) | string | `""` | no |
