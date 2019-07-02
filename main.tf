@@ -99,7 +99,7 @@ locals {
 
 module "dcos-infrastructure" {
   source  = "dcos-terraform/infrastructure/aws"
-  version = "~> 0.2.0"
+  version = "~> 0.2.1"
 
   admin_ips                                  = "${var.admin_ips}"
   availability_zones                         = "${var.availability_zones}"
@@ -160,15 +160,9 @@ module "dcos-infrastructure" {
   }
 }
 
-/////////////////////////////////////////
-/////////////////////////////////////////
-/////////////////////////////////////////
-/////////////////////////////////////////
-
 module "dcos-install" {
-  source = "dcos-terraform/dcos-install-remote-exec/null"
-
-  version = "~> 0.2.0"
+  source  = "dcos-terraform/dcos-install-remote-exec/null"
+  version = "~> 0.2.1"
 
   # ansible related config
   ansible_bundled_container = "${var.ansible_bundled_container}"
@@ -178,28 +172,31 @@ module "dcos-install" {
   bootstrap_ip         = "${module.dcos-infrastructure.bootstrap.public_ip}"
   bootstrap_private_ip = "${module.dcos-infrastructure.bootstrap.private_ip}"
   bootstrap_os_user    = "${module.dcos-infrastructure.bootstrap.os_user}"
-  bootstrap_prereq-id  = "${module.dcos-infrastructure.bootstrap.prereq-id}"
 
   # master
   master_ips         = ["${module.dcos-infrastructure.masters.public_ips}"]
   master_private_ips = ["${module.dcos-infrastructure.masters.private_ips}"]
   masters_os_user    = "${module.dcos-infrastructure.masters.os_user}"
-  masters_prereq-id  = "${module.dcos-infrastructure.masters.prereq-id}"
   num_masters        = "${var.num_masters}"
 
   # private agent
   private_agent_ips         = ["${module.dcos-infrastructure.private_agents.public_ips}"]
-  private_agent_private_ips = ["${concat(module.dcos-infrastructure.private_agents.private_ips,var.additional_private_agent_ips)}"]
+  private_agent_private_ips = ["${concat(module.dcos-infrastructure.private_agents.private_ips, var.additional_private_agent_ips)}"]
   private_agents_os_user    = "${module.dcos-infrastructure.private_agents.os_user}"
-  private_agents_prereq-id  = "${module.dcos-infrastructure.private_agents.prereq-id}"
   num_private_agents        = "${var.num_private_agents}"
 
   # public agent
   public_agent_ips         = ["${module.dcos-infrastructure.public_agents.public_ips}"]
-  public_agent_private_ips = ["${concat(module.dcos-infrastructure.public_agents.private_ips,var.additional_public_agent_ips)}"]
+  public_agent_private_ips = ["${concat(module.dcos-infrastructure.public_agents.private_ips, var.additional_public_agent_ips)}"]
   public_agents_os_user    = "${module.dcos-infrastructure.public_agents.os_user}"
-  public_agents_prereq-id  = "${module.dcos-infrastructure.public_agents.prereq-id}"
   num_public_agents        = "${var.num_public_agents}"
+
+  # windows private agent
+  windows_private_agent_ips         = ["${module.dcos-infrastructure.windows_private_agents.public_ips}"]
+  windows_private_agent_private_ips = ["${concat(module.dcos-infrastructure.windows_private_agents.private_ips, var.additional_windows_private_agent_ips)}"]
+  windows_private_agent_passwords   = ["${concat(module.dcos-infrastructure.windows_private_agents.passwords, var.additional_windows_private_agent_passwords)}"]
+  windows_private_agents_os_user    = "${module.dcos-infrastructure.windows_private_agents.os_user}"
+  num_windows_private_agents        = "${var.num_windows_private_agents}"
 
   # DC/OS options
   dcos_cluster_name                            = "${coalesce(var.dcos_cluster_name, local.cluster_name)}"
