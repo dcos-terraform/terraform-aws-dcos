@@ -267,6 +267,11 @@ variable "additional_windows_private_agent_passwords" {
   default     = []
 }
 
+variable "additional_windows_private_agent_os_user" {
+  description = "Additional windows private agent os user to be used for WinRM."
+  default     = "Administrator"
+}
+
 variable "ansible_bundled_container" {
   default     = "mesosphere/dcos-ansible-bundle:latest"
   description = "Docker container with bundled dcos-ansible and ansible executables"
