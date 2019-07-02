@@ -194,7 +194,7 @@ module "dcos-install" {
   # windows private agent
   windows_private_agent_private_ips = ["${var.additional_windows_private_agent_ips}"]
   windows_private_agent_passwords   = ["${var.additional_windows_private_agent_passwords}"]
-  windows_private_agents_os_user    = "${var.additional_windows_private_agent_os_user}"
+  windows_private_agent_username    = "${var.additional_windows_private_agent_os_user}"
 
   # DC/OS options
   dcos_cluster_name                            = "${coalesce(var.dcos_cluster_name, local.cluster_name)}"
