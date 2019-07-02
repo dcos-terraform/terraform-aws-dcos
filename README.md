@@ -250,7 +250,6 @@ EOF
 | infrastructure.aws\_key\_name | This is the AWS key name used for the cluster |
 | infrastructure.bootstrap.instance | Bootstrap instance ID |
 | infrastructure.bootstrap.os\_user | Bootstrap instance OS default user |
-| infrastructure.bootstrap.prereq-id | Returns the ID of the prereq script for bootstrap (if user_data or ami are not used) |
 | infrastructure.bootstrap.private\_ip | Private IP of the bootstrap instance |
 | infrastructure.bootstrap.public\_ip | Public IP of the bootstrap instance |
 | infrastructure.iam.agent\_profile | Name of the agent profile |
@@ -259,17 +258,14 @@ EOF
 | infrastructure.lb.public\_agents\_dns\_name | This is the load balancer to reach the public agents |
 | infrastructure.masters.instances | Master instances IDs |
 | infrastructure.masters.os\_user | Master instances OS default user |
-| infrastructure.masters.prereq-id | Returns the ID of the prereq script for masters (if user_data or ami are not used) |
 | infrastructure.masters.private\_ips | Master instances private IPs |
 | infrastructure.masters.public\_ips | Master instances public IPs |
 | infrastructure.private\_agents.instances | Private Agent instances IDs |
 | infrastructure.private\_agents.os\_user | Private Agent instances OS default user |
-| infrastructure.private\_agents.prereq-id | Returns the ID of the prereq script for private agents (if user_data or ami are not used) |
 | infrastructure.private\_agents.private\_ips | Private Agent instances private IPs |
 | infrastructure.private\_agents.public\_ips | Private Agent public IPs |
 | infrastructure.public\_agents.instances | Public Agent instances IDs |
 | infrastructure.public\_agents.os\_user | Public Agent instances OS default user |
-| infrastructure.public\_agents.prereq-id | Returns the ID of the prereq script for public agents (if user_data or ami are not used) |
 | infrastructure.public\_agents.private\_ips | Public Agent instances private IPs |
 | infrastructure.public\_agents.public\_ips | Public Agent public IPs |
 | infrastructure.security\_groups.admin | This is the id of the admin security_group that the cluster is in |
