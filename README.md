@@ -85,6 +85,7 @@ EOF
 | additional\_private\_agent\_ips | Additional private agent IPs. | list | `<list>` | no |
 | additional\_public\_agent\_ips | Additional public agent IPs. | list | `<list>` | no |
 | additional\_windows\_private\_agent\_ips | Additional windows private agent IPs. | list | `<list>` | no |
+| additional\_windows\_private\_agent\_os\_user | Additional windows private agent os user to be used for WinRM. | string | `"Administrator"` | no |
 | additional\_windows\_private\_agent\_passwords | Additional windows private agent passwords to be used for WinRM. | list | `<list>` | no |
 | ansible\_additional\_config | Add additional config options to ansible. This is getting merged with generated defaults. Do not specify `dcos:` | string | `""` | no |
 | ansible\_bundled\_container | Docker container with bundled dcos-ansible and ansible executables | string | `"mesosphere/dcos-ansible-bundle:latest"` | no |
