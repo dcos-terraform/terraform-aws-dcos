@@ -23,11 +23,6 @@ output "infrastructure.bootstrap.os_user" {
   value       = "${module.dcos-infrastructure.bootstrap.os_user}"
 }
 
-output "infrastructure.bootstrap.prereq-id" {
-  description = "Returns the ID of the prereq script for bootstrap (if user_data or ami are not used)"
-  value       = "${module.dcos-infrastructure.bootstrap.prereq-id}"
-}
-
 output "infrastructure.masters.instances" {
   description = "Master instances IDs"
   value       = ["${module.dcos-infrastructure.masters.instances}"]
@@ -46,11 +41,6 @@ output "infrastructure.masters.private_ips" {
 output "infrastructure.masters.os_user" {
   description = "Master instances private OS default user"
   value       = "${module.dcos-infrastructure.masters.os_user}"
-}
-
-output "infrastructure.masters.prereq-id" {
-  description = "Returns the ID of the prereq script for masters (if user_data or ami are not used)"
-  value       = "${module.dcos-infrastructure.masters.prereq-id}"
 }
 
 output "infrastructure.private_agents.instances" {
@@ -73,11 +63,6 @@ output "infrastructure.private_agents.os_user" {
   value       = "${module.dcos-infrastructure.private_agents.os_user}"
 }
 
-output "infrastructure.private_agents.prereq-id" {
-  description = "Returns the ID of the prereq script for private agents (if user_data or ami are not used)"
-  value       = "${module.dcos-infrastructure.private_agents.prereq-id}"
-}
-
 //Private Agent
 output "infrastructure.public_agents.instances" {
   description = "Public Agent instances IDs"
@@ -97,11 +82,6 @@ output "infrastructure.public_agents.private_ips" {
 output "infrastructure.public_agents.os_user" {
   description = "Private Agent instances private OS default user"
   value       = "${module.dcos-infrastructure.public_agents.os_user}"
-}
-
-output "infrastructure.public_agents.prereq-id" {
-  description = "Returns the ID of the prereq script for public agents (if user_data or ami are not used)"
-  value       = "${module.dcos-infrastructure.public_agents.prereq-id}"
 }
 
 output "infrastructure.iam.agent_profile" {
