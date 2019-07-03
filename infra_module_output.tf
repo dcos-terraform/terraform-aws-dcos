@@ -44,7 +44,7 @@ output "infrastructure.masters.private_ips" {
 }
 
 output "infrastructure.masters.os_user" {
-  description = "Master instances private OS default user"
+  description = "Master instances OS default user"
   value       = "${module.dcos-infrastructure.masters.os_user}"
 }
 
@@ -69,7 +69,7 @@ output "infrastructure.private_agents.private_ips" {
 }
 
 output "infrastructure.private_agents.os_user" {
-  description = "Private Agent instances private OS default user"
+  description = "Private Agent instances OS default user"
   value       = "${module.dcos-infrastructure.private_agents.os_user}"
 }
 
@@ -95,7 +95,7 @@ output "infrastructure.public_agents.private_ips" {
 }
 
 output "infrastructure.public_agents.os_user" {
-  description = "Private Agent instances private OS default user"
+  description = "Public Agent instances OS default user"
   value       = "${module.dcos-infrastructure.public_agents.os_user}"
 }
 

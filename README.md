@@ -86,7 +86,7 @@ EOF
 | additional\_public\_agent\_ips | Additional public agent IPs. | list | `<list>` | no |
 | ansible\_additional\_config | Add additional config options to ansible. This is getting merged with generated defaults. Do not specify `dcos:` | string | `""` | no |
 | ansible\_bundled\_container | Docker container with bundled dcos-ansible and ansible executables | string | `"mesosphere/dcos-ansible-bundle:latest"` | no |
-| availability\_zones | List of availability_zones to be used as the same format that are required by the platform/cloud providers. i.e ['RegionZone'] | list | `<list>` | no |
+| availability\_zones | List of availability_zones to be used as the same format that are required by the platform/cloud providers. i.e `['RegionZone']` | list | `<list>` | no |
 | aws\_ami | AMI that will be used for the instances instead of the Mesosphere chosen default images. Custom AMIs must fulfill the Mesosphere DC/OS system-requirements: See https://docs.mesosphere.com/1.12/installing/production/system-requirements/ | string | `""` | no |
 | aws\_key\_name | Specify the aws ssh key to use. We assume its already loaded in your SSH agent. Set ssh_public_key_file to empty string | string | `""` | no |
 | bootstrap\_associate\_public\_ip\_address | [BOOTSTRAP] Associate a public ip address with there instances | string | `"true"` | no |
@@ -196,7 +196,7 @@ EOF
 | dcos\_ucr\_default\_bridge\_subnet | IPv4 subnet allocated to the mesos-bridge CNI network for UCR bridge-mode networking. (optional) | string | `""` | no |
 | dcos\_use\_proxy | To enable use of proxy for internal routing (optional) | string | `""` | no |
 | dcos\_variant | Specifies which DC/OS variant it should be: `open` (Open Source) or `ee` (Enterprise Edition) | string | `"open"` | no |
-| dcos\_version | Specifies which DC/OS version instruction to use. Options: 1.12.3, 1.11.10, etc. See dcos_download_path or dcos_version tree for a full list. | string | `"1.12.3"` | no |
+| dcos\_version | Specifies which DC/OS version instruction to use. Options: 1.13.1, 1.12.3, 1.11.10, etc. See dcos_download_path or dcos_version tree for a full list. | string | `"1.13.1"` | no |
 | dcos\_zk\_agent\_credentials | [Enterprise DC/OS] set the ZooKeeper agent credentials (recommended) | string | `""` | no |
 | dcos\_zk\_master\_credentials | [Enterprise DC/OS] set the ZooKeeper master credentials (recommended) | string | `""` | no |
 | dcos\_zk\_super\_credentials | [Enterprise DC/OS] set the zk super credentials (recommended) | string | `""` | no |
@@ -255,17 +255,17 @@ EOF
 | infrastructure.lb.masters\_internal\_dns\_name | This is the load balancer to access the masters internally in the cluster |
 | infrastructure.lb.public\_agents\_dns\_name | This is the load balancer to reach the public agents |
 | infrastructure.masters.instances | Master instances IDs |
-| infrastructure.masters.os\_user | Master instances private OS default user |
+| infrastructure.masters.os\_user | Master instances OS default user |
 | infrastructure.masters.prereq-id | Returns the ID of the prereq script for masters (if user_data or ami are not used) |
 | infrastructure.masters.private\_ips | Master instances private IPs |
 | infrastructure.masters.public\_ips | Master instances public IPs |
 | infrastructure.private\_agents.instances | Private Agent instances IDs |
-| infrastructure.private\_agents.os\_user | Private Agent instances private OS default user |
+| infrastructure.private\_agents.os\_user | Private Agent instances OS default user |
 | infrastructure.private\_agents.prereq-id | Returns the ID of the prereq script for private agents (if user_data or ami are not used) |
 | infrastructure.private\_agents.private\_ips | Private Agent instances private IPs |
 | infrastructure.private\_agents.public\_ips | Private Agent public IPs |
 | infrastructure.public\_agents.instances | Public Agent instances IDs |
-| infrastructure.public\_agents.os\_user | Private Agent instances private OS default user |
+| infrastructure.public\_agents.os\_user | Public Agent instances OS default user |
 | infrastructure.public\_agents.prereq-id | Returns the ID of the prereq script for public agents (if user_data or ami are not used) |
 | infrastructure.public\_agents.private\_ips | Public Agent instances private IPs |
 | infrastructure.public\_agents.public\_ips | Public Agent public IPs |
