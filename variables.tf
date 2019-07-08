@@ -258,17 +258,17 @@ variable "additional_private_agent_ips" {
 }
 
 variable "additional_windows_private_agent_ips" {
-  description = "Additional windows private agent IPs."
+  description = "Additional windows private agent IPs"
   default     = []
 }
 
 variable "additional_windows_private_agent_passwords" {
-  description = "Additional windows private agent passwords to be used for WinRM."
+  description = "Additional windows private agent passwords to be used for WinRM"
   default     = []
 }
 
 variable "additional_windows_private_agent_os_user" {
-  description = "Additional windows private agent os user to be used for WinRM."
+  description = "Additional windows private agent os user to be used for WinRM"
   default     = "Administrator"
 }
 

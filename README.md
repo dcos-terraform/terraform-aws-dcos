@@ -84,9 +84,9 @@ EOF
 | accepted\_internal\_networks | Subnet ranges for all internal networks | list | `<list>` | no |
 | additional\_private\_agent\_ips | Additional private agent IPs. | list | `<list>` | no |
 | additional\_public\_agent\_ips | Additional public agent IPs. | list | `<list>` | no |
-| additional\_windows\_private\_agent\_ips | Additional windows private agent IPs. | list | `<list>` | no |
-| additional\_windows\_private\_agent\_os\_user | Additional windows private agent os user to be used for WinRM. | string | `"Administrator"` | no |
-| additional\_windows\_private\_agent\_passwords | Additional windows private agent passwords to be used for WinRM. | list | `<list>` | no |
+| additional\_windows\_private\_agent\_ips | Additional windows private agent IPs | list | `<list>` | no |
+| additional\_windows\_private\_agent\_os\_user | Additional windows private agent os user to be used for WinRM | string | `"Administrator"` | no |
+| additional\_windows\_private\_agent\_passwords | Additional windows private agent passwords to be used for WinRM | list | `<list>` | no |
 | ansible\_additional\_config | Add additional config options to ansible. This is getting merged with generated defaults. Do not specify `dcos:` | string | `""` | no |
 | ansible\_bundled\_container | Docker container with bundled dcos-ansible and ansible executables | string | `"mesosphere/dcos-ansible-bundle:latest"` | no |
 | availability\_zones | List of availability_zones to be used as the same format that are required by the platform/cloud providers. i.e `['RegionZone']` | list | `<list>` | no |
@@ -199,7 +199,7 @@ EOF
 | dcos\_ucr\_default\_bridge\_subnet | IPv4 subnet allocated to the mesos-bridge CNI network for UCR bridge-mode networking. (optional) | string | `""` | no |
 | dcos\_use\_proxy | To enable use of proxy for internal routing (optional) | string | `""` | no |
 | dcos\_variant | Specifies which DC/OS variant it should be: `open` (Open Source) or `ee` (Enterprise Edition) | string | `"open"` | no |
-| dcos\_version | Specifies which DC/OS version instruction to use. Options: 1.13.1, 1.12.3, 1.11.10, etc. See dcos_download_path or dcos_version tree for a full list. | string | `"1.13.1"` | no |
+| dcos\_version | Specifies which DC/OS version instruction to use. Options: 1.13.2, 1.12.4, 1.11.10, etc. See dcos_download_path or dcos_version tree for a full list. | string | `"1.13.2"` | no |
 | dcos\_zk\_agent\_credentials | [Enterprise DC/OS] set the ZooKeeper agent credentials (recommended) | string | `""` | no |
 | dcos\_zk\_master\_credentials | [Enterprise DC/OS] set the ZooKeeper master credentials (recommended) | string | `""` | no |
 | dcos\_zk\_super\_credentials | [Enterprise DC/OS] set the zk super credentials (recommended) | string | `""` | no |
