@@ -231,6 +231,7 @@ EOF
 | public\_agents\_additional\_ports | List of additional ports allowed for public access on public agents (80 and 443 open by default) | list | `<list>` | no |
 | public\_agents\_associate\_public\_ip\_address | [PUBLIC AGENTS] Associate a public ip address with there instances | string | `"true"` | no |
 | public\_agents\_aws\_ami | [PUBLIC AGENTS] AMI to be used | string | `""` | no |
+| public\_agents\_extra\_volumes | [PUBLIC AGENTS] Extra volumes for each public agent | list | `<list>` | no |
 | public\_agents\_hostname\_format | [PUBLIC AGENTS] Format the hostname inputs are index+1, region, cluster_name | string | `"%[3]s-publicagent%[1]d-%[2]s"` | no |
 | public\_agents\_iam\_instance\_profile | [PUBLIC AGENTS] Instance profile to be used for these instances | string | `""` | no |
 | public\_agents\_instance\_type | [PUBLIC AGENTS] Instance type | string | `"m4.xlarge"` | no |

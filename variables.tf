@@ -200,6 +200,11 @@ variable "public_agents_root_volume_type" {
   default     = "gp2"
 }
 
+variable "public_agents_extra_volumes" {
+  description = "[PUBLIC AGENTS] Extra volumes for each public agent"
+  default     = []
+}
+
 variable "public_agents_instance_type" {
   description = "[PUBLIC AGENTS] Instance type"
   default     = "m4.xlarge"

@@ -99,7 +99,7 @@ locals {
 
 module "dcos-infrastructure" {
   source  = "dcos-terraform/infrastructure/aws"
-  version = "~> 0.2.1"
+  version = "~> 0.2.3"
 
   admin_ips                                  = "${var.admin_ips}"
   availability_zones                         = "${var.availability_zones}"
@@ -146,6 +146,7 @@ module "dcos-infrastructure" {
   public_agents_os                           = "${var.public_agents_os}"
   public_agents_root_volume_size             = "${var.public_agents_root_volume_size}"
   public_agents_root_volume_type             = "${var.public_agents_root_volume_type}"
+  public_agents_extra_volumes                = ["${var.public_agents_extra_volumes}"]
   public_agents_access_ips                   = ["${var.public_agents_access_ips}"]
   public_agents_additional_ports             = ["${var.public_agents_additional_ports}"]
   ssh_public_key                             = "${var.ssh_public_key}"
