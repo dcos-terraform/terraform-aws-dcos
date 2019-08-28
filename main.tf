@@ -99,7 +99,7 @@ locals {
 
 module "dcos-infrastructure" {
   source  = "dcos-terraform/infrastructure/aws"
-  version = "~> 0.2.3"
+  version = "~> 0.2.4"
 
   admin_ips                                  = "${var.admin_ips}"
   availability_zones                         = "${var.availability_zones}"
@@ -125,6 +125,7 @@ module "dcos-infrastructure" {
   masters_iam_instance_profile               = "${var.masters_iam_instance_profile}"
   masters_os                                 = "${var.masters_os}"
   masters_root_volume_size                   = "${var.masters_root_volume_size}"
+  masters_user_data                          = "${var.masters_user_data}"
   num_masters                                = "${var.num_masters}"
   num_private_agents                         = "${var.num_private_agents}"
   num_public_agents                          = "${var.num_public_agents}"
@@ -137,6 +138,7 @@ module "dcos-infrastructure" {
   private_agents_root_volume_size            = "${var.private_agents_root_volume_size}"
   private_agents_root_volume_type            = "${var.private_agents_root_volume_type}"
   private_agents_extra_volumes               = ["${var.private_agents_extra_volumes}"]
+  private_agents_user_data                   = "${var.private_agents_user_data}"
   public_agents_acm_cert_arn                 = "${var.public_agents_acm_cert_arn}"
   public_agents_associate_public_ip_address  = "${var.public_agents_associate_public_ip_address}"
   public_agents_aws_ami                      = "${var.public_agents_aws_ami}"
@@ -149,6 +151,7 @@ module "dcos-infrastructure" {
   public_agents_extra_volumes                = ["${var.public_agents_extra_volumes}"]
   public_agents_access_ips                   = ["${var.public_agents_access_ips}"]
   public_agents_additional_ports             = ["${var.public_agents_additional_ports}"]
+  public_agents_user_data                    = "${var.public_agents_user_data}"
   ssh_public_key                             = "${var.ssh_public_key}"
   ssh_public_key_file                        = "${var.ssh_public_key_file}"
   subnet_range                               = "${var.subnet_range}"
