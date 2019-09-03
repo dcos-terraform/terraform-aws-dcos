@@ -81,7 +81,7 @@ module "dcos" {
 |------|-------------|:----:|:-----:|:-----:|
 | admin\_ips | List of CIDR admin IPs | list | n/a | yes |
 | ssh\_public\_key\_file | Path to SSH public key. This is mandatory but can be set to an empty string if you want to use ssh_public_key with the key as string. | string | n/a | yes |
-| availability\_zones | List of availability_zones to be used as the same format that are required by the platform/cloud providers. i.e ['RegionZone'] | list | `<list>` | no |
+| availability\_zones | List of availability_zones to be used as the same format that are required by the platform/cloud providers. i.e `['RegionZone']` | list | `<list>` | no |
 | aws\_ami | AMI that will be used for the instances instead of the Mesosphere chosen default images. Custom AMIs must fulfill the Mesosphere DC/OS system-requirements: See https://docs.mesosphere.com/1.12/installing/production/system-requirements/ | string | `""` | no |
 | aws\_key\_name | Specify the aws ssh key to use. We assume its already loaded in your SSH agent. Set ssh_public_key_file to empty string | string | `""` | no |
 | bootstrap\_associate\_public\_ip\_address | [BOOTSTRAP] Associate a public ip address with there instances | string | `"true"` | no |
@@ -190,7 +190,7 @@ module "dcos" {
 | dcos\_ucr\_default\_bridge\_subnet | IPv4 subnet allocated to the mesos-bridge CNI network for UCR bridge-mode networking. (optional) | string | `""` | no |
 | dcos\_use\_proxy | To enable use of proxy for internal routing (optional) | string | `""` | no |
 | dcos\_variant | Specifies which DC/OS variant it should be: `open` (Open Source) or `ee` (Enterprise Edition) | string | `"open"` | no |
-| dcos\_version | Specifies which DC/OS version instruction to use. Options: 1.13.1, 1.12.3, 1.11.10, etc. See dcos_download_path or dcos_version tree for a full list. | string | `"1.11.4"` | no |
+| dcos\_version | Specifies which DC/OS version instruction to use. Options: 1.13.3, 1.12.4, 1.11.10, etc. See dcos_download_path or dcos_version tree for a full list. | string | `"1.11.4"` | no |
 | dcos\_zk\_agent\_credentials | [Enterprise DC/OS] set the ZooKeeper agent credentials (recommended) | string | `""` | no |
 | dcos\_zk\_master\_credentials | [Enterprise DC/OS] set the ZooKeeper master credentials (recommended) | string | `""` | no |
 | dcos\_zk\_super\_credentials | [Enterprise DC/OS] set the zk super credentials (recommended) | string | `""` | no |
