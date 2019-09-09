@@ -166,7 +166,7 @@ module "dcos-infrastructure" {
 
 module "dcos-install" {
   source  = "dcos-terraform/dcos-install-remote-exec/null"
-  version = "~> 0.2.1"
+  version = "~> 0.2.3"
 
   # ansible related config
   ansible_bundled_container = "${var.ansible_bundled_container}"
@@ -200,9 +200,13 @@ module "dcos-install" {
   windows_private_agent_passwords   = ["${var.additional_windows_private_agent_passwords}"]
   windows_private_agent_username    = "${var.additional_windows_private_agent_os_user}"
 
+  # Ability to change version service url
+  dcos_versions_service_url = "${var.dcos_versions_service_url}"
+
   # DC/OS options
   dcos_cluster_name                            = "${coalesce(var.dcos_cluster_name, local.cluster_name)}"
   custom_dcos_download_path                    = "${var.custom_dcos_download_path}"
+  dcos_download_url_checksum                   = "${var.dcos_download_url_checksum}"
   dcos_adminrouter_tls_1_0_enabled             = "${var.dcos_adminrouter_tls_1_0_enabled}"
   dcos_adminrouter_tls_1_1_enabled             = "${var.dcos_adminrouter_tls_1_1_enabled}"
   dcos_adminrouter_tls_1_2_enabled             = "${var.dcos_adminrouter_tls_1_2_enabled}"

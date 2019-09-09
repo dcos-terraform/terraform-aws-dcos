@@ -513,3 +513,13 @@ variable "dcos_enable_mesos_input_plugin" {
   default     = ""
   description = "Indicates whether to enable Telegraf's Mesos input plugin to collect Mesos metrics from Mesos masters and agents. Options: `true` or `false` (optional)"
 }
+
+variable "dcos_download_url_checksum" {
+  description = "Custom DC/OS download URL SHA256 Checksum. Empty string omits checking."
+  default     = ""
+}
+
+variable "dcos_versions_service_url" {
+  default     = "https://versions.d2iq.com"
+  description = "DC/OS Versions Service allows to identify DC/OS versions"
+}
