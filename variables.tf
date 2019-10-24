@@ -303,7 +303,7 @@ variable "ansible_additional_config" {
 }
 
 variable "with_replaceable_masters" {
-  description = "Create S3 bucket for exhibitor and configure DC/OS to use it. IMPORTANT: Keep in mind that this feature is meant to be fully managed. You cannot change the s3 bucket name as its getting generated. To have full control you have to maintain these options by yourself: `dcos_exhibitor_explicit_keys`,`dcos_exhibitor_storage_backend,dcos_s3_prefix`,`dcos_s3_bucket`,`dcos_aws_region`,`dcos_master_discovery`,`dcos_exhibitor_address`"
+  description = "Create S3 bucket for exhibitor and configure DC/OS to use it."
   default     = false
 }
 
