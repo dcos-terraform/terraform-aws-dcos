@@ -302,11 +302,6 @@ variable "ansible_additional_config" {
   description = "Add additional config options to ansible. This is getting merged with generated defaults. Do not specify `dcos:`"
 }
 
-variable "ansible_user" {
-  default     = ""
-  description = "The Ansible user that is used to run the Ansible Tasks."
-}
-
 variable "with_replaceable_masters" {
   description = "Create S3 bucket for exhibitor and configure DC/OS to use it."
   default     = false
