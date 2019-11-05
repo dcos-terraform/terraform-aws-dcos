@@ -175,7 +175,7 @@ module "dcos-install" {
   # bootstrap
   bootstrap_ip         = "${module.dcos-infrastructure.bootstrap.public_ip}"
   bootstrap_private_ip = "${module.dcos-infrastructure.bootstrap.private_ip}"
-  bootstrap_os_user    = "${module.dcos-infrastructure.bootstrap.os_user}"
+  bootstrap_os_user    = "${coalesce(var.ansible_user,module.dcos-infrastructure.bootstrap.os_user)}"
 
   # master
   master_ips         = ["${module.dcos-infrastructure.masters.public_ips}"]
