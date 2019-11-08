@@ -11,7 +11,7 @@ variable "bootstrap_private_ip" {
 
 variable "dcos_version" {
   default     = "2.0.0"
-  description = "Specifies which DC/OS version instruction to use. Options: 2.0.0, 1.13.6, 1.12.4, 1.11.12, etc. See dcos_download_path or dcos_version tree for a full list."
+  description = "Specifies which DC/OS version instruction to use. Options: 2.0.0, 1.13.6, 1.12.4, 1.11.12, etc. See https://versions.d2iq.com/version for a full list."
 }
 
 variable "dcos_image_commit" {
