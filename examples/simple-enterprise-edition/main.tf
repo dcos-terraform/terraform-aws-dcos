@@ -30,6 +30,8 @@ module "dcos" {
 
   dcos_variant              = "ee"
   dcos_license_key_contents = "${var.dcos_license_key_contents}"
+
+  dcos_calico_network_cidr = "192.168.0.0/16"
 }
 
 output "cluster-address" {

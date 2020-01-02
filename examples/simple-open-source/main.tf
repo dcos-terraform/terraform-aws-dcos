@@ -26,6 +26,8 @@ module "dcos" {
   num_public_agents  = "1"
 
   dcos_variant = "open"
+
+  dcos_calico_network_cidr = "192.168.0.0/16"
 }
 
 output "cluster-address" {

@@ -37,6 +37,8 @@ module "dcos" {
   dcos_variant              = "open"
   custom_dcos_download_path = "${var.custom_dcos_download_path}"
   dcos_version              = "${var.dcos_version}"
+
+  dcos_calico_network_cidr = "192.168.0.0/16"
 }
 
 output "cluster-address" {
