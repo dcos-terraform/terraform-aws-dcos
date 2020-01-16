@@ -549,6 +549,11 @@ variable "dcos_calico_vxlan_mtu" {
   description = "The MTU to set on the Calico VXLAN tunnel device. (optional)"
 }
 
+variable "dcos_calico_vxlan_port" {
+  default     = ""
+  description = "The UDP port used for calico VXLAN. This configuration works when dcos_calico_vxlan_enabled is set to be true. (optional)"
+}
+
 variable "dcos_calico_veth_mtu" {
   default     = ""
   description = "The MTU to set on the veth pair devices. (optional)"
