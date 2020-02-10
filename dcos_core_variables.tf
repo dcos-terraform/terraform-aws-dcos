@@ -523,3 +523,38 @@ variable "dcos_versions_service_url" {
   default     = "https://versions.d2iq.com"
   description = "DC/OS Versions Service allows to identify DC/OS versions"
 }
+
+variable "dcos_calico_network_cidr" {
+  default     = ""
+  description = "Subnet allocated for calico"
+}
+
+variable "dcos_calico_vxlan_enabled" {
+  default     = ""
+  description = "Control whether IP-in-IP or VXLAN mode is used for calico. (optional)"
+}
+
+variable "dcos_calico_ipinip_mtu" {
+  default     = ""
+  description = "The MTU to set on the Calico IPIP tunnel device. (optional)"
+}
+
+variable "dcos_calico_vxlan_vni" {
+  default     = ""
+  description = "The virtual network ID used for calico VXLAN. (optional)"
+}
+
+variable "dcos_calico_vxlan_mtu" {
+  default     = ""
+  description = "The MTU to set on the Calico VXLAN tunnel device. (optional)"
+}
+
+variable "dcos_calico_vxlan_port" {
+  default     = ""
+  description = "The UDP port used for calico VXLAN. This configuration works when dcos_calico_vxlan_enabled is set to be true. (optional)"
+}
+
+variable "dcos_calico_veth_mtu" {
+  default     = ""
+  description = "The MTU to set on the veth pair devices. (optional)"
+}

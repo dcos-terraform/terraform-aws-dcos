@@ -1,4 +1,4 @@
-# DC/OS Enterprise simple cluster
+# DC/OS Open Source simple cluster
 In this example we spawn a simple cluster with just one master, two agents and one public agent.
 
 # [`main.tf`](./main.tf?raw=1)
@@ -11,13 +11,46 @@ Also you should set a cluster name. It gets tagged with this name so you can eas
 
 ```bash
 # or similar depending on your environment
-echo "ssh_public_key_file=\"cat ~/.ssh/id_rsa.pub\"" >> cluster.tfvars
+echo "ssh_public_key_file=\"~/.ssh/id_rsa.pub\"" >> cluster.tfvars
 # lets set the clustername
-echo "cluster_name=\"my-ee-cluster\"" >> cluster.tfvars
+echo "cluster_name=\"my-open-dcos-cluster\"" >> cluster.tfvars
 # we at mesosphere have to tag our instances with an owner and an expire date.
 echo "tags={owner = \"$(whoami)\", expiration = \"2h\"}" >> cluster.tfvars
-# paste your license key here
-echo "dcos_license_key_contents=\"abcdef123456\"" >> cluster.tfvars
+```
+
+## calico configurations
+
+### configure Calico network CIDR
+```bash
+# calico network CIDR should not overlap the subnet used for infrastructure network.
+echo "dcos_calico_network_cidr=\"192.168.0.0/16\"" >> cluster.tfvars
+echo "subnet_range=\"172.16.0.0/16\"" >> cluster.tfvars
+```
+
+### overlay networking option
+
+To enable VXLAN mode is enabled, execute
+```bash
+# VXLAN mode is also enabled by default
+echo "dcos_calico_vxlan_enabled=\"true\"" >> cluster.tfvars
+```
+
+Or, to enable IP in IP mode instead, execute
+```bash
+echo "dcos_calico_vxlan_enabled=\"false\"" >> cluster.tfvars
+```
+
+### Determine MTU size
+
+default Calico interfaces MTU size is based on the ordinary Ethernet MTU, e.g. 1500. Suppose VXLAN mode is used, and the cluster will be deployed on AWS instances supporting Jumbo frames(9001 MTU), the MUT size for different network interfaces should be, in VXLAN mode,
+```bash
+echo "dcos_calico_veth_mtu=\"8951\"" >> cluster.tfvars
+echo "dcos_calico_vxlan_mtu=\"9001\"" >> cluster.tfvars
+```
+Or in IP in IP mode,
+```bash
+echo "dcos_calico_veth_mtu=\"8981\"" >> cluster.tfvars
+echo "dcos_calico_ipinip_mtu=\"9001\"" >> cluster.tfvars
 ```
 
 ## admin_ips (optional)
@@ -52,7 +85,6 @@ If you want to use a second profile for deploying you can use `AWS_PROFILE` vari
 $ export AWS_PROFILE=my-second-profile
 ```
 
-
 # terraform init
 Doing terraform init lets terraform download all the needed modules to spawn DC/OS Cluster on AWS
 
@@ -60,30 +92,11 @@ Doing terraform init lets terraform download all the needed modules to spawn DC/
 $ terraform init
 ```
 
-<!---
-A terraform bug was noticed when using the terraform apply <plan> method. The tradition terraform apply method works for the time being. We will investigate why this error produces this bug below:
-
-                                                                                                                                                                                                                                                           
-```
-$ terraform apply "cluster.plan"
-Error: Error applying plan:
-
-1 error(s) occurred:
-
-* module.dcos.provider.aws: Not a valid region: 
-
-Terraform does not automatically rollback in the face of errors.
-Instead, your Terraform state file has been partially updated with
-any resources that successfully completed. Please address the error
-above and apply again to incrementally change your infrastructure
-```
-
----REMOVED
-
 # terraform plan
 We expect your aws environment is properly setup. Check it with issuing `aws sts get-caller-identity`.
 
 We now create the terraform plan which gets applied later on.
+
 ```bash
 $ terraform plan --var-file cluster.tfvars -out=cluster.plan
 ```
@@ -93,25 +106,6 @@ Now we're applying our plan
 
 ```bash
 $ terraform apply "cluster.plan"
-```
-
-in the output section you will find the hostname of your cluster. With this hostname you'll be able to access the cluster.
----REMOVED
-
-REPO'D ON VERSION:
-```
-$ terraform -v
-Terraform v0.11.8
-```
-
-+Replaced with section below
--->
-
-# terraform apply
-Now we're applying our plan
-
-```bash
-$ terraform plan --var-file cluster.tfvars 
 ```
 
 in the output section you will find the hostname of your cluster. With this hostname you'll be able to access the cluster.

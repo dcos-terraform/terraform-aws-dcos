@@ -37,6 +37,7 @@
  *   dcos_http_proxy = "example.com"
  *   dcos_https_proxy = "example.com"
  *   dcos_no_proxy = <<EOF
+ *   dcos_calico_network_cidr = "192.168.0.0/16"
  * # YAML
  * - "internal.net"
  * - "169.254.169.254"
@@ -166,7 +167,7 @@ module "dcos-infrastructure" {
 
 module "dcos-install" {
   source  = "dcos-terraform/dcos-install-remote-exec/null"
-  version = "~> 0.2.3"
+  version = "~> 0.2.4"
 
   # ansible related config
   ansible_bundled_container = "${var.ansible_bundled_container}"
@@ -206,6 +207,7 @@ module "dcos-install" {
   # DC/OS options
   dcos_cluster_name                            = "${coalesce(var.dcos_cluster_name, local.cluster_name)}"
   custom_dcos_download_path                    = "${var.custom_dcos_download_path}"
+  dcos_calico_network_cidr                     = "${var.dcos_calico_network_cidr}"
   dcos_download_url_checksum                   = "${var.dcos_download_url_checksum}"
   dcos_adminrouter_tls_1_0_enabled             = "${var.dcos_adminrouter_tls_1_0_enabled}"
   dcos_adminrouter_tls_1_1_enabled             = "${var.dcos_adminrouter_tls_1_1_enabled}"
@@ -228,6 +230,12 @@ module "dcos-install" {
   dcos_ca_certificate_chain_path               = "${var.dcos_ca_certificate_chain_path}"
   dcos_ca_certificate_key_path                 = "${var.dcos_ca_certificate_key_path}"
   dcos_ca_certificate_path                     = "${var.dcos_ca_certificate_path}"
+  dcos_calico_vxlan_enabled                    = "${var.dcos_calico_vxlan_enabled}"
+  dcos_calico_ipinip_mtu                       = "${var.dcos_calico_ipinip_mtu}"
+  dcos_calico_vxlan_mtu                        = "${var.dcos_calico_vxlan_mtu}"
+  dcos_calico_vxlan_port                       = "${var.dcos_calico_vxlan_port}"
+  dcos_calico_vxlan_vni                        = "${var.dcos_calico_vxlan_vni}"
+  dcos_calico_veth_mtu                         = "${var.dcos_calico_veth_mtu}"
   dcos_check_time                              = "${var.dcos_check_time}"
   dcos_cluster_docker_credentials              = "${var.dcos_cluster_docker_credentials}"
   dcos_cluster_docker_credentials_dcos_owned   = "${var.dcos_cluster_docker_credentials_dcos_owned}"

@@ -17,13 +17,13 @@ echo "cluster_name=\"my-ee-cluster\"" >> cluster.tfvars
 # we at mesosphere have to tag our instances with an owner and an expire date.
 echo "tags={owner = \"$(whoami)\", expiration = \"2h\"}" >> cluster.tfvars
 # we have to explicitly set the version.
-echo "dcos_version=\"1.10.8\""
+echo "dcos_version=\"1.10.8\"" >> cluster.tfvars
 # now we have to provider the link to dcos_generate_config.sh
-echo "custom_dcos_download_path=\"https://downloads.dcos.io/dcos/testing/pull/3303/dcos_generate_config.sh\""
+echo "custom_dcos_download_path=\"https://downloads.dcos.io/dcos/testing/pull/3303/dcos_generate_config.sh\"" >> cluster.tfvars
 ```
 
 ## admin_ips (optional)
-For accessing your dcos-masters we only allow access for certain IPs. By adding a lists `admin_ips` you could control this. *If you do now specify `admin_ips` we try to detect your current public IP and use this address. These addresses have to be written in CIDR format. So for single addresses use `1.2.3.4/32`
+For accessing your dcos-masters we only allow access for certain IPs. By adding a lists `admin_ips` you could control this. If you do now specify `admin_ips` we try to detect your current public IP and use this address. These addresses have to be written in CIDR format. So for single addresses use `1.2.3.4/32`
 
 ### allow your company net
 
