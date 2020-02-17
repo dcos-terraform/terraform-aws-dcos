@@ -36,8 +36,8 @@
  *   dcos_use_proxy = "yes"
  *   dcos_http_proxy = "example.com"
  *   dcos_https_proxy = "example.com"
- *   dcos_no_proxy = <<EOF
  *   dcos_calico_network_cidr = "192.168.0.0/16"
+ *   dcos_no_proxy = <<EOF
  * # YAML
  * - "internal.net"
  * - "169.254.169.254"
