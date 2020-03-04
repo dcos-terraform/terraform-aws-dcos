@@ -326,3 +326,8 @@ variable "public_agents_acm_cert_arn" {
   description = "ACM certifacte to be used for the public agents load balancer"
   default     = ""
 }
+
+variable "adminrouter_grpc_proxy_port" {
+  description = ""
+  default     = 12379
+}
