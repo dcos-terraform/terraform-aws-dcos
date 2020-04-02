@@ -38,8 +38,8 @@ module "dcos" {
   custom_dcos_download_path = "${var.custom_dcos_download_path}"
   dcos_version              = "${var.dcos_version}"
 
-  dcos_calico_network_cidr = "${var.dcos_calico_network_cidr}"
-  subnet_range             = "${var.subnet_range}"
+  dcos_calico_network_cidr  = "${var.dcos_calico_network_cidr}"
+  subnet_range              = "${var.subnet_range}"
   dcos_calico_vxlan_enabled = "${var.dcos_calico_vxlan_enabled}"
 
   # uncomment the following lines if MTU is configured
