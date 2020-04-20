@@ -489,6 +489,16 @@ variable "custom_dcos_download_path" {
   description = "insert location of dcos installer script (optional)"
 }
 
+variable "custom_dcos_windows_download_path" {
+  default     = ""
+  description = "insert location of dcos windows installer script (optional)"
+}
+
+variable "dcos_enable_windows_agents" {
+  default     = ""
+  description = "enable windows agents. value must be true or false (optional)"
+}
+
 variable "dcos_cluster_docker_registry_enabled" {
   description = "DC/OS cluster docker registry enabled"
   default     = ""
