@@ -43,6 +43,11 @@ output "infrastructure.masters.os_user" {
   value       = "${module.dcos-infrastructure.masters.os_user}"
 }
 
+output "infrastructure.masters.aws_iam_instance_profile" {
+  description = "Masters instance profile name"
+  value       = "${module.dcos-infrastructure.masters.aws_iam_instance_profile}"
+}
+
 output "infrastructure.private_agents.instances" {
   description = "Private Agent instances IDs"
   value       = ["${module.dcos-infrastructure.private_agents.instances}"]
@@ -61,6 +66,11 @@ output "infrastructure.private_agents.private_ips" {
 output "infrastructure.private_agents.os_user" {
   description = "Private Agent instances OS default user"
   value       = "${module.dcos-infrastructure.private_agents.os_user}"
+}
+
+output "infrastructure.private_agents.aws_iam_instance_profile" {
+  description = "Private Agent instance profile name"
+  value       = "${module.dcos-infrastructure.private_agents.aws_iam_instance_profile}"
 }
 
 //Private Agent
@@ -84,9 +94,19 @@ output "infrastructure.public_agents.os_user" {
   value       = "${module.dcos-infrastructure.public_agents.os_user}"
 }
 
+output "infrastructure.public_agents.aws_iam_instance_profile" {
+  description = "Public Agent instance profile name"
+  value       = "${module.dcos-infrastructure.public_agents.aws_iam_instance_profile}"
+}
+
 output "infrastructure.iam.agent_profile" {
   value       = "${module.dcos-infrastructure.iam.agent_profile}"
   description = "Name of the agent profile"
+}
+
+output "infrastructure.iam.master_profile" {
+  value       = "${module.dcos-infrastructure.iam.aws_master_profile}"
+  description = "Name of the master profile"
 }
 
 output "infrastructure.lb.public_agents_dns_name" {
