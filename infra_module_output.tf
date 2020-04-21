@@ -105,7 +105,7 @@ output "infrastructure.iam.agent_profile" {
 }
 
 output "infrastructure.iam.master_profile" {
-  value       = "${module.dcos-infrastructure.iam.aws_master_profile}"
+  value       = "${module.dcos-infrastructure.iam.master_profile}"
   description = "Name of the master profile"
 }
 
