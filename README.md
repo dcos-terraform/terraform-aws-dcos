@@ -271,17 +271,21 @@ EOF
 | infrastructure.bootstrap.private\_ip | Private IP of the bootstrap instance |
 | infrastructure.bootstrap.public\_ip | Public IP of the bootstrap instance |
 | infrastructure.iam.agent\_profile | Name of the agent profile |
+| infrastructure.iam.master\_profile | Name of the master profile |
 | infrastructure.lb.masters\_dns\_name | This is the load balancer to access the DC/OS UI |
 | infrastructure.lb.masters\_internal\_dns\_name | This is the load balancer to access the masters internally in the cluster |
 | infrastructure.lb.public\_agents\_dns\_name | This is the load balancer to reach the public agents |
+| infrastructure.masters.aws\_iam\_instance\_profile | Masters instance profile name |
 | infrastructure.masters.instances | Master instances IDs |
 | infrastructure.masters.os\_user | Master instances OS default user |
 | infrastructure.masters.private\_ips | Master instances private IPs |
 | infrastructure.masters.public\_ips | Master instances public IPs |
+| infrastructure.private\_agents.aws\_iam\_instance\_profile | Private Agent instance profile name |
 | infrastructure.private\_agents.instances | Private Agent instances IDs |
 | infrastructure.private\_agents.os\_user | Private Agent instances OS default user |
 | infrastructure.private\_agents.private\_ips | Private Agent instances private IPs |
 | infrastructure.private\_agents.public\_ips | Private Agent public IPs |
+| infrastructure.public\_agents.aws\_iam\_instance\_profile | Public Agent instance profile name |
 | infrastructure.public\_agents.instances | Public Agent instances IDs |
 | infrastructure.public\_agents.os\_user | Public Agent instances OS default user |
 | infrastructure.public\_agents.private\_ips | Public Agent instances private IPs |
