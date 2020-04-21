@@ -157,6 +157,7 @@ module "dcos-infrastructure" {
   ssh_public_key_file                        = "${var.ssh_public_key_file}"
   subnet_range                               = "${var.subnet_range}"
   tags                                       = "${var.tags}"
+  adminrouter_grpc_proxy_port                = "${var.adminrouter_grpc_proxy_port}"
 
   aws_create_s3_bucket = "${var.with_replaceable_masters}"
 
@@ -314,4 +315,5 @@ module "dcos-install" {
   dcos_zk_master_credentials                   = "${var.dcos_zk_master_credentials}"
   dcos_zk_super_credentials                    = "${var.dcos_zk_super_credentials}"
   dcos_enable_mesos_input_plugin               = "${var.dcos_enable_mesos_input_plugin}"
+  adminrouter_grpc_proxy_port                  = "${var.adminrouter_grpc_proxy_port}"
 }
