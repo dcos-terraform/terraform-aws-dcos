@@ -152,6 +152,8 @@ module "dcos-infrastructure" {
   public_agents_extra_volumes                = ["${var.public_agents_extra_volumes}"]
   public_agents_access_ips                   = ["${var.public_agents_access_ips}"]
   public_agents_additional_ports             = ["${var.public_agents_additional_ports}"]
+  public_agents_allow_registered             = "${var.public_agents_allow_registered}"
+  public_agents_allow_dynamic                = "${var.public_agents_allow_dynamic}"
   public_agents_user_data                    = "${var.public_agents_user_data}"
   ssh_public_key                             = "${var.ssh_public_key}"
   ssh_public_key_file                        = "${var.ssh_public_key_file}"
