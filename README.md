@@ -245,6 +245,8 @@ EOF
 | public\_agents\_access\_ips | List of ips allowed access to public agents. admin_ips are joined to this list | list | `<list>` | no |
 | public\_agents\_acm\_cert\_arn | ACM certifacte to be used for the public agents load balancer | string | `""` | no |
 | public\_agents\_additional\_ports | List of additional ports allowed for public access on public agents (80 and 443 open by default) | list | `<list>` | no |
+| public\_agents\_allow\_dynamic | Allow dynamic / ephemeral ports (49152-65535 see: RFC6335) on public agents public IPs | string | `"false"` | no |
+| public\_agents\_allow\_registered | Allow registered / user ports (1024-49151 see: RFC6335) on public agents public IPs | string | `"false"` | no |
 | public\_agents\_associate\_public\_ip\_address | [PUBLIC AGENTS] Associate a public ip address with there instances | string | `"true"` | no |
 | public\_agents\_aws\_ami | [PUBLIC AGENTS] AMI to be used | string | `""` | no |
 | public\_agents\_extra\_volumes | [PUBLIC AGENTS] Extra volumes for each public agent | list | `<list>` | no |
