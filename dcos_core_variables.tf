@@ -491,12 +491,12 @@ variable "custom_dcos_download_path" {
 
 variable "custom_dcos_windows_download_path" {
   default     = ""
-  description = "insert location of dcos windows installer script (optional)"
+  description = "[DEPRECATED] insert location of dcos windows installer script (optional)"
 }
 
 variable "dcos_enable_windows_agents" {
   default     = ""
-  description = "enable windows agents. value must be true or false (optional)"
+  description = "[DEPRECATED] enable windows agents. value must be true or false (optional)"
 }
 
 variable "dcos_cluster_docker_registry_enabled" {
