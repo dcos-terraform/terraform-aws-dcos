@@ -107,7 +107,7 @@ EOF
 | cluster\_name | Name of the DC/OS cluster | string | `"dcos-example"` | no |
 | cluster\_name\_random\_string | Add a random string to the cluster name | string | `"false"` | no |
 | custom\_dcos\_download\_path | insert location of dcos installer script (optional) | string | `""` | no |
-| custom\_dcos\_windows\_download\_path | insert location of dcos windows installer script (optional) | string | `""` | no |
+| custom\_dcos\_windows\_download\_path | [DEPRECATED] insert location of dcos windows installer script (optional) | string | `""` | no |
 | dcos\_adminrouter\_tls\_1\_0\_enabled | Indicates whether to enable TLSv1 support in Admin Router. (optional) | string | `""` | no |
 | dcos\_adminrouter\_tls\_1\_1\_enabled | Indicates whether to enable TLSv1.1 support in Admin Router. (optional) | string | `""` | no |
 | dcos\_adminrouter\_tls\_1\_2\_enabled | Indicates whether to enable TLSv1.2 support in Admin Router. (optional) | string | `""` | no |
@@ -155,7 +155,7 @@ EOF
 | dcos\_enable\_docker\_gc | Indicates whether to run the docker-gc script, a simple Docker container and image garbage collection script, once every hour to clean up stray Docker containers. (optional) | string | `""` | no |
 | dcos\_enable\_gpu\_isolation | Indicates whether to enable GPU support in DC/OS. (optional) | string | `""` | no |
 | dcos\_enable\_mesos\_input\_plugin | Indicates whether to enable Telegraf's Mesos input plugin to collect Mesos metrics from Mesos masters and agents. Options: `true` or `false` (optional) | string | `""` | no |
-| dcos\_enable\_windows\_agents | enable windows agents. value must be true or false (optional) | string | `""` | no |
+| dcos\_enable\_windows\_agents | [DEPRECATED] enable windows agents. value must be true or false (optional) | string | `""` | no |
 | dcos\_exhibitor\_address | The address of the load balancer in front of the masters (recommended) | string | `""` | no |
 | dcos\_exhibitor\_azure\_account\_key | the azure account key for exhibitor storage (optional but required with dcos_exhibitor_address) | string | `""` | no |
 | dcos\_exhibitor\_azure\_account\_name | the azure account name for exhibitor storage (optional but required with dcos_exhibitor_address) | string | `""` | no |
