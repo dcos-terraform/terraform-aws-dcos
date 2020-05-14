@@ -288,17 +288,17 @@ variable "additional_private_agent_ips" {
 }
 
 variable "additional_windows_private_agent_ips" {
-  description = "Additional windows private agent IPs"
+  description = "[DEPRECATED] Additional windows private agent IPs"
   default     = []
 }
 
 variable "additional_windows_private_agent_passwords" {
-  description = "Additional windows private agent passwords to be used for WinRM"
+  description = "[DEPRECATED] Additional windows private agent passwords to be used for WinRM"
   default     = []
 }
 
 variable "additional_windows_private_agent_os_user" {
-  description = "Additional windows private agent os user to be used for WinRM"
+  description = "[DEPRECATED] Additional windows private agent os user to be used for WinRM"
   default     = "Administrator"
 }
 
@@ -340,4 +340,14 @@ variable "public_agents_acm_cert_arn" {
 variable "adminrouter_grpc_proxy_port" {
   description = ""
   default     = 12379
+}
+
+variable "open_admin_router" {
+  description = "Open admin router to public (80+443 on load balancer). WARNING: attackers could take over your cluster"
+  default     = false
+}
+
+variable "open_instance_ssh" {
+  description = "Open SSH on instances to public. WARNING: make sure you use a strong SSH key"
+  default     = false
 }

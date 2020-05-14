@@ -100,7 +100,7 @@ locals {
 
 module "dcos-infrastructure" {
   source  = "dcos-terraform/infrastructure/aws"
-  version = "~> 0.2.5"
+  version = "~> 0.2.6"
 
   admin_ips                                  = "${var.admin_ips}"
   availability_zones                         = "${var.availability_zones}"
@@ -160,6 +160,8 @@ module "dcos-infrastructure" {
   subnet_range                               = "${var.subnet_range}"
   tags                                       = "${var.tags}"
   adminrouter_grpc_proxy_port                = "${var.adminrouter_grpc_proxy_port}"
+  open_admin_router                          = "${var.open_admin_router}"
+  open_instance_ssh                          = "${var.open_instance_ssh}"
 
   aws_create_s3_bucket = "${var.with_replaceable_masters}"
 
