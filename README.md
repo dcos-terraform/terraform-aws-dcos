@@ -232,6 +232,8 @@ EOF
 | num\_of\_public\_agents | Specify the amount of public agents. These agents will host marathon-lb and edgelb | string | `""` | no |
 | num\_private\_agents | Specify the amount of private agents. These agents will provide your main resources | string | `"2"` | no |
 | num\_public\_agents | Specify the amount of public agents. These agents will host marathon-lb and edgelb | string | `"1"` | no |
+| open\_admin\_router | Open admin router to public (80+443 on load balancer). WARNING: attackers could take over your cluster | string | `"false"` | no |
+| open\_instance\_ssh | Open SSH on instances to public. WARNING: make sure you use a strong SSH key | string | `"false"` | no |
 | private\_agents\_associate\_public\_ip\_address | [PRIVATE AGENTS] Associate a public ip address with there instances | string | `"true"` | no |
 | private\_agents\_aws\_ami | [PRIVATE AGENTS] AMI to be used | string | `""` | no |
 | private\_agents\_extra\_volumes | [PRIVATE AGENTS] Extra volumes for each private agent | list | `<list>` | no |
