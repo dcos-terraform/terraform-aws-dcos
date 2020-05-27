@@ -35,17 +35,17 @@ variable "num_public_agents" {
 
 variable "tags" {
   description = "Add custom tags to all resources"
-  type        = "map"
+  type        = map(string)
   default     = {}
 }
 
 variable "admin_ips" {
-  type        = "list"
+  type        = list(string)
   description = "List of CIDR admin IPs"
 }
 
 variable "availability_zones" {
-  type        = "list"
+  type        = list(string)
   description = "List of availability_zones to be used as the same format that are required by the platform/cloud providers. i.e `['RegionZone']`"
   default     = []
 }
@@ -257,7 +257,7 @@ variable "public_agents_allow_dynamic" {
 
 variable "public_agents_access_ips" {
   description = "List of ips allowed access to public agents. admin_ips are joined to this list"
-  type        = "list"
+  type        = list(string)
   default     = ["0.0.0.0/0"]
 }
 
@@ -268,7 +268,7 @@ variable "cluster_name_random_string" {
 
 variable "accepted_internal_networks" {
   description = "Subnet ranges for all internal networks"
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
@@ -351,3 +351,4 @@ variable "open_instance_ssh" {
   description = "Open SSH on instances to public. WARNING: make sure you use a strong SSH key"
   default     = false
 }
+
