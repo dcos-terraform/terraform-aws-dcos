@@ -13,13 +13,13 @@
  *```hcl
  * module "dcos" {
  *   source  = "dcos-terraform/dcos/aws"
- *   version = "~> 0.2.0"
+ *   version = "~> 0.3.0"
  *
  *   providers = {
- *     aws = "aws"
+ *     aws = aws
  *   }
  *
- *   cluster_nam = "mydcosclusnl/exteraer"
+ *   cluster_name = "mydcoscluster"
  *   ssh_public_key_file = "~/.ssh/id_rsa.pub"
  *   admin_ips = ["198.51.100.0/24"]
  *
@@ -106,8 +106,8 @@ locals {
 }
 
 module "dcos-infrastructure" {
-  source  = "../terraform-aws-infrastructure"
-  #version = "~> 0.2.6"
+  source  = "dcos-terraform/infrastructure/aws"
+  version = "~> 0.3.0"
 
   admin_ips                                  = var.admin_ips
   availability_zones                         = var.availability_zones
@@ -178,8 +178,8 @@ module "dcos-infrastructure" {
 }
 
 module "dcos-install" {
-  source  = "../terraform-null-dcos-install-remote-exec"
-  #version = "~> 0.2.6"
+  source  = "dcos-terraform/dcos-install-remote-exec/null"
+  version = "~> 0.3.0"
 
   # ansible related config
   ansible_bundled_container = var.ansible_bundled_container
