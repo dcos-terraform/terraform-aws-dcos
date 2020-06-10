@@ -25,17 +25,17 @@ output "infrastructure_bootstrap_os_user" {
 
 output "infrastructure_masters_instances" {
   description = "Master instances IDs"
-  value       = [module.dcos-infrastructure.masters_instances]
+  value       = module.dcos-infrastructure.masters_instances
 }
 
 output "infrastructure_masters_public_ips" {
   description = "Master instances public IPs"
-  value       = [module.dcos-infrastructure.masters_public_ips]
+  value       = module.dcos-infrastructure.masters_public_ips
 }
 
 output "infrastructure_masters_private_ips" {
   description = "Master instances private IPs"
-  value       = [module.dcos-infrastructure.masters_private_ips]
+  value       = module.dcos-infrastructure.masters_private_ips
 }
 
 output "infrastructure_masters_os_user" {
@@ -50,17 +50,17 @@ output "infrastructure_masters_aws_iam_instance_profile" {
 
 output "infrastructure_private_agents_instances" {
   description = "Private Agent instances IDs"
-  value       = [module.dcos-infrastructure.private_agents_instances]
+  value       = module.dcos-infrastructure.private_agents_instances
 }
 
 output "infrastructure_private_agents_public_ips" {
   description = "Private Agent public IPs"
-  value       = [module.dcos-infrastructure.private_agents_public_ips]
+  value       = module.dcos-infrastructure.private_agents_public_ips
 }
 
 output "infrastructure_private_agents_private_ips" {
   description = "Private Agent instances private IPs"
-  value       = [module.dcos-infrastructure.private_agents_private_ips]
+  value       = module.dcos-infrastructure.private_agents_private_ips
 }
 
 output "infrastructure_private_agents_os_user" {
@@ -76,17 +76,17 @@ output "infrastructure_private_agents_aws_iam_instance_profile" {
 //Private Agent
 output "infrastructure_public_agents_instances" {
   description = "Public Agent instances IDs"
-  value       = [module.dcos-infrastructure.public_agents_instances]
+  value       = module.dcos-infrastructure.public_agents_instances
 }
 
 output "infrastructure_public_agents_public_ips" {
   description = "Public Agent public IPs"
-  value       = [module.dcos-infrastructure.public_agents_public_ips]
+  value       = module.dcos-infrastructure.public_agents_public_ips
 }
 
 output "infrastructure_public_agents_private_ips" {
   description = "Public Agent instances private IPs"
-  value       = [module.dcos-infrastructure.public_agents_private_ips]
+  value       = module.dcos-infrastructure.public_agents_private_ips
 }
 
 output "infrastructure_public_agents_os_user" {
@@ -151,6 +151,5 @@ output "infrastructure_vpc_main_route_table_id" {
 
 output "infrastructure_vpc_subnet_ids" {
   description = "This is the list of subnet_ids the cluster is in"
-  value       = [module.dcos-infrastructure.vpc_subnet_ids]
+  value       = module.dcos-infrastructure.vpc_subnet_ids
 }
-
