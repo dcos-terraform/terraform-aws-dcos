@@ -352,3 +352,7 @@ variable "open_instance_ssh" {
   default     = false
 }
 
+variable "bootstrap_ssh_private_key" {
+  default     = ""
+  description = "SSH Private key to be used ( default use SSH_Agent)"
+}
