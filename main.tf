@@ -107,7 +107,7 @@ locals {
 
 module "dcos-infrastructure" {
   source  = "dcos-terraform/infrastructure/aws"
-  version = "~> 0.3.0"
+  version = "~> 0.3.1"
 
   admin_ips                                  = var.admin_ips
   availability_zones                         = var.availability_zones
