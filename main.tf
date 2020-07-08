@@ -179,7 +179,7 @@ module "dcos-infrastructure" {
 
 module "dcos-install" {
   source  = "dcos-terraform/dcos-install-remote-exec/null"
-  version = "~> 0.3.0"
+  version = "~> 0.3.1"
 
   # ansible related config
   ansible_bundled_container = var.ansible_bundled_container
