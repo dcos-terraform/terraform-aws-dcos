@@ -107,7 +107,7 @@ locals {
 
 module "dcos-infrastructure" {
   source  = "dcos-terraform/infrastructure/aws"
-  version = "~> 0.3.0"
+  version = "~> 0.3.1"
 
   admin_ips                                  = var.admin_ips
   availability_zones                         = var.availability_zones
@@ -179,7 +179,7 @@ module "dcos-infrastructure" {
 
 module "dcos-install" {
   source  = "dcos-terraform/dcos-install-remote-exec/null"
-  version = "~> 0.3.0"
+  version = "~> 0.3.1"
 
   # ansible related config
   ansible_bundled_container = var.ansible_bundled_container
@@ -350,5 +350,5 @@ module "dcos-install" {
   dcos_zk_super_credentials       = var.dcos_zk_super_credentials
   dcos_enable_mesos_input_plugin  = var.dcos_enable_mesos_input_plugin
   adminrouter_grpc_proxy_port     = var.adminrouter_grpc_proxy_port
+  bootstrap_ssh_private_key       = var.bootstrap_ssh_private_key
 }
-
