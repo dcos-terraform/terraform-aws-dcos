@@ -82,14 +82,14 @@ EOF
 | Name | Version |
 |------|---------|
 | terraform | >= 0.12 |
-| aws | >= 2.58 |
+| aws | ~> 2.58 |
 | random | >= 2.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | >= 2.58 |
+| aws | ~> 2.58 |
 | random | >= 2.0 |
 
 ## Inputs
