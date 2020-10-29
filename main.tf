@@ -79,7 +79,7 @@
  */
 
 provider "aws" {
-  version = ">= 2.58"
+  version = "~> 2.58"
 }
 
 provider "random" {
