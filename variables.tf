@@ -140,6 +140,11 @@ variable "masters_user_data" {
   default     = ""
 }
 
+variable "masters_extra_volumes" {
+  description = "[MASTERS] Extra volumes for each private agent"
+  default     = []
+}
+
 variable "private_agents_aws_ami" {
   description = "[PRIVATE AGENTS] AMI to be used"
   default     = ""
