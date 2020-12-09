@@ -107,7 +107,7 @@ locals {
 
 module "dcos-infrastructure" {
   source  = "dcos-terraform/infrastructure/aws"
-  version = "~> 0.3.1"
+  version = "~> 0.3.2"
 
   admin_ips                                  = var.admin_ips
   availability_zones                         = var.availability_zones
@@ -134,6 +134,7 @@ module "dcos-infrastructure" {
   masters_os                                 = var.masters_os
   masters_root_volume_size                   = var.masters_root_volume_size
   masters_user_data                          = var.masters_user_data
+  masters_extra_volumes                      = var.masters_extra_volumes
   num_masters                                = var.num_masters
   num_private_agents                         = var.num_private_agents
   num_public_agents                          = var.num_public_agents
