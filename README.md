@@ -235,6 +235,7 @@ EOF
 | masters\_acm\_cert\_arn | ACM certifacte to be used for the masters load balancer | `string` | `""` | no |
 | masters\_associate\_public\_ip\_address | [MASTERS] Associate a public ip address with there instances | `bool` | `true` | no |
 | masters\_aws\_ami | [MASTERS] AMI to be used | `string` | `""` | no |
+| masters\_extra\_volumes | [MASTERS] Extra volumes for each private agent | `list` | `[]` | no |
 | masters\_hostname\_format | [MASTERS] Format the hostname inputs are index+1, region, cluster\_name | `string` | `"%[3]s-master%[1]d-%[2]s"` | no |
 | masters\_iam\_instance\_profile | [MASTERS] Instance profile to be used for these instances | `string` | `""` | no |
 | masters\_instance\_type | [MASTERS] Instance type | `string` | `"m4.xlarge"` | no |
